@@ -7,9 +7,7 @@
 <meta name="description" content="Hit by a driver who didn't stop? What to do straight away, how the Motor Insurers' Bureau fits in and where we can help.">
 <link rel="canonical" href="https://report-a-claim.vercel.app/hit-and-run.html">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%232350FF'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500..700&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="guide.css">
 <script>
 (() => {
@@ -30,14 +28,23 @@
 <body>
 <!-- TODO before launch: compliance review of MIB wording; confirm whether the firm handles untraced and uninsured driver claims -->
 <header class="top"><div class="wrap">
-  <a class="logo" href="./"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#2350FF"/><path d="M9.5 21.5l7 7L31 12" fill="none" stroke="#fff" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 21.5l7 7L31 12" fill="none" stroke="#FFD60A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2.6 2.9"/></svg><span>reportaclaim<span>.co.uk</span></span></a>
+  <a class="logo" href="index.html"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#2350FF"/><path d="M9.5 21.5l7 7L31 12" fill="none" stroke="#fff" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 21.5l7 7L31 12" fill="none" stroke="#FFD60A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2.6 2.9"/></svg><span>reportaclaim<span>.co.uk</span></span></a>
   <!-- TODO: replace with the real claims line -->
-  <span class="top-cta"><a class="call" href="tel:+448081570420">Call 0808 157 0420</a><a class="start" href="./#claim">Start claim</a></span>
+  <span class="top-cta"><a class="call" href="tel:+448081570420">Call 0808 157 0420</a><a class="start" href="index.html?type=hitrun#claim">Start claim</a></span>
 </div></header>
 <main class="wrap">
-  <p class="crumbs"><a href="./">Home</a> / Guides / Hit and run</p>
+  <p class="crumbs"><a href="index.html">Home</a> / Guides / Hit and run</p>
   <h1>Hit by a driver who didn't stop?</h1>
   <p class="lede">It's frightening and it feels unfair. What happens next depends on whether the driver can be traced, so the first few hours matter.</p>
+  <form class="qs" action="index.html#claim" method="get">
+    <input type="hidden" name="type" value="hitrun">
+    <p class="qs-title">Start your claim in about 30 seconds</p>
+    <div class="qs-row">
+      <label class="plate"><span class="gb">UK</span><span class="sr">Your vehicle registration</span><input name="reg" placeholder="Enter reg" maxlength="8" autocomplete="off" autocapitalize="characters" enterkeyhint="go" spellcheck="false"></label>
+      <button class="qs-go" type="submit">Start</button>
+    </div>
+    <a class="qs-call" href="tel:+448081570420">Or call free on 0808 157 0420, 24/7</a>
+  </form>
   <div class="box warn">
     <p style="margin:0"><strong>If anyone is hurt or the road is unsafe, call 999.</strong> Otherwise report the collision to the police as soon as you can, and keep the reference number.</p>
   </div>
@@ -55,15 +62,15 @@
   <p>Call us and we'll tell you honestly what's possible in your situation, including when we can't help.</p>
   <div class="cta">
     <h2>Tell us what happened.</h2>
-    <p>It takes about 90 seconds online, or call us free, 24/7. A handler will tell you honestly whether we can help.</p>
-    <div class="btns"><a class="btn btn-w" href="./#claim">Report online</a><a class="btn btn-g" href="tel:+448081570420">Call 0808 157 0420</a></div>
+    <p>It takes about 30 seconds online, or call us free, 24/7. A handler will tell you honestly whether we can help.</p>
+    <div class="btns"><a class="btn btn-w" href="index.html?type=hitrun#claim">Report online</a><a class="btn btn-g" href="tel:+448081570420">Call 0808 157 0420</a></div>
   </div>
   <h2>Other guides</h2>
   <nav class="more" aria-label="Other guides"><a href="hit-while-parked.html">Hit while parked</a><a href="motorbike-accident.html">Motorbike accidents</a><a href="taxi-and-van-drivers.html">Taxi and van drivers</a></nav>
 </main>
 <nav class="mbar" aria-label="Quick actions">
-  <a class="mbar-call" href="tel:+448081570420">Call free<small>24/7, UK team</small></a>
-  <a class="mbar-go" href="./#claim">Start my claim</a>
+  <a class="mbar-call" href="tel:+448081570420"><small>Call free, 24/7</small>0808 157 0420</a>
+  <a class="mbar-go" href="index.html?type=hitrun#claim">Start online</a>
 </nav>
 <footer><div class="wrap">
 <p><strong>reportaclaim.co.uk</strong> is a trading style of Stocalfe Response Ltd, a company registered in England and Wales with No. 12372014. Stocalfe Response Ltd is authorised and regulated by the Financial Conduct Authority in respect of regulated claims management activities under Firm Registration No. 921134.</p>

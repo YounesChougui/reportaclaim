@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Report a Claim | Hit. Report. Sorted.</title>
-<meta name="description" content="Hit by another driver? Report it in 90 seconds and we'll get it sorted: recovery, a like-for-like replacement car and repairs, with no excess on eligible claims.">
+<meta name="description" content="Hit by another driver? Report it in 30 seconds and we'll get it sorted: recovery, a like-for-like replacement car and repairs, with no excess on eligible claims.">
 <meta name="theme-color" content="#FFFFFF">
 <!-- TODO: switch canonical and og:url to https://reportaclaim.co.uk/ once the domain points here -->
 <link rel="canonical" href="https://report-a-claim.vercel.app/">
@@ -12,15 +12,17 @@
 <meta property="og:site_name" content="Report a Claim">
 <meta property="og:url" content="https://report-a-claim.vercel.app/">
 <meta property="og:title" content="Hit by another driver? Report it. We'll get it sorted.">
-<meta property="og:description" content="Report a non-fault accident in 90 seconds. Recovery, a like-for-like replacement car and repairs, with no excess on eligible claims.">
+<meta property="og:description" content="Report a non-fault accident in 30 seconds. Recovery, a like-for-like replacement car and repairs, with no excess on eligible claims.">
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Report a Claim","legalName":"Stocalfe Response Ltd","url":"https://report-a-claim.vercel.app/","telephone":"+448081570420","areaServed":"GB","slogan":"Hit. Report. Sorted.","contactPoint":{"@type":"ContactPoint","telephone":"+448081570420","contactType":"claims","areaServed":"GB","availableLanguage":"en-GB","hoursAvailable":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"}}}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%232350FF'/%3E%3Cpath d='M9.5 21.5l7 7L31 12' fill='none' stroke='%23fff' stroke-width='7.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M9.5 21.5l7 7L31 12' fill='none' stroke='%23FFD60A' stroke-width='1.6' stroke-linecap='round' stroke-dasharray='2.6 2.9'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500..700&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+/* Self-hosted Inter and Inter Tight (latin, variable). Google's copy is only a fallback for files opened from disk. */
+@font-face{font-family:"Inter";font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/inter-latin.woff2) format("woff2"),url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2")}
+@font-face{font-family:"Inter Tight";font-style:normal;font-weight:500 700;font-display:swap;src:url(fonts/inter-tight-latin.woff2) format("woff2"),url(https://fonts.gstatic.com/s/intertight/v9/NGSwv5HMAFg6IuGlBNMjxLsH8ahuQ2e8.woff2) format("woff2")}
 /* Fallback faces sized to Inter's metrics, so text doesn't jump when the web fonts arrive */
 @font-face{font-family:"Inter Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");size-adjust:105.9%;ascent-override:91.5%;descent-override:22.9%;line-gap-override:0%}
 @font-face{font-family:"Inter Tight Fallback";font-weight:500 700;src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");size-adjust:94.8%;ascent-override:102.2%;descent-override:25.6%;line-gap-override:0%}
@@ -82,6 +84,8 @@ nav.main{display:flex;gap:6px;font-weight:500;font-size:.95rem}
 nav.main a{text-decoration:none;color:var(--ink-2);padding:8px 14px;border-radius:999px;transition:background .2s}
 nav.main a:hover{background:var(--soft)}
 .top-cta{display:flex;align-items:center;gap:18px}
+.hdr-call{display:none;flex:none;width:42px;height:42px;border-radius:50%;background:#0A7A46;color:#fff;place-items:center}
+.hdr-call svg{width:20px;height:20px}
 .phone-link{display:flex;flex-direction:column;align-items:flex-end;text-decoration:none;line-height:1.15}
 .phone-link small{font-size:.75rem;color:var(--muted);display:flex;align-items:center;gap:6px}
 .phone-link strong{font-family:var(--display);font-weight:600;font-size:1.1rem;letter-spacing:-.01em}
@@ -95,18 +99,33 @@ nav.main a:hover{background:var(--soft)}
 .hero{position:relative;padding:72px 0 64px}
 .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 1px 1px,#D5DAE3 1px,transparent 1.5px) 0 0/26px 26px;-webkit-mask:radial-gradient(ellipse 70% 80% at 75% 40%,#000 20%,transparent 75%);mask:radial-gradient(ellipse 70% 80% at 75% 40%,#000 20%,transparent 75%);pointer-events:none}
 .hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:72px;align-items:center}
-.hero h1{font-size:clamp(2.8rem,6.6vw,5.8rem);line-height:.98;letter-spacing:-.055em;margin-bottom:28px}
-.rot{display:block;position:relative;height:1.06em;overflow:hidden;color:var(--blue)}
-.rot span{position:absolute;left:0;top:0;white-space:nowrap;transform:translateY(110%);opacity:0;transition:transform .7s var(--ease),opacity .5s}
-.rot span.on{transform:none;opacity:1}
-.rot span.out{transform:translateY(-110%);opacity:0}
-.hero .lede{margin-bottom:34px}
-.reg-start{display:flex;flex-wrap:wrap;gap:12px;align-items:stretch;max-width:580px}
+.hero h1{font-size:clamp(2.3rem,4.4vw,4rem);line-height:1.02;letter-spacing:-.045em;margin-bottom:22px;max-width:16ch}
+.hero h1 .kw{display:block;color:var(--blue)}
+.hero .lede{margin-bottom:26px}
+
+/* Quick start: one tap on fault, one tap on when, then into the form */
+.quick{max-width:560px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 24px 50px -30px rgba(14,18,32,.35)}
+.q-label{font-family:var(--display);font-weight:600;font-size:1.2rem;letter-spacing:-.02em;margin:0 0 12px 4px}
+.q-label:focus{outline:none}
+.q-btns{display:grid;grid-template-columns:1.4fr 1fr;gap:10px}
+.q-btns.three{grid-template-columns:repeat(3,1fr)}
+.q-btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:58px;padding:0 12px;white-space:nowrap;border-radius:16px;border:1.5px solid #D5DAE3;background:#fff;font-weight:600;font-size:1.02rem;cursor:pointer;transition:border-color .2s,background .2s,transform .15s;-webkit-tap-highlight-color:transparent}
+.q-btn:hover{border-color:var(--ink-2)}
+.q-btn:active{transform:scale(.97)}
+.q-btn.main{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 12px 26px -12px rgba(35,80,255,.75)}
+.q-btn.main:hover{background:var(--blue-h)}
+.q-btn svg{width:20px;height:20px}
+.q-step[data-q="2"]{animation:in .35s var(--ease);margin-top:18px}
+.q-btns:has([aria-pressed=true]) .q-btn[aria-pressed=false]{opacity:.5}
+.q-btn[aria-pressed=true]:not(.main){border-color:var(--blue);background:var(--blue-soft)}
+.q-foot{margin:12px 0 0 4px;font-size:.85rem;color:var(--muted)}
+[data-theme=dark] .quick,[data-theme=dark] .q-btn:not(.main){background:var(--card)}
+[data-theme=dark] .q-btn:not(.main){border-color:#34405A}
 .plate{display:flex;align-items:stretch;border:3px solid var(--ink);border-radius:10px;overflow:hidden;background:var(--plate);flex:1 1 260px;transition:transform .2s var(--ease),box-shadow .2s}
 .plate .gb{background:var(--blue);color:#fff;width:44px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:6px 0;font-weight:700;font-size:.8rem;gap:4px}
 .plate .gb .flag{width:30px;height:15px;outline:1px solid rgba(255,255,255,.7)}
 .plate input{flex:1;min-width:0;border:0;background:transparent;font-family:var(--display);font-weight:700;font-size:2.2rem;letter-spacing:.05em;text-transform:uppercase;text-align:center;padding:8px 10px;color:var(--ink)}
-.plate input::placeholder{color:rgba(14,18,32,.28)}
+.plate input::placeholder{color:rgba(14,18,32,.3);font-size:.62em;letter-spacing:.08em}
 .plate input:focus{outline:none}
 .plate:focus-within{box-shadow:0 0 0 5px rgba(35,80,255,.2);transform:translateY(-2px)}
 
@@ -139,8 +158,6 @@ nav.main a:hover{background:var(--soft)}
 
 /* Start button: pill with a chip the car drives out of */
 .btn-start{position:relative;overflow:hidden;white-space:nowrap;display:inline-flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;padding:0 8px 0 26px;border:0;border-radius:999px;background:var(--blue);color:#fff;font-weight:600;font-size:1.08rem;letter-spacing:-.01em;text-decoration:none;cursor:pointer;box-shadow:0 14px 30px -12px rgba(35,80,255,.75),inset 0 -3px 0 rgba(0,0,0,.18);transition:transform .2s var(--ease),box-shadow .2s,background .2s;-webkit-tap-highlight-color:transparent}
-.btn-start::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:30%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:shine 5s ease-in-out infinite 1.5s}
-@keyframes shine{0%,70%{left:-40%}100%{left:130%}}
 .btn-start:hover{background:var(--blue-h);transform:translateY(-2px)}
 .btn-start:active{transform:scale(.98);box-shadow:0 6px 16px -8px rgba(35,80,255,.75),inset 0 -1px 0 rgba(0,0,0,.18)}
 .btn-start .chip-ic{position:relative;flex:none;width:48px;height:48px;border-radius:50%;background:#fff;color:var(--blue);display:grid;place-items:center;overflow:hidden;transition:width .3s var(--ease)}
@@ -154,14 +171,6 @@ nav.main a:hover{background:var(--soft)}
 .btn-start.sm .chip-ic{width:36px;height:36px}
 .btn-start.sm .chip-ic svg{width:18px;height:18px}
 .btn-start.sm:hover .chip-ic{width:42px}
-.hero .reg-start .btn-start{flex:0 0 auto}
-
-
-
-/* Plate + start on one line */
-.reg-start{flex-wrap:nowrap}
-.reg-start .plate{flex:1 1 auto;min-width:0}
-.lbl-short{display:none}
 
 /* Call button */
 .call-btn{display:inline-flex;align-items:center;gap:14px;margin-top:14px;padding:8px 22px 8px 8px;min-height:64px;border-radius:999px;background:#E7F8EF;color:var(--ink);text-decoration:none;border:1.5px solid #B7E8D0;transition:transform .2s var(--ease),background .2s,border-color .2s;-webkit-tap-highlight-color:transparent}
@@ -198,22 +207,21 @@ nav.main a:hover{background:var(--soft)}
 @keyframes stamp{0%{opacity:0;transform:rotate(-12deg) scale(2.2)}60%{opacity:1;transform:rotate(-12deg) scale(.94)}100%{opacity:.92;transform:rotate(-12deg) scale(1)}}
 
 /* Hero load sequence */
-.host,.hero h1,.hero .lede,.hero .reg-start,.hero .call-btn,.stage{animation:rise .8s var(--ease) both}
-.hero h1{animation-delay:.06s}.hero .lede{animation-delay:.14s}.hero .reg-start{animation-delay:.2s}.hero .call-btn{animation-delay:.26s}.hero .receipt{animation-delay:.3s}.stage{animation-delay:.3s}
+.host,.hero h1,.hero .lede,.hero .quick,.hero .call-btn,.stage{animation:rise .8s var(--ease) both}
+.hero h1{animation-delay:.06s}.hero .lede{animation-delay:.14s}.hero .quick{animation-delay:.2s}.hero .call-btn{animation-delay:.26s}.hero .receipt{animation-delay:.3s}.stage{animation-delay:.3s}
 @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 
 /* Tracker stage (tilts with the pointer) */
 .stage{position:relative;perspective:1200px}
 .tracker{position:relative;background:#fff;border:1px solid var(--line);border-radius:24px;padding:26px;box-shadow:0 40px 80px -30px rgba(14,18,32,.28),0 12px 24px -12px rgba(14,18,32,.12);transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s var(--ease);transform-style:preserve-3d}
-.float{position:absolute;z-index:2;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 14px;font-size:.85rem;font-weight:500;box-shadow:0 18px 40px -16px rgba(14,18,32,.3);animation:bob 5s ease-in-out infinite}
+.float{position:absolute;z-index:2;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 14px;font-size:.85rem;font-weight:500;box-shadow:0 18px 40px -16px rgba(14,18,32,.3)}
 .float b{font-family:var(--display);font-size:1.3rem;font-weight:700;letter-spacing:-.03em}
 .float .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center}
 .float .ic svg{width:18px;height:18px}
 .float.f1{top:-26px;left:-44px}
 .float.f1 .ic{background:#E7F8EF;color:var(--go)}
-.float.f2{bottom:40px;right:-36px;animation-delay:-2.5s}
+.float.f2{bottom:40px;right:-36px}
 .float.f2 .ic{background:var(--blue-soft);color:var(--blue)}
-@keyframes bob{50%{transform:translateY(-10px)}}
 .tracker-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;gap:12px}
 .tracker-head .ref{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
 .tracker-head .mini-plate{background:var(--plate);color:var(--ink);font-family:var(--display);font-weight:700;padding:3px 10px;border-radius:5px;border:2px solid var(--ink);letter-spacing:.05em;font-size:.95rem}
@@ -236,15 +244,6 @@ nav.main a:hover{background:var(--soft)}
 .tracker-foot{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;font-size:.92rem;color:var(--muted)}
 .tracker-foot strong{font-family:var(--display);font-weight:700;font-size:2.2rem;letter-spacing:-.05em;color:var(--ink)}
 .tracker-note{display:block;margin-top:14px;text-align:center;font-size:.78rem;color:var(--muted)}
-
-/* The road: lane dashes speed up as you scroll */
-.road{position:relative;height:120px;margin:24px 0 0;background:var(--ink);overflow:hidden}
-.road::before,.road::after{content:"";position:absolute;left:0;right:0;height:4px;background:#2A3146}
-.road::before{top:10px}.road::after{bottom:10px}
-.lanes{position:absolute;left:0;right:0;top:50%;height:4px;margin-top:-2px;background:repeating-linear-gradient(90deg,#fff 0 48px,transparent 48px 96px);opacity:.85}
-.road-car{position:absolute;width:88px;height:44px;color:var(--blue);top:66px;left:22%;transition:left 1.2s var(--ease)}
-.road-car.other{color:#C7CCD6;top:12px;left:110%;transform:scaleX(-1)}
-.road-tag{position:absolute;right:24px;top:50%;transform:translateY(-50%);color:#8C93A6;font-size:.82rem;display:flex;align-items:center;gap:8px;background:var(--ink);padding:6px 10px;border-radius:999px}
 
 /* Sections */
 section{padding:112px 0}
@@ -406,15 +405,9 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .callout{display:flex;gap:12px;padding:14px 16px;border-radius:14px;background:#FFF7D6;font-size:.93rem;margin-bottom:24px}
 .callout svg{flex:none;width:20px;height:20px;margin-top:2px}
 .callout.go{background:#E7F8EF}
-.consent{display:flex;gap:12px;align-items:flex-start;font-size:.92rem;color:var(--muted);cursor:pointer}
+.field>label.consent,.consent{display:flex;gap:12px;align-items:flex-start;font-size:.92rem;color:var(--muted);cursor:pointer}
 .consent input{width:22px;height:22px;flex:none;margin-top:2px;accent-color:var(--blue)}
 
-.review{display:grid;border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:24px}
-.review div{display:flex;justify-content:space-between;gap:16px;padding:14px 18px;border-top:1px solid var(--line)}
-.review div:first-child{border-top:0}
-.review dt{color:var(--muted);font-size:.92rem}
-.review dd{font-weight:600;text-align:right}
-.review button{background:none;border:0;color:var(--blue);text-decoration:underline;text-underline-offset:3px;font-size:.85rem;cursor:pointer;margin-left:10px;font-weight:500}
 
 .wz-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:20px 32px;border-top:1px solid var(--line)}
 .wz-nav .back{background:none;border:0;font-weight:600;cursor:pointer;padding:12px 4px;display:flex;align-items:center;gap:6px}
@@ -433,12 +426,11 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .next li b{flex:none;width:26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:.8rem}
 
 /* Insurers */
-.insurers{padding:56px 0;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
-.insurers p{text-align:center;color:var(--muted);margin-bottom:24px}
-.marquee{display:flex;gap:56px;width:max-content;animation:scroll 50s linear infinite}
-.marquee span{font-family:var(--display);font-weight:600;font-size:1.4rem;letter-spacing:-.03em;color:#A5ADBC;white-space:nowrap}
-.insurers:hover .marquee{animation-play-state:paused}
-@keyframes scroll{to{transform:translateX(-50%)}}
+.insurers{padding:56px 0}
+.ins-head{text-align:center;color:var(--muted);margin-bottom:14px}
+.ins-list{max-width:900px;margin:0 auto;padding:0 24px;text-align:center;font-family:var(--display);font-weight:600;font-size:1.05rem;line-height:2;letter-spacing:-.02em;color:#8C93A6}
+.ins-list span{white-space:nowrap}
+.ins-list span+span::before{content:"·";margin:0 12px;color:#C3C9D4}
 
 /* FAQ */
 .faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px}
@@ -576,6 +568,36 @@ footer .logo{margin-bottom:16px}
 .restored.show{display:flex}
 .restored button{border:0;background:none;color:var(--blue);font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 
+/* Scene checklist toggle (phones only) */
+.cl-open{display:none;align-items:center;justify-content:space-between;width:calc(100% - 12px);margin:0 6px 6px;min-height:56px;padding:0 18px;border:0;border-radius:18px;background:#fff;font-weight:600;cursor:pointer;color:var(--ink)}
+.cl-open svg{width:18px;height:18px;transform:rotate(90deg);color:var(--blue)}
+.checklist.open .cl-open{display:none}
+[data-theme=dark] .cl-open{background:var(--card)}
+
+/* After the claim is sent */
+.sent-strip{display:flex;align-items:center;gap:10px;margin:0 32px;padding:10px 14px;border-radius:12px;background:#E7F8EF;font-size:.9rem}
+.sent-strip svg{flex:none;width:18px;height:18px;color:var(--go)}
+[data-theme=dark] .sent-strip{background:#0F2A1D}
+.pickup,.more-details{max-width:460px;margin:0 auto 18px;padding:18px 20px;border-radius:20px;text-align:left}
+.pickup{background:#E7F8EF}
+.pickup p,.more-details p{margin-bottom:12px;font-size:.95rem}
+.pickup .btn,.more-details .btn{width:100%}
+.more-details{border:1.5px dashed #B9C2D3}
+[data-theme=dark] .pickup{background:#0F2A1D}
+.scene-note a{font-weight:600}
+.scene-note a+a{display:inline-block;margin-top:4px}
+
+/* Common worries, next to the form */
+.worries{grid-column:1;align-self:start}
+.worries h3{font-size:1.15rem;margin-bottom:12px}
+.worries dl{display:grid;gap:10px}
+.worries dl>div{background:#fff;border-radius:18px;padding:14px 16px}
+.worries dt{font-weight:600}
+.worries dd{color:var(--muted);font-size:.92rem;margin-top:2px}
+[data-theme=dark] .worries dl>div{background:var(--card)}
+.side-steps .opt-step small{font-size:.75rem;color:var(--muted);font-weight:400;margin-left:4px}
+.trust a{display:flex;align-items:center;gap:6px;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+
 /* Reveal */
 .rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .rv.in{opacity:1;transform:none}
@@ -605,7 +627,7 @@ footer .logo{margin-bottom:16px}
   .wrap{padding:0 16px}
   #how,.claim-sec{margin:0 8px;border-radius:28px}
   .hero{padding:40px 0 48px}
-  .hero h1{font-size:clamp(2.3rem,11.5vw,3.2rem)}
+  .hero h1{font-size:clamp(1.85rem,8.6vw,2.5rem);margin-bottom:16px}
   h2{font-size:clamp(1.9rem,8.5vw,2.5rem)}
   .float.f1{left:-6px;top:-30px}
   .float.f2{right:-6px;bottom:-24px}
@@ -618,22 +640,20 @@ footer .logo{margin-bottom:16px}
   .wz-bar{margin:0 20px}
   .damage{grid-template-columns:1fr;justify-items:center}
   .plate input{font-size:1.8rem}
-  .restored{margin:0 20px}
+  .restored,.sent-strip{margin:0 20px}
   .hero .lede{margin-bottom:24px}
   .host{margin-bottom:22px}
   .dash{width:72px;height:60px}
-  .reg-start{gap:8px}
-  .hero .reg-start .btn-start{min-height:auto;padding:0 6px 0 16px;gap:8px;font-size:1rem}
-  .hero .reg-start .btn-start .chip-ic{width:38px;height:38px}
-  .hero .reg-start .btn-start .chip-ic svg{width:18px;height:18px}
-  .lbl-long{display:none}.lbl-short{display:inline}
-  .hero .plate .gb{width:38px}
-  .hero .plate input{font-size:1.55rem;padding:12px 4px;letter-spacing:.03em}
+  .quick{padding:14px;border-radius:20px}
+  .q-label{font-size:1.1rem}
+  .q-btns.three{gap:8px}
+  .q-btns.three .q-btn{padding:0 8px;font-size:.95rem}
   .call-btn{display:flex;width:100%}
   .receipt{max-width:none;margin-right:4px}
   .plate input{width:100%;padding:10px 8px}
-  .top .btn-start.sm{min-height:42px;font-size:.9rem;padding-left:14px}
-  .top .btn-start.sm .chip-ic{width:32px;height:32px}
+  /* Room for the call button: the header Start button drops its arrow chip on phones */
+  .top .btn-start.sm{min-height:42px;font-size:.9rem;padding:0 16px}
+  .top .btn-start.sm .chip-ic{display:none}
   .float{font-size:.78rem;padding:8px 12px}
   .float b{font-size:1.1rem}
   .top .wrap{height:64px}
@@ -642,9 +662,6 @@ footer .logo{margin-bottom:16px}
   .tagline{font-size:.68rem;gap:4px}
   .tracker{padding:22px}
   .secure{display:none}
-  .road{height:96px}
-  .road-car{top:52px;width:72px;height:36px}
-  .road-tag{display:none}
   .final .wrap{padding:48px 24px 72px;border-radius:28px;margin:0 8px}
 }
 /* Dash reacts to the headline: a dent appears where the car was hit, then gets fixed */
@@ -722,8 +739,6 @@ footer .logo{margin-bottom:16px}
 .s-stamp small{font-size:.55rem;font-weight:600}
 .success.show .s-stamp{animation:slam .5s cubic-bezier(.3,1.6,.5,1) .55s forwards}
 @keyframes slam{0%{opacity:0;transform:rotate(-12deg) scale(2.6)}60%{opacity:1;transform:rotate(-12deg) scale(.92)}100%{opacity:1;transform:rotate(-12deg) scale(1)}}
-.confetti{position:absolute;top:-12px;left:50%;width:9px;height:14px;border-radius:2px;pointer-events:none;opacity:0;animation:fall 1.9s cubic-bezier(.2,.6,.4,1) both}
-@keyframes fall{0%{opacity:0;transform:none}2%{opacity:1}100%{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:0}}
 
 /* Checklist: save to phone */
 .save-list{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:48px;margin-top:6px;border:0;border-radius:16px;background:transparent;color:var(--blue-txt);font-weight:600;cursor:pointer}
@@ -758,10 +773,9 @@ footer ul a{display:inline-block;padding:6px 0}
 [data-theme=dark] :is(.bubble,.how li)::before{background:var(--card)}
 [data-theme=dark] .receipt::after{background:linear-gradient(135deg,var(--card) 50%,transparent 50%) 0 0/14px 10px,linear-gradient(225deg,var(--card) 50%,transparent 50%) 0 0/14px 10px}
 [data-theme=dark] :is(.input,.chip span,.qdate button,.side-steps li .n){border-color:#34405A}
-[data-theme=dark] :is(.rot,.how .n,.save-contact,.restored button,.svc:not(.big) .ic){color:var(--blue-txt)}
+[data-theme=dark] :is(.hero h1 .kw,.how .n,.save-contact,.restored button,.svc:not(.big) .ic){color:var(--blue-txt)}
 [data-theme=dark] .chip input:checked+span,[data-theme=dark] .qdate button[aria-pressed=true]{background:var(--blue);color:#fff}
 [data-theme=dark] .cmp-col.us{background:#1A2238}
-[data-theme=dark] :is(.road,.road-tag){background:#05070D}
 [data-theme=dark] .faces i{border-color:var(--card)}
 [data-theme=dark] .faces i:last-child{background:#2B3245}
 [data-theme=dark] :is(.plate,.ref-box){border-color:#0E1220;color:#0E1220}
@@ -783,7 +797,7 @@ footer ul a{display:inline-block;padding:6px 0}
 [data-theme=dark] .wz-flag{background:conic-gradient(#0E1220 25%,#fff 0 50%,#0E1220 0 75%,#fff 0) 0 0/7px 7px;box-shadow:0 0 0 1.5px #fff}
 
 /* Slow phones: drop the costly effects */
-.lite .btn-start::after,.lite .float,.lite .final .wrap::after{animation:none}
+.lite .final .wrap::after{animation:none}
 .lite .top,.lite .sheet-bg{backdrop-filter:none;-webkit-backdrop-filter:none}
 
 @media (max-width:1000px){
@@ -807,23 +821,38 @@ footer ul a{display:inline-block;padding:6px 0}
 .mbar{display:none}
 @media (max-width:680px){
   .dock{display:none}
-  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:1fr 1.5fr;gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.92);backdrop-filter:saturate(1.6) blur(16px);-webkit-backdrop-filter:saturate(1.6) blur(16px);box-shadow:0 -1px 0 var(--line),0 -12px 30px -18px rgba(14,18,32,.35);transform:translateY(110%);transition:transform .35s var(--ease)}
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:1.6fr 1fr 54px;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.92);backdrop-filter:saturate(1.6) blur(16px);-webkit-backdrop-filter:saturate(1.6) blur(16px);box-shadow:0 -1px 0 var(--line),0 -12px 30px -18px rgba(14,18,32,.35);transform:translateY(110%);transition:transform .35s var(--ease)}
   .mbar.show{transform:none}
-  .mbar a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:54px;border-radius:999px;font-weight:600;text-decoration:none;-webkit-tap-highlight-color:transparent}
-  .mbar a:active{transform:scale(.97)}
+  .mbar a,.mbar button{display:flex;align-items:center;justify-content:center;gap:8px;min-height:54px;border:0;border-radius:999px;font-weight:600;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .mbar :is(a,button):active{transform:scale(.97)}
   .mbar svg{flex:none;width:20px;height:20px}
-  .mbar-call{background:var(--go);color:#fff;line-height:1.1}
-  .mbar-call small{display:block;font-size:.72rem;font-weight:500;opacity:.9}
-  .mbar-go{background:var(--blue);color:#fff;box-shadow:0 10px 24px -10px rgba(35,80,255,.7)}
+  /* Dark green keeps white text readable in sunlight (7:1) */
+  .mbar-call{background:#0A7A46;color:#fff;line-height:1.1;font-family:var(--display);font-size:1.08rem;letter-spacing:-.01em;white-space:nowrap;box-shadow:0 10px 24px -12px rgba(10,122,70,.8)}
+  .mbar-call small{display:block;font-family:var(--body);font-size:.72rem;font-weight:500;letter-spacing:0;opacity:.95}
+  .mbar-go{background:var(--blue);color:#fff;font-size:.95rem}
+  .mbar-more{background:var(--soft);color:var(--ink)}
+  .hdr-call{display:grid}
   [data-theme=dark] .mbar{background:rgba(11,15,26,.92)}
   .lite .mbar{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--bg)}
   /* Wizard: full-width Continue under the thumb */
   .wz-nav #nextBtn{flex:1}
   /* Shorter page on phones: the receipt already makes the £0 point, and one slider is enough */
-  .stage,.road,.calc,.calc-out{display:none}
+  .stage,.calc,.calc-out{display:none}
+  /* Checklist starts closed on phones; "it just happened" visitors get it opened */
+  .checklist:not(.open) .cl-items{display:none}
+  .cl-open{display:flex}
 }
 @media (max-width:400px){
   .top .logo-word span{display:none}
+  .top .btn-start.sm{padding:0 13px}
+  .top-cta{gap:6px}
+  .theme-btn,.hdr-call{width:36px;height:36px}
+  .q-btn{font-size:.95rem}
+  .mbar-call{font-size:1rem}
+}
+
+@media (max-width:340px){
+  .theme-btn{display:none}
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -875,6 +904,7 @@ footer ul a{display:inline-block;padding:6px 0}
   <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></symbol>
   <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
   <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1121 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01" stroke-width="3"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
   <symbol id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></symbol>
@@ -887,7 +917,7 @@ footer ul a{display:inline-block;padding:6px 0}
 
 <header class="top" id="top">
   <div class="wrap">
-    <a href="./" class="logo" aria-label="Report a Claim home">
+    <a href="index.html" class="logo" aria-label="Report a Claim home">
       <svg class="logo-mark" aria-hidden="true"><use href="#logo-mark"/></svg><span class="logo-text"><span class="logo-word">reportaclaim<span>.co.uk</span></span><span class="tagline"><b>Hit.</b> <b>Report.</b> <b>Sorted.</b></span></span>
     </a>
     <nav class="main" aria-label="Main">
@@ -903,6 +933,7 @@ footer ul a{display:inline-block;padding:6px 0}
         <small><span class="live-dot" aria-hidden="true"></span>Lines open 24/7</small>
         <strong>0808 157 0420</strong>
       </a>
+      <a class="hdr-call" href="tel:+448081570420" aria-label="Call free on 0808 157 0420"><svg aria-hidden="true"><use href="#i-phone"/></svg></a>
       <a href="#claim" class="btn-start sm"><span>Start claim</span><span class="chip-ic" aria-hidden="true"><svg class="arr"><use href="#i-arrow"/></svg><svg class="car" viewBox="0 0 64 32"><use href="#i-cartop"/></svg></span></a>
     </div>
   </div>
@@ -949,17 +980,27 @@ footer ul a{display:inline-block;padding:6px 0}
           <p class="bubble-msg" id="bubbleMsg">Wait right now: <span class="wait" data-wait>about 1 min</span></p>
         </div>
       </div>
-      <h1 id="hero-title"><span class="sr">Had an accident that wasn't your fault? We'll get it sorted.</span><span aria-hidden="true"><span class="rot" id="rot"><span class="on">Rear-ended?</span><span>Side-swiped?</span><span>Hit while parked?</span><span>Hit at a junction?</span></span>We'll get it&nbsp;sorted.</span></h1>
-      <p class="lede">Tell us what happened in about 90 seconds. We'll recover your car, put you in a like-for-like replacement and get the repairs sorted. The other driver's insurer pays.</p>
+      <h1 id="hero-title"><span class="kw" id="heroKw">Hit by another driver?</span> £0 excess. A replacement <span id="heroVeh">car</span>, often within 24&nbsp;hours.</h1>
+      <p class="lede">For eligible non-fault accidents. We recover your car, put you in a like-for-like replacement and sort the repairs. The other driver's insurer pays.</p>
 
-      <form class="reg-start" id="heroForm" novalidate>
-        <label class="plate" for="heroReg">
-          <span class="gb"><svg class="flag" viewBox="0 0 60 30" aria-hidden="true"><use href="#i-ukflag"/></svg>UK</span>
-          <span class="sr">Your vehicle registration</span>
-          <input id="heroReg" name="reg" placeholder="AB12 CDE" maxlength="8" autocomplete="off" autocapitalize="characters" enterkeyhint="go" spellcheck="false">
-        </label>
-        <button class="btn-start" type="submit"><span><span class="lbl-long">Start my claim</span><span class="lbl-short">Start</span></span><span class="chip-ic" aria-hidden="true"><svg class="arr"><use href="#i-arrow"/></svg><svg class="car" viewBox="0 0 64 32"><use href="#i-cartop"/></svg></span></button>
-      </form>
+      <div class="quick" id="quick">
+        <div class="q-step" data-q="1">
+          <p class="q-label" id="q1-l">Was the other driver at fault?</p>
+          <div class="q-btns" role="group" aria-labelledby="q1-l">
+            <button type="button" class="q-btn main" data-fault="The other driver">Yes, they were <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            <button type="button" class="q-btn" data-fault="Unsure / shared">Not sure</button>
+          </div>
+        </div>
+        <div class="q-step" data-q="2" hidden>
+          <p class="q-label" id="q2-l" tabindex="-1">When did it happen?</p>
+          <div class="q-btns three" role="group" aria-labelledby="q2-l">
+            <button type="button" class="q-btn" data-when="0">Today</button>
+            <button type="button" class="q-btn" data-when="1">Yesterday</button>
+            <button type="button" class="q-btn" data-when="earlier">Earlier</button>
+          </div>
+        </div>
+        <p class="q-foot">Takes about 30 seconds. Free, no obligation.</p>
+      </div>
       <a class="call-btn" href="tel:+448081570420">
         <span class="call-ic" aria-hidden="true"><svg><use href="#i-phone"/></svg></span>
         <span class="call-txt"><b>Call free 0808 157 0420</b><small><span class="live-dot" aria-hidden="true"></span><span>Answered in <span data-wait>under 1 min</span>, 24/7</span></small></span>
@@ -982,7 +1023,7 @@ footer ul a{display:inline-block;padding:6px 0}
       <!-- TODO: sample review for testing; replace with a genuine one before launch -->
       <p class="hero-quote" data-sample><span class="stars" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg></span><span>"Car collected the same afternoon and a replacement on my drive the next morning."</span><span class="sample">Sample review</span></p>
       <div class="trust">
-        <span><svg aria-hidden="true"><use href="#i-shield"/></svg>FCA regulated, FRN 921134</span>
+        <a href="https://register.fca.org.uk/s/search?q=921134&amp;type=Companies" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-shield"/></svg>FCA regulated, FRN 921134 <span class="sr">(opens the FCA register)</span></a>
         <span><svg aria-hidden="true"><use href="#i-pin"/></svg>UK-based claims team</span>
         <span><svg aria-hidden="true"><use href="#i-pound"/></svg>Free, no obligation</span>
         <span><svg aria-hidden="true"><use href="#i-check"/></svg>Partners rated Excellent on Trustpilot</span>
@@ -999,12 +1040,12 @@ footer ul a{display:inline-block;padding:6px 0}
       </div>
       <h3>Sarah's claim</h3>
       <p class="sub">Rear-ended at traffic lights, Manchester</p>
-      <ol class="steps-live" id="liveSteps">
-        <li><span class="dot"><svg><use href="#i-check"/></svg></span><span class="label">Accident reported<small>Online, in 84 seconds</small></span><span class="time">08:12</span></li>
-        <li><span class="dot"><svg><use href="#i-check"/></svg></span><span class="label">Car recovered<small>Collected from the roadside</small></span><span class="time">09:40</span></li>
-        <li><span class="dot"><svg><use href="#i-check"/></svg></span><span class="label">Replacement delivered<small>Same class, to her door</small></span><span class="time">Day 1</span></li>
-        <li><span class="dot"><svg><use href="#i-check"/></svg></span><span class="label">Repairs underway<small>Approved bodyshop</small></span><span class="time">Day 3</span></li>
-        <li><span class="dot"><svg><use href="#i-check"/></svg></span><span class="label">Car returned<small>Recovered from the at-fault insurer</small></span><span class="time">Day 12</span></li>
+      <ol class="steps-live">
+        <li class="done"><span class="dot"><svg><use href="#i-check"/></svg></span><span class="label">Accident reported<small>Online, in 31 seconds</small></span><span class="time">08:12</span></li>
+        <li class="done"><span class="dot"><svg><use href="#i-check"/></svg></span><span class="label">Car recovered<small>Collected from the roadside</small></span><span class="time">09:40</span></li>
+        <li class="done"><span class="dot"><svg><use href="#i-check"/></svg></span><span class="label">Replacement delivered<small>Same class, to her door</small></span><span class="time">Day 1</span></li>
+        <li class="done"><span class="dot"><svg><use href="#i-check"/></svg></span><span class="label">Repairs underway<small>Approved bodyshop</small></span><span class="time">Day 3</span></li>
+        <li class="done"><span class="dot"><svg><use href="#i-check"/></svg></span><span class="label">Car returned<small>Recovered from the at-fault insurer</small></span><span class="time">Day 12</span></li>
       </ol>
       <div class="tracker-foot"><span>Sarah paid</span><strong>£0</strong></div>
       <span class="tracker-note">Illustrative example</span>
@@ -1012,13 +1053,6 @@ footer ul a{display:inline-block;padding:6px 0}
     </div>
   </div>
 </section>
-
-<div class="road" id="road" aria-hidden="true">
-  <div class="lanes" id="lanes"></div>
-  <svg class="road-car" id="roadCar"><use href="#i-cartop"/></svg>
-  <svg class="road-car other" id="otherCar"><use href="#i-cartop"/></svg>
-  <span class="road-tag">Scroll to drive</span>
-</div>
 
 <!-- AT THE SCENE -->
 <section class="scene" id="scene" aria-labelledby="scene-title">
@@ -1031,9 +1065,11 @@ footer ul a{display:inline-block;padding:6px 0}
         <span>If anyone is hurt, or the road is blocked or unsafe, call 999 before anything else.</span>
       </div>
     </div>
-    <div class="checklist rv" role="group" aria-labelledby="cl-title">
+    <div class="checklist rv" id="checklist" role="group" aria-labelledby="cl-title">
       <div class="check-progress"><span id="cl-title">Your scene checklist</span><span id="clCount" aria-live="polite">0 of 6</span></div>
       <div class="bar"><span id="clBar"></span></div>
+      <button type="button" class="cl-open" id="clOpen" aria-expanded="false" aria-controls="clItems">Show the 6-step checklist<svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      <div class="cl-items" id="clItems">
       <label class="check-item"><input type="checkbox"><span class="box"><svg><use href="#i-check"/></svg></span><div><strong>Get yourself somewhere safe</strong><span class="d">Hazard lights on. Get behind the barrier if you're on a motorway.</span></div></label>
       <label class="check-item"><input type="checkbox"><span class="box"><svg><use href="#i-check"/></svg></span><div><strong>Don't admit fault or apologise</strong><span class="d">Stay polite. Liability is decided later, not at the roadside.</span></div></label>
       <label class="check-item"><input type="checkbox"><span class="box"><svg><use href="#i-check"/></svg></span><div><strong>Swap details with the other driver</strong><span class="d">Name, phone, address, registration and their insurer. It's a legal requirement.</span></div></label>
@@ -1043,6 +1079,7 @@ footer ul a{display:inline-block;padding:6px 0}
       <div class="check-done" id="clDone" role="status"><span>All done. Report it and we'll get the rest sorted.</span><a href="#claim" class="btn btn-ink">Report it now</a></div>
       <button type="button" class="save-list" id="saveList"><svg aria-hidden="true"><use href="#i-share"/></svg>Save this checklist to your phone</button>
       <span class="save-msg" id="saveMsg" role="status"></span>
+      </div>
     </div>
   </div>
 </section>
@@ -1057,7 +1094,7 @@ footer ul a{display:inline-block;padding:6px 0}
     <div class="route" id="route">
     <div class="route-line"><span class="route-fill"></span><svg class="route-car"><use href="#i-cartop"/></svg></div>
     <ol class="how">
-      <li><span class="n">Step 1</span><h3>Tell us what happened</h3><p>Use the online form or call us. All we need is your reg, where it happened and how to reach you.</p><span class="when">90 seconds</span></li>
+      <li><span class="n">Step 1</span><h3>Tell us what happened</h3><p>Use the online form or call us. All we need is your reg and how to reach you.</p><span class="when">30 seconds</span></li>
       <li><span class="n">Step 2</span><h3>We check your claim</h3><p>A claims handler calls you back, confirms the other driver was at fault and takes it from there.</p><span class="when">Same day</span></li>
       <li><span class="n">Step 3</span><h3>You're back on the road</h3><p>We arrange recovery if you need it, and a like-for-like replacement while yours is off the road.</p><span class="when">Often within 24 hrs</span></li>
       <li><span class="n">Step 4</span><h3>Sorted. Car back on your drive</h3><p>Repairs at an approved garage, with costs recovered from the at-fault insurer. Not from you.</p><span class="when">We keep you updated</span></li>
@@ -1066,7 +1103,7 @@ footer ul a{display:inline-block;padding:6px 0}
     <div class="day1 rv">
       <h3 id="d1-title">Your first 24 hours with us</h3>
       <ol class="d1" aria-labelledby="d1-title">
-        <li><span class="t">0 min</span><b>You report it</b><span>Online in about 90 seconds, or by phone.</span></li>
+        <li><span class="t">0 min</span><b>You report it</b><span>Online in about 30 seconds, or by phone.</span></li>
         <li><span class="t">Within the hour</span><b>A handler calls you</b><span>We check what happened and who was at fault.</span></li>
         <li><span class="t">Same day</span><b>Recovery on its way</b><span>If your car can't be driven, we arrange collection.</span></li>
         <li><span class="t">Often within 24 hrs</span><b>Replacement car</b><span>Like-for-like, delivered to you.</span></li>
@@ -1083,6 +1120,8 @@ footer ul a{display:inline-block;padding:6px 0}
       <div><h2 id="rv-title">Drivers we've sorted.</h2></div>
       <p class="lede">What people say after their car is back on the drive.</p>
     </div>
+    <!-- TODO: once the Trustpilot account is live, replace the sample cards below with Trustpilot's own TrustBox widget
+         (Trustpilot Business > Integrations > TrustBox; it needs your business unit ID) -->
     <ul class="rv-grid rv">
       <li class="rv-card">
         <span class="stars" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg></span>
@@ -1106,42 +1145,43 @@ footer ul a{display:inline-block;padding:6px 0}
   </div>
 </section>
 
-<!-- CLAIM WIZARD -->
+<!-- CLAIM WIZARD: a two-step fast lane, then optional extra details after the claim is sent -->
 <section class="claim-sec" id="claim" aria-labelledby="claim-title">
   <div class="wrap claim-grid">
     <div class="claim-side">
-      <h2 id="claim-title">Five quick questions. Then leave it to us.</h2>
-      <p class="lede">No account, no paperwork. Not sure of an answer? Choose "Unsure" and we'll go through it with you on the phone.</p>
+      <h2 id="claim-title">Two quick steps. Then leave it to us.</h2>
+      <p class="lede">Your reg and your number are all we need. A handler calls you and takes it from there. No account, no paperwork.</p>
       <ol class="side-steps" id="sideSteps">
-        <li class="active"><span class="n">1</span>Your vehicle</li>
-        <li><span class="n">2</span>Your details</li>
-        <li><span class="n">3</span>The accident</li>
-        <li><span class="n">4</span>The damage</li>
-        <li><span class="n">5</span>Check &amp; send</li>
+        <li class="active"><span class="n">1</span>Your car</li>
+        <li><span class="n">2</span>How to reach you</li>
+        <li class="opt-step"><span class="n">3</span>The accident <small>optional</small></li>
+        <li class="opt-step"><span class="n">4</span>Damage &amp; photos <small>optional</small></li>
       </ol>
       <div class="side-help">Rather speak to someone?<a href="tel:+448081570420">0808 157 0420</a><span style="color:var(--muted);font-size:.88rem">Open 24 hours, 7 days a week</span></div>
     </div>
 
     <div class="wizard" id="wizard">
       <div class="wz-top">
-        <span class="count" id="wzCount" aria-live="polite">Step 1 of 5</span>
-        <span class="timer"><svg width="16" height="16"><use href="#i-clock"/></svg><span id="wzTime">About 90 seconds left</span></span>
+        <span class="count" id="wzCount" aria-live="polite">Step 1 of 2</span>
+        <span class="timer"><svg width="16" height="16"><use href="#i-clock"/></svg><span id="wzTime">About 30 seconds</span></span>
       </div>
       <div class="wz-bar"><span id="wzBar"></span><svg class="wz-car" aria-hidden="true"><use href="#i-cartop"/></svg><span class="wz-flag" aria-hidden="true"></span></div>
       <p class="restored" id="restored" role="status"><span>We saved your answers from last time.</span><button type="button" id="startOver">Start over</button></p>
+      <p class="sent-strip" id="sentStrip" hidden><svg aria-hidden="true"><use href="#i-check"/></svg><span>Claim <b id="stripRef"></b> sent. These extra details are optional.</span></p>
 
       <form id="claimForm" novalidate>
         <div class="wz-body">
           <!-- Step 1 -->
           <fieldset class="step active" data-step="1">
-            <legend class="sr">Your vehicle</legend>
+            <legend class="sr">Your car</legend>
+            <div class="callout scene-note" id="sceneNote" hidden><svg><use href="#i-info"/></svg><span><strong>Still at the scene?</strong> Get yourself somewhere safe first. If you need recovery now, <a href="tel:+448081570420">call free on 0808 157 0420</a> and we'll send a truck. <a href="#scene" id="sceneLink">Open the scene checklist</a></span></div>
             <h3>Let's start with your car.</h3>
             <p class="hint">Your reg is all we need to match the claim to your car.</p>
             <div class="field" data-req="reg">
               <label for="reg">Vehicle registration</label>
               <span class="plate">
                 <span class="gb"><svg class="flag" viewBox="0 0 60 30" aria-hidden="true"><use href="#i-ukflag"/></svg>UK</span>
-                <input id="reg" name="reg" placeholder="AB12 CDE" maxlength="8" autocomplete="off" autocapitalize="characters" enterkeyhint="next" spellcheck="false">
+                <input id="reg" name="reg" placeholder="Enter reg" maxlength="8" autocomplete="off" autocapitalize="characters" enterkeyhint="next" spellcheck="false">
               </span>
               <p class="err">Please enter your registration</p>
             </div>
@@ -1159,34 +1199,35 @@ footer ul a{display:inline-block;padding:6px 0}
 
           <!-- Step 2 -->
           <fieldset class="step" data-step="2">
-            <legend class="sr">Your details</legend>
+            <legend class="sr">How to reach you</legend>
             <h3>How can we reach you?</h3>
-            <p class="hint">A claims handler will call you, usually within the hour. If you get cut off before the end, we can still ring you back.</p>
+            <p class="hint">This is the last step. A claims handler will call you to take it from here.</p>
             <div class="row2">
               <div class="field" data-req="first"><label for="first">First name</label><input class="input" id="first" name="first" autocomplete="given-name"><p class="err">Please enter your first name</p></div>
               <div class="field" data-req="last"><label for="last">Last name</label><input class="input" id="last" name="last" autocomplete="family-name"><p class="err">Please enter your last name</p></div>
             </div>
-            <div class="row2">
-              <div class="field" data-req="phone"><label for="phone">Mobile number</label><input class="input" id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="07…"><p class="err">Please enter a valid UK phone number</p></div>
-              <div class="field" data-req="email"><label for="email">Email <span class="opt">(optional)</span></label><input class="input" id="email" name="email" type="email" autocomplete="email"><p class="err">That email doesn't look right</p></div>
-            </div>
+            <div class="field" data-req="phone"><label for="phone">Mobile number</label><input class="input" id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="07…"><p class="err">Please enter a UK number, like 07700 900123</p></div>
             <div class="field">
-              <label for="insurer">Your insurer <span class="opt">(optional)</span></label>
-              <select class="input" id="insurer" name="insurer">
-                <option value="">Choose or skip…</option>
-              </select>
+              <span class="lbl" id="when-l">When should we call?</span>
+              <div class="chips" role="radiogroup" aria-labelledby="when-l">
+                <label class="chip"><input type="radio" name="callWhen" value="Now" checked><span>Now</span></label>
+                <label class="chip"><input type="radio" name="callWhen" value="In 30 minutes"><span>In 30 mins</span></label>
+                <label class="chip"><input type="radio" name="callWhen" value="After 5pm"><span>After 5pm</span></label>
+                <label class="chip"><input type="radio" name="callWhen" value="Tomorrow morning"><span>Tomorrow morning</span></label>
+              </div>
             </div>
+            <div class="callout" id="sendErr" role="alert" hidden><svg><use href="#i-info"/></svg><span>We couldn't send your claim just now. Please try again, or call us on <a href="tel:+448081570420">0808 157 0420</a>.</span></div>
             <div class="field" data-req="consent">
               <label class="consent"><input type="checkbox" id="consent" name="consent"><span>I agree to be contacted about my claim and have read the <a href="#">privacy notice</a>. I understand I can also claim directly from the at-fault insurer for free.</span></label>
               <p class="err">Please tick to continue</p>
             </div>
           </fieldset>
 
-          <!-- Step 3 -->
+          <!-- Step 3 (optional, after the claim is sent) -->
           <fieldset class="step" data-step="3">
             <legend class="sr">The accident</legend>
             <h3>What happened?</h3>
-            <p class="hint">Just the basics. We'll get the full story when we call you.</p>
+            <p class="hint">Optional. Anything you add here means a shorter call.</p>
             <div class="row2">
               <div class="field" data-req="date">
                 <label for="date">Date of accident</label>
@@ -1196,42 +1237,39 @@ footer ul a{display:inline-block;padding:6px 0}
                   <button type="button" data-days="earlier">Earlier</button>
                 </div>
                 <input class="input" type="date" id="date" name="date">
-                <p class="err">Please enter a valid date (not in the future)</p>
+                <p class="err">The date can't be in the future</p>
               </div>
-              <div class="field" data-req="region">
+              <div class="field">
                 <label for="region">Where in the UK?</label>
                 <select class="input" id="region" name="region">
                   <option value="">Choose…</option>
                   <option>England</option><option>Wales</option><option>Scotland</option><option>Northern Ireland</option>
                 </select>
-                <p class="err">Please choose a region</p>
               </div>
             </div>
-            <div class="field" data-req="fault">
+            <div class="field">
               <span class="lbl" id="fault-l">Who do you think was at fault?</span>
               <div class="chips" role="radiogroup" aria-labelledby="fault-l">
                 <label class="chip"><input type="radio" name="fault" value="The other driver"><span>The other driver</span></label>
                 <label class="chip"><input type="radio" name="fault" value="Me"><span>Me</span></label>
                 <label class="chip"><input type="radio" name="fault" value="Unsure / shared"><span>Unsure or shared</span></label>
               </div>
-              <p class="err">Please choose one</p>
             </div>
-            <div class="callout" id="faultNote" hidden><svg><use href="#i-info"/></svg><span>If the accident was your fault, the other driver's insurer won't cover your costs. Your own insurer is usually the best place to start. You can still send this and we'll tell you honestly whether we can help.</span></div>
-            <div class="field" data-req="injured">
+            <div class="callout" id="faultNote" hidden><svg><use href="#i-info"/></svg><span>If the accident was your fault, the other driver's insurer won't cover your costs. Your own insurer is usually the best place to start. We'll tell you honestly on the call whether we can help.</span></div>
+            <div class="field">
               <span class="lbl" id="inj-l">Was anyone injured?</span>
               <div class="chips" role="radiogroup" aria-labelledby="inj-l">
                 <label class="chip"><input type="radio" name="injured" value="No"><span>No</span></label>
                 <label class="chip"><input type="radio" name="injured" value="Yes"><span>Yes</span></label>
               </div>
-              <p class="err">Please choose one</p>
             </div>
           </fieldset>
 
-          <!-- Step 4 -->
+          <!-- Step 4 (optional, after the claim is sent) -->
           <fieldset class="step" data-step="4">
-            <legend class="sr">The damage</legend>
+            <legend class="sr">Damage and photos</legend>
             <h3>Where's the damage?</h3>
-            <p class="hint">Tap each part of the car that was hit. This helps us send the right recovery and get repairs started faster.</p>
+            <p class="hint">Optional. Tap each part of the car that was hit, and add photos if you have them.</p>
             <div class="damage">
               <svg class="car-map" viewBox="0 0 160 300" role="group" aria-label="Top-down car diagram. Select damaged areas.">
                 <rect class="wheel" x="10" y="52" width="14" height="40" rx="5"/><rect class="wheel" x="136" y="52" width="14" height="40" rx="5"/>
@@ -1249,12 +1287,8 @@ footer ul a{display:inline-block;padding:6px 0}
               <div>
                 <p class="lbl" style="font-weight:700;margin-bottom:10px">Selected areas</p>
                 <div class="dmg-list" id="dmgList" aria-live="polite"><span class="none">Nothing selected yet. Tap the car.</span></div>
-                <div class="field" style="margin-top:22px">
-                  <label for="notes">Anything else? <span class="opt">(optional)</span></label>
-                  <textarea class="input" id="notes" name="notes" rows="3" placeholder="e.g. hit from behind at a roundabout, other driver gave me their details"></textarea>
-                </div>
                 <div class="photos">
-                  <p class="lbl" style="font-weight:700;margin-bottom:10px">Photos of the damage <span class="opt">(optional)</span></p>
+                  <p class="lbl" style="font-weight:700;margin-bottom:10px">Photos of the damage</p>
                   <label class="photo-add">
                     <input type="file" id="photos" accept="image/*" multiple aria-describedby="photoMsg">
                     <span class="pi" aria-hidden="true"><svg><use href="#i-camera"/></svg></span>
@@ -1268,16 +1302,20 @@ footer ul a{display:inline-block;padding:6px 0}
                 </div>
               </div>
             </div>
-          </fieldset>
-
-          <!-- Step 5 -->
-          <fieldset class="step" data-step="5">
-            <legend class="sr">Check and send</legend>
-            <h3>All looks good?</h3>
-            <p class="hint">Check your answers, then send. You can change anything before you do.</p>
-            <dl class="review" id="review"></dl>
-            <div class="callout" id="sendErr" role="alert" hidden><svg><use href="#i-info"/></svg><span>We couldn't send your claim just now. Please try again, or call us on <a href="tel:+448081570420">0808 157 0420</a>.</span></div>
-            <div class="callout go"><svg><use href="#i-shield"/></svg><span>Sending this doesn't commit you to anything. A handler will explain your options and next steps before anything goes ahead.</span></div>
+            <div class="field" style="margin-top:22px">
+              <label for="notes">Anything else?</label>
+              <textarea class="input" id="notes" name="notes" rows="3" placeholder="e.g. hit from behind at a roundabout, other driver gave me their details"></textarea>
+            </div>
+            <div class="row2">
+              <div class="field" data-req="email"><label for="email">Email</label><input class="input" id="email" name="email" type="email" autocomplete="email"><p class="err">That email doesn't look right</p></div>
+              <div class="field">
+                <label for="insurer">Your insurer</label>
+                <select class="input" id="insurer" name="insurer">
+                  <option value="">Choose or skip…</option>
+                </select>
+              </div>
+            </div>
+            <div class="callout" id="detailsErr" role="alert" hidden><svg><use href="#i-info"/></svg><span>We couldn't send these details just now. Your claim is safe with us. Please try again, or tell your handler on the call.</span></div>
           </fieldset>
         </div>
 
@@ -1290,20 +1328,35 @@ footer ul a{display:inline-block;padding:6px 0}
 
       <div class="success" id="success" role="status" tabindex="-1">
         <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-        <h3>Sorted, <span id="sName"></span>. We've got your claim.</h3>
+        <h3 id="sTitle">Sorted, <span id="sName"></span>. We've got your claim.</h3>
         <p style="color:var(--muted)">Keep this reference handy:</p>
         <div class="ref-wrap"><div class="ref-box" id="sRef"></div><div class="s-stamp" aria-hidden="true"><b>Sorted</b><small>Claim received</small></div></div>
+        <div class="pickup">
+          <p><b>We'll call <span id="sPhone"></span> <span id="sWhen">shortly</span> from 0808 157 0420.</b> Save the number so you know it's us and pick up.</p>
+          <a class="btn btn-ink" id="saveContact" download="Report-a-Claim.vcf" href="#"><svg aria-hidden="true"><use href="#i-phone"/></svg>Save our number</a>
+        </div>
+        <div class="more-details" id="moreDetails">
+          <p><b>Want a shorter call?</b> Add the accident details and photos now. It takes about a minute.</p>
+          <button type="button" class="btn btn-amber" id="addDetails">Add details <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        </div>
         <ol class="next">
-          <li><b>1</b><span>A claims handler will call <strong id="sPhone"></strong>, usually within the hour.</span></li>
-          <li><b>2</b><span>Have the other driver's details and your photos ready if you have them.</span></li>
-          <li><b>3</b><span>Don't arrange repairs or speak to the other insurer until we've spoken.</span></li>
+          <li><b>1</b><span>Have the other driver's details and your photos ready if you have them.</span></li>
+          <li><b>2</b><span>Don't arrange repairs or speak to the other insurer until we've spoken.</span></li>
         </ol>
         <div class="after">
-          <a class="btn btn-ink" href="tel:+448081570420"><svg><use href="#i-phone"/></svg>Can't wait? Call us now</a>
           <a class="btn btn-ghost" id="sendPhotos" href="https://wa.me/447700900420" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Send photos on WhatsApp</a>
-          <a class="save-contact" id="saveContact" download="Report-a-Claim.vcf" href="#">Save our number to your contacts</a>
+          <a class="btn btn-ghost" href="tel:+448081570420"><svg><use href="#i-phone"/></svg>Can't wait? Call us now</a>
         </div>
       </div>
+    </div>
+
+    <div class="worries" aria-labelledby="worry-title">
+      <h3 id="worry-title">Before you send it</h3>
+      <dl>
+        <div><dt>Will it cost me anything?</dt><dd>Not on eligible non-fault claims. We recover the costs from the at-fault driver's insurer, so you don't pay your excess upfront.</dd></div>
+        <div><dt>Will it affect my no-claims bonus?</dt><dd>The claim is made against the other driver's insurer, not your policy, so your no-claims bonus is protected. You should still tell your own insurer an accident happened, because most policies require it.</dd></div>
+        <div><dt>Am I committing to anything?</dt><dd>No. Sending this just gets you a call. A handler explains your options before anything goes ahead, and you can claim directly from the at-fault insurer yourself for free.</dd></div>
+      </dl>
     </div>
   </div>
 </section>
@@ -1386,8 +1439,8 @@ footer ul a{display:inline-block;padding:6px 0}
 
 <!-- INSURERS -->
 <div class="insurers" aria-label="Insurers we deal with">
-  <p>We deal with every major UK insurer, including</p>
-  <div class="marquee" id="marquee" aria-hidden="true"></div>
+  <p class="ins-head">We deal with every major UK insurer, including</p>
+  <p class="ins-list" id="insList"></p>
 </div>
 
 <!-- FAQ -->
@@ -1424,7 +1477,7 @@ footer ul a{display:inline-block;padding:6px 0}
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <a href="./" class="logo" aria-label="Report a Claim home"><svg class="logo-mark" aria-hidden="true"><use href="#logo-mark"/></svg><span class="logo-text"><span class="logo-word">reportaclaim<span>.co.uk</span></span><span class="tagline"><b>Hit.</b> <b>Report.</b> <b>Sorted.</b></span></span></a>
+        <a href="index.html" class="logo" aria-label="Report a Claim home"><svg class="logo-mark" aria-hidden="true"><use href="#logo-mark"/></svg><span class="logo-text"><span class="logo-word">reportaclaim<span>.co.uk</span></span><span class="tagline"><b>Hit.</b> <b>Report.</b> <b>Sorted.</b></span></span></a>
         <p style="max-width:36ch">Recovery, replacement vehicles and repairs after non-fault accidents. You report it, we get it sorted.</p>
         <button type="button" class="fx-toggle" id="fxToggle" aria-pressed="false"><svg aria-hidden="true"><use href="#i-sound"/></svg>Sound &amp; vibration: <b>Off</b></button>
       </div>
@@ -1465,8 +1518,9 @@ footer ul a{display:inline-block;padding:6px 0}
   </span>
 </button>
 <nav class="mbar" id="mbar" aria-label="Quick actions">
-  <a class="mbar-call" href="tel:+448081570420"><svg aria-hidden="true"><use href="#i-phone"/></svg><span>Call free<small>24/7, UK team</small></span></a>
-  <a class="mbar-go" href="#claim">Start my claim<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a class="mbar-call" href="tel:+448081570420"><svg aria-hidden="true"><use href="#i-phone"/></svg><span><small>Call free, 24/7</small>0808 157 0420</span></a>
+  <a class="mbar-go" href="#claim">Start online</a>
+  <button type="button" class="mbar-more" id="mbarMore" aria-haspopup="dialog" aria-controls="sheet" aria-label="More ways to reach us: WhatsApp or a call back"><svg aria-hidden="true"><use href="#i-chat"/></svg></button>
 </nav>
 <div class="sheet-bg" id="sheetBg" hidden></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
@@ -1484,7 +1538,7 @@ footer ul a{display:inline-block;padding:6px 0}
   </form>
   <!-- TODO: replace with the firm's real WhatsApp Business number -->
   <a class="opt" href="https://wa.me/447700900420?text=Hi%2C%20I%27ve%20had%20an%20accident%20that%20wasn%27t%20my%20fault" target="_blank" rel="noopener"><span class="oi wa"><svg><use href="#i-wa"/></svg></span><span><b>Message us on WhatsApp</b><small>Send photos of the damage straight away</small></span><svg><use href="#i-arrow"/></svg></a>
-  <a class="opt" href="#claim" data-close><span class="oi web"><svg><use href="#i-file"/></svg></span><span><b>Report online</b><small>Five quick questions, about 90 seconds</small></span><svg><use href="#i-arrow"/></svg></a>
+  <a class="opt" href="#claim" data-close><span class="oi web"><svg><use href="#i-file"/></svg></span><span><b>Report online</b><small>Two quick steps, about 30 seconds</small></span><svg><use href="#i-arrow"/></svg></a>
   <p class="sheet-foot">FCA regulated (FRN 921134). Free, no obligation.</p>
 </div>
 
@@ -1553,18 +1607,20 @@ footer ul a{display:inline-block;padding:6px 0}
     else if (a.href.includes('wa.me')) track('whatsapp_click', { location: where });
   });
 
-  // Header border + help dock
+  // Header border, the help dock (desktop) and the action bar (phones)
   const top = $('#top'), dock = $('#dock'), mbar = $('#mbar'), claimSec = $('#claim');
-  let claimVisible = false;
+  let claimVisible = false, claimSent = false;
   new IntersectionObserver(([e]) => { claimVisible = e.isIntersecting; onScroll(); }, { threshold: 0.15 }).observe(claimSec);
   function onScroll() {
     top.classList.toggle('scrolled', scrollY > 8);
     const show = scrollY > 360 && !claimVisible;
     if (show && !dock.classList.contains('show')) peekBubble();
     dock.classList.toggle('show', show);
-    mbar.classList.toggle('show', show);
+    // On phones the bar is there from the first screen, and steps aside only while the form is on screen
+    mbar.classList.toggle('show', !claimVisible && !claimSent);
   }
   addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
   let peekTimer = null;
   function peekBubble() {
     dock.classList.remove('mini'); clearTimeout(peekTimer);
@@ -1608,6 +1664,7 @@ footer ul a{display:inline-block;padding:6px 0}
     if (lastFocus) lastFocus.focus({ preventScroll: true });
   }
   dock.addEventListener('click', () => { track('help_open'); openSheet(); });
+  $('#mbarMore').addEventListener('click', () => { track('help_open', { source: 'mobile_bar' }); openSheet(); });
   sheetBg.addEventListener('click', closeSheet);
   $('#sheetClose').addEventListener('click', closeSheet);
   $$('[data-close]', sheet).forEach(a => a.addEventListener('click', closeSheet));
@@ -1625,6 +1682,13 @@ footer ul a{display:inline-block;padding:6px 0}
   sheet.addEventListener('touchstart', e => { startY = sheet.scrollTop <= 0 ? e.touches[0].clientY : null; }, { passive: true });
   sheet.addEventListener('touchend', e => { if (startY !== null && e.changedTouches[0].clientY - startY > 80) closeSheet(); startY = null; });
 
+  // UK phone numbers: accept +44, 0044, (0), spaces, dashes and dots. Returns digits like 07700900123, or null.
+  function normPhone(v) {
+    const d = v.replace(/[\s\-().]/g, '').replace(/^(\+44|0044)0?/, '0');
+    return /^0\d{9,10}$/.test(d) ? d : null;
+  }
+  const fmtPhone = d => (d && d.length === 11 ? d.slice(0, 5) + ' ' + d.slice(5) : d || '');
+
   // Callback request. TODO: set to the real callback endpoint. Empty = demo mode.
   const CALLBACK_ENDPOINT = '';
   $('#cbToggle').addEventListener('click', () => {
@@ -1634,8 +1698,9 @@ footer ul a{display:inline-block;padding:6px 0}
   });
   $('#cbForm').addEventListener('submit', async e => {
     e.preventDefault();
-    const phone = $('#cbPhone').value.trim(), msg = $('#cbMsg');
-    if (!/^(\+44\s?|0)\d[\d\s]{8,12}$/.test(phone)) { msg.className = 'cb-msg bad'; msg.textContent = 'Enter a UK number, like 07700 900123.'; $('#cbPhone').focus(); return; }
+    const phone = normPhone($('#cbPhone').value), msg = $('#cbMsg');
+    if (!phone) { msg.className = 'cb-msg bad'; msg.textContent = 'Enter a UK number, like 07700 900123.'; $('#cbPhone').focus(); return; }
+    $('#cbPhone').value = fmtPhone(phone);
     const btn = $('button', e.target); btn.disabled = true; btn.textContent = 'Booking…';
     try {
       if (CALLBACK_ENDPOINT) {
@@ -1645,7 +1710,7 @@ footer ul a{display:inline-block;padding:6px 0}
         console.info('Callback request', phone);
         await new Promise(r => setTimeout(r, 600));
       }
-      msg.className = 'cb-msg ok'; msg.textContent = `Booked. We'll call ${phone} shortly.`;
+      msg.className = 'cb-msg ok'; msg.textContent = `Booked. We'll call ${fmtPhone(phone)} shortly.`;
       track('callback_requested');
       $('#cbPhone').disabled = true; btn.textContent = 'Booked';
     } catch (err) {
@@ -1688,43 +1753,37 @@ footer ul a{display:inline-block;padding:6px 0}
     b.classList.add('go'); setTimeout(() => b.classList.remove('go'), 900);
   }));
 
-  // Dash acts out each headline: takes the hit where the headline says, then gets fixed.
-  // Order matches the #rot headlines; x/y are spots on Dash's body in SVG units.
-  const hits = [
-    { kind: 'rear', x: 98, y: 44 },
-    { kind: 'side', x: 12, y: 62 },
-    { kind: 'parked', x: 108, y: 64 },
-    { kind: 'junction', x: 34, y: 82 },
-  ];
-  let hitTimers = [];
-  function dashHit(i) {
+  // Match the headline to the ad that brought them here: ?type=parked shows "Hit while parked?" and so on
+  const params = new URLSearchParams(location.search);
+  const adTypes = {
+    rear: { kw: 'Rear-ended?', hit: 'rear' },
+    side: { kw: 'Side-swiped?', hit: 'side' },
+    parked: { kw: 'Hit while parked?', hit: 'parked' },
+    junction: { kw: 'Hit at a junction?', hit: 'junction' },
+    hitrun: { kw: 'Hit and run?', hit: 'side' },
+    motorbike: { kw: 'Motorbike accident?', hit: 'side', veh: 'vehicle' },
+    taxi: { kw: 'Taxi or van hit?', hit: 'rear', veh: 'vehicle' },
+  };
+  const adType = adTypes[params.get('type')] || { kw: 'Hit by another driver?', hit: 'rear' };
+  $('#heroKw').textContent = adType.kw;
+  if (adType.veh) $('#heroVeh').textContent = adType.veh;
+  if (adTypes[params.get('type')]) track('landing_type', { type: params.get('type') });
+
+  // Dash acts out the headline: takes the hit where the headline says, then gets fixed.
+  // x/y are spots on Dash's body in SVG units.
+  const hits = { rear: { x: 98, y: 44 }, side: { x: 12, y: 62 }, parked: { x: 108, y: 64 }, junction: { x: 34, y: 82 } };
+  function dashHit(kind) {
     if (reduced) return;
-    const h = hits[i]; if (!h) return;
-    hitTimers.forEach(clearTimeout);
+    const h = hits[kind]; if (!h) return;
     $('#dashDent').setAttribute('transform', `translate(${h.x} ${h.y})`);
     $('#dashSpark').setAttribute('transform', `translate(${h.x} ${h.y})`);
-    dashBtn.dataset.hit = h.kind;
+    dashBtn.dataset.hit = kind;
     dashBtn.classList.remove('hit', 'fixed'); void dashBtn.offsetWidth;
     dashBtn.classList.add('hit');
-    hitTimers = [
-      setTimeout(() => { dashBtn.classList.remove('hit'); dashBtn.classList.add('fixed'); }, 1150),
-      setTimeout(() => dashBtn.classList.remove('fixed'), 2000),
-    ];
+    setTimeout(() => { dashBtn.classList.remove('hit'); dashBtn.classList.add('fixed'); }, 1150);
+    setTimeout(() => dashBtn.classList.remove('fixed'), 2000);
   }
-
-  // Headline rotator
-  const rot = $$('#rot span');
-  if (!reduced && rot.length) {
-    let ri = 0;
-    setTimeout(() => dashHit(0), 1300);
-    setInterval(() => {
-      const prev = rot[ri]; ri = (ri + 1) % rot.length;
-      prev.classList.remove('on'); prev.classList.add('out');
-      rot[ri].classList.remove('out'); rot[ri].classList.add('on');
-      setTimeout(() => prev.classList.remove('out'), 700);
-      dashHit(ri);
-    }, 2600);
-  }
+  setTimeout(() => dashHit(adType.hit), 1300);
 
   // Tracker tilts toward the pointer
   const stage = $('#stage'), tracker = $('.tracker');
@@ -1738,11 +1797,8 @@ footer ul a{display:inline-block;padding:6px 0}
     $('.hero').addEventListener('pointerleave', () => { tracker.style.setProperty('--rx', '0deg'); tracker.style.setProperty('--ry', '0deg'); });
   }
 
-  // Scroll progress, the road and the route all key off scroll
-  const route = $('#route'), routeSteps = $$('#route .how li'), lanes = $('#lanes'), road = $('#road');
-  const roadCar = $('#roadCar'), otherCar = $('#otherCar');
-  let lastY = scrollY, velocity = 0, laneX = 0, otherX = 1.1, roadOn = false;
-  new IntersectionObserver(([e]) => { const was = roadOn; roadOn = e.isIntersecting; if (roadOn && !was && !lite) requestAnimationFrame(drive); }).observe(road);
+  // Scroll progress and the route both key off scroll
+  const route = $('#route'), routeSteps = $$('#route .how li');
   function onScrollFx() {
     const max = document.documentElement.scrollHeight - innerHeight;
     top.style.setProperty('--sp', max > 0 ? (scrollY / max).toFixed(4) : 0);
@@ -1753,46 +1809,36 @@ footer ul a{display:inline-block;padding:6px 0}
     routeSteps.forEach((li, i) => li.classList.toggle('reached', reduced || p >= i / routeSteps.length + .02));
   }
   addEventListener('scroll', onScrollFx, { passive: true }); addEventListener('resize', onScrollFx); onScrollFx();
-  function drive() {
-    const dy = scrollY - lastY; lastY = scrollY;
-    velocity += (Math.abs(dy) - velocity) * .12;
-    if (roadOn) {
-      const speed = 2 + Math.min(velocity, 60) * .9;
-      laneX = (laneX - speed) % 96;
-      lanes.style.backgroundPosition = laneX + 'px 0';
-      roadCar.style.left = (22 + Math.min(velocity, 60) * .5) + '%';
-      roadCar.style.transform = `translateY(${Math.sin(Date.now() / 180) * 1.2}px)`;
-      otherX -= (.004 + speed * .0009);
-      if (otherX < -.2) otherX = 1.1 + Math.random() * .8;
-      otherCar.style.left = (otherX * 100) + '%';
-      requestAnimationFrame(drive);
-    }
-  }
-
-  // Live tracker animation
-  const live = $$('#liveSteps li');
-  let li = 0;
-  function tick() {
-    live.forEach((el, i) => { el.classList.toggle('done', i < li); el.classList.toggle('now', i === li); });
-    li = li >= live.length ? 0 : li + 1;
-  }
-  if (reduced) { live.forEach(el => el.classList.add('done')); } else { tick(); setInterval(tick, 1400); }
 
   // Plate formatting
   const fmtReg = v => {
     const s = v.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 7);
     return /^[A-Z]{2}\d{2}[A-Z]{1,3}$/.test(s) || (s.length > 4 && /^[A-Z]{2}\d{2}/.test(s)) ? s.slice(0, 4) + ' ' + s.slice(4) : s;
   };
-  $$('#heroReg, #reg').forEach(inp => inp.addEventListener('input', () => { inp.value = fmtReg(inp.value); }));
+  $('#reg').addEventListener('input', () => { $('#reg').value = fmtReg($('#reg').value); });
 
-  // Hero → wizard
-  $('#heroForm').addEventListener('submit', e => {
-    e.preventDefault();
-    track('start_claim', { source: 'hero', has_reg: !!$('#heroReg').value.trim() });
-    $('#reg').value = fmtReg($('#heroReg').value);
+  // Quick start: who was at fault, then when it happened, then straight into the form
+  const quick = $('#quick'), faultBtns = $$('[data-fault]', quick);
+  let justHappened = false;
+  faultBtns.forEach(b => b.addEventListener('click', () => {
+    setRadio('fault', b.dataset.fault);
+    faultBtns.forEach(x => x.setAttribute('aria-pressed', x === b));
+    $('[data-q="2"]', quick).hidden = false;
+    $('#q2-l').focus({ preventScroll: true });
+    track('quick_fault', { fault: b.dataset.fault });
+    saveDraft();
+  }));
+  $$('[data-when]', quick).forEach(b => b.addEventListener('click', () => {
+    pickDate(b.dataset.when);
+    // Reporting on the day often means they're still at the roadside
+    justHappened = b.dataset.when === '0';
+    $('#sceneNote').hidden = !justHappened;
+    if (justHappened) openChecklist();
+    track('start_claim', { source: 'hero', when: b.dataset.when });
+    saveDraft();
     claimSec.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
     setTimeout(() => ($('#reg').value ? $('input[name=drivable]') : $('#reg')).focus({ preventScroll: true }), reduced ? 0 : 600);
-  });
+  }));
 
   // Scene checklist
   const checks = $$('.check-item input');
@@ -1803,6 +1849,12 @@ footer ul a{display:inline-block;padding:6px 0}
     $('#clDone').classList.toggle('show', n === checks.length);
     feedback('tick');
   }));
+
+  // On phones the checklist starts closed, so it doesn't push the form down
+  const checklist = $('#checklist');
+  function openChecklist() { checklist.classList.add('open'); $('#clOpen').setAttribute('aria-expanded', 'true'); }
+  $('#clOpen').addEventListener('click', () => { openChecklist(); track('checklist_opened'); });
+  $('#sceneLink').addEventListener('click', openChecklist);
 
   // Save the checklist so it's on their phone before they ever need it
   $('#saveList').addEventListener('click', async () => {
@@ -1840,7 +1892,7 @@ footer ul a{display:inline-block;padding:6px 0}
 
   // Insurers
   const insurers = ['1st Central','Admiral','Ageas','Allianz','Aviva','AXA','Churchill','Direct Line','Elephant','esure','Hastings Direct','LV=','Marshmallow','More Than','NFU Mutual','Quote Me Happy','RAC','Saga','Sheilas’ Wheels','Swinton','Tesco Bank','Zurich'];
-  $('#marquee').innerHTML = [...insurers, ...insurers].map(n => `<span>${n}</span>`).join('');
+  $('#insList').innerHTML = insurers.map(n => `<span>${n}</span>`).join('');
   $('#insurer').insertAdjacentHTML('beforeend', insurers.map(n => `<option>${n}</option>`).join('') + '<option>Other / not sure</option>');
 
   // Damage map
@@ -1901,11 +1953,12 @@ footer ul a{display:inline-block;padding:6px 0}
     renderPhotos();
   });
 
-  // Wizard
-  const form = $('#claimForm'), steps = $$('.step'), total = steps.length;
-  let cur = 1;
+  // Wizard. Steps 1-2 are the fast lane and send the claim; steps 3-4 are optional extras sent afterwards.
+  const form = $('#claimForm'), steps = $$('.step'), total = steps.length, CORE = 2;
+  let cur = 1, sent = false, ref = '';
   const val = n => { const el = form.elements[n]; return el ? (el.value ?? '').trim() : ''; };
   const radio = n => (form.querySelector(`input[name=${n}]:checked`) || {}).value || '';
+  const setRadio = (n, v) => { const r = form.querySelector(`input[name=${n}][value="${CSS.escape(v)}"]`); if (r) r.checked = true; };
 
   // Date can't be in the future
   const now = new Date(), today = new Date(now - now.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
@@ -1914,15 +1967,12 @@ footer ul a{display:inline-block;padding:6px 0}
   const rules = {
     reg: () => val('reg').replace(/\s/g, '').length >= 2,
     drivable: () => !!radio('drivable'),
-    date: () => !!val('date') && val('date') <= today,
-    region: () => !!val('region'),
-    fault: () => !!radio('fault'),
-    injured: () => !!radio('injured'),
     first: () => !!val('first'),
     last: () => !!val('last'),
-    phone: () => /^(\+44\s?|0)\d[\d\s]{8,12}$/.test(val('phone')),
-    email: () => !val('email') || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('email')),
+    phone: () => !!normPhone(val('phone')),
     consent: () => $('#consent').checked,
+    date: () => !val('date') || val('date') <= today,
+    email: () => !val('email') || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('email')),
   };
 
   function validate(step) {
@@ -1942,40 +1992,26 @@ footer ul a{display:inline-block;padding:6px 0}
     if (e.target.name === 'drivable') $('#recoveryNote').hidden = e.target.value !== 'No';
     if (e.target.name === 'fault') $('#faultNote').hidden = e.target.value !== 'Me';
   });
+  // Check the number as soon as they leave the field, and tidy its format
+  $('#phone').addEventListener('blur', () => {
+    const d = normPhone(val('phone'));
+    if (d) $('#phone').value = fmtPhone(d);
+    $('#phone').closest('.field').classList.toggle('invalid', !!val('phone') && !d);
+  });
 
-  function buildReview() {
-    const rows = [
-      ['Registration', val('reg') || '—', 1],
-      ['Safe to drive', radio('drivable'), 1],
-      ['Name', `${val('first')} ${val('last')}`, 2],
-      ['Phone', val('phone'), 2],
-      ['Date', val('date') ? new Date(val('date')).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '—', 3],
-      ['Where', val('region'), 3],
-      ['At fault', radio('fault'), 3],
-      ['Injuries', radio('injured'), 3],
-      ['Damage', selected.size ? [...selected].join(', ') : 'Not specified', 4],
-      ['Photos', photos.length ? `${photos.length} added` : 'None yet', 4],
-    ];
-    if (val('insurer')) rows.splice(4, 0, ['Insurer', val('insurer'), 2]);
-    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-    $('#review').innerHTML = rows.map(([k, v, s]) => `<div><dt>${k}</dt><dd>${esc(v)}<button type="button" data-go="${s}" aria-label="Edit ${k}">Edit</button></dd></div>`).join('');
-  }
-  $('#review').addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) go(+b.dataset.go); });
-
-  const secsLeft = [90, 70, 45, 30, 10];
   function go(n, init) {
     $('#wizard').dataset.dir = n >= cur ? 'fwd' : 'back';
     if (!init && n > cur) feedback('step');
     cur = n;
-    $('#wizard').style.setProperty('--wp', (n / total * 100) + '%');
+    const extra = n > CORE, pos = extra ? n - CORE : n, of = extra ? total - CORE : CORE;
+    $('#wizard').style.setProperty('--wp', (pos / of * 100) + '%');
     steps.forEach((s, i) => s.classList.toggle('active', i === n - 1));
-    $$('#sideSteps li').forEach((l, i) => { l.classList.toggle('active', i === n - 1); l.classList.toggle('done', i < n - 1); });
-    $('#wzCount').textContent = `Step ${n} of ${total}`;
-    $('#wzBar').style.width = (n / total * 100) + '%';
-    $('#wzTime').textContent = n === total ? 'Almost done' : `About ${secsLeft[n - 1]} seconds left`;
-    $('#backBtn').hidden = n === 1;
-    $('#nextBtn').innerHTML = n === total ? 'Send my claim <svg aria-hidden="true"><use href="#i-arrow"/></svg>' : 'Continue <svg aria-hidden="true"><use href="#i-arrow"/></svg>';
-    if (n === total) buildReview();
+    $$('#sideSteps li').forEach((l, i) => { l.classList.toggle('active', i === n - 1); l.classList.toggle('done', i < n - 1 || (sent && i < CORE)); });
+    $('#wzCount').textContent = extra ? `Extra details ${pos} of ${of}` : `Step ${n} of ${CORE}`;
+    $('#wzBar').style.width = (pos / of * 100) + '%';
+    $('#wzTime').textContent = extra ? 'Optional' : n === CORE ? 'Last step' : 'About 30 seconds';
+    $('#backBtn').hidden = n === 1 || n === CORE + 1;
+    $('#nextBtn').innerHTML = (n === CORE ? 'Send my claim' : n === total ? 'Send details' : 'Continue') + ' <svg aria-hidden="true"><use href="#i-arrow"/></svg>';
     if (!init) track('claim_step', { step: n });
     if (init) return;
     const w = $('#wizard').getBoundingClientRect();
@@ -1988,101 +2024,115 @@ footer ul a{display:inline-block;padding:6px 0}
   form.addEventListener('submit', e => {
     e.preventDefault();
     if (!validate(cur)) return;
-    if (cur === CONTACT_STEP) sendLead();
-    if (cur < total) return go(cur + 1);
-    submitClaim();
+    if (cur === CORE) return submitClaim();
+    if (cur === total) return submitDetails();
+    go(cur + 1);
   });
 
   // TODO: set to the real claims CRM / form endpoint (e.g. a Formspree URL or '/api/claims'). Empty = demo mode.
+  // It receives the claim first ({ type: 'claim' }), then any extra details with the same ref ({ type: 'details' }).
   const CLAIMS_ENDPOINT = '';
-  // TODO: set to an endpoint that logs partial claims for a call back. Empty = skipped.
-  const LEAD_ENDPOINT = '';
-  const CONTACT_STEP = 2;
 
-  // Once we have a name, number and consent, record the lead so a handler can call if they drop off
-  let leadSent = false;
-  function sendLead() {
-    if (leadSent) return;
-    leadSent = true;
-    const lead = { reg: val('reg'), drivable: radio('drivable'), firstName: val('first'), lastName: val('last'), phone: val('phone'), email: val('email'), insurer: val('insurer'), capturedAt: new Date().toISOString() };
-    track('lead_captured', { drivable: lead.drivable });
-    if (!LEAD_ENDPOINT) { console.info('Lead', lead); return; }
-    fetch(LEAD_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(lead), keepalive: true })
-      .catch(err => { console.error('Lead capture failed', err); leadSent = false; });
+  async function send(payload, withPhotos) {
+    if (!CLAIMS_ENDPOINT) {
+      // No endpoint configured yet: keep the demo flow working
+      console.info('Claim payload', payload);
+      await new Promise(r => setTimeout(r, 700));
+      return;
+    }
+    // With photos the endpoint gets multipart: the payload as JSON in "claim", plus "photos" files
+    let init = { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) };
+    if (withPhotos && photos.length) {
+      const fd = new FormData();
+      fd.append('claim', JSON.stringify(payload));
+      photos.forEach(p => fd.append('photos', p.file, p.file.name));
+      init = { method: 'POST', body: fd };
+    }
+    const res = await fetch(CLAIMS_ENDPOINT, init);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
   }
+
+  const collect = () => ({
+    ref, reg: val('reg'), drivable: radio('drivable'),
+    firstName: val('first'), lastName: val('last'), phone: normPhone(val('phone')), callWhen: radio('callWhen'),
+    date: val('date'), region: val('region'), fault: radio('fault'), injured: radio('injured'),
+    damage: [...selected], notes: val('notes'), email: val('email'), insurer: val('insurer'), photoCount: photos.length,
+    atScene: justHappened, landingType: params.get('type') || '', submittedAt: new Date().toISOString(),
+  });
+  const newRef = () => {
+    const d = new Date();
+    return `RC-${String(d.getDate()).padStart(2, '0')}${String(d.getMonth() + 1).padStart(2, '0')}-${Math.floor(1000 + Math.random() * 9000)}`;
+  };
+  const arrow = ' <svg aria-hidden="true"><use href="#i-arrow"/></svg>';
 
   async function submitClaim() {
     const btn = $('#nextBtn');
     btn.disabled = true; btn.textContent = 'Sending…';
-    const payload = {
-      reg: val('reg'), drivable: radio('drivable'), date: val('date'), region: val('region'),
-      fault: radio('fault'), injured: radio('injured'), damage: [...selected], notes: val('notes'),
-      firstName: val('first'), lastName: val('last'), phone: val('phone'), email: val('email'),
-      insurer: val('insurer'), photoCount: photos.length, submittedAt: new Date().toISOString(),
-    };
     $('#sendErr').hidden = true;
-    if (CLAIMS_ENDPOINT) {
-      try {
-        // With photos the endpoint gets multipart: the claim as JSON in "claim", plus "photos" files
-        let init = { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) };
-        if (photos.length) {
-          const fd = new FormData();
-          fd.append('claim', JSON.stringify(payload));
-          photos.forEach(p => fd.append('photos', p.file, p.file.name));
-          init = { method: 'POST', body: fd };
-        }
-        const res = await fetch(CLAIMS_ENDPOINT, init);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      } catch (err) {
-        console.error('Claim submission failed', err);
-        $('#sendErr').hidden = false;
-        btn.disabled = false;
-        btn.innerHTML = 'Try again <svg aria-hidden="true"><use href="#i-arrow"/></svg>';
-        return;
-      }
-    } else {
-      // No endpoint configured yet: keep the demo flow working
-      console.info('Claim payload', payload);
-      await new Promise(r => setTimeout(r, 700));
+    ref = ref || newRef();
+    try {
+      await send({ type: 'claim', ...collect() }, false);
+    } catch (err) {
+      console.error('Claim submission failed', err);
+      $('#sendErr').hidden = false;
+      btn.disabled = false; btn.innerHTML = 'Try again' + arrow;
+      return;
     }
-    const d = new Date();
-    const ref = `RC-${String(d.getDate()).padStart(2, '0')}${String(d.getMonth() + 1).padStart(2, '0')}-${Math.floor(1000 + Math.random() * 9000)}`;
-    $('#sName').textContent = payload.firstName;
-    $('#sPhone').textContent = payload.phone;
-    $('#sRef').textContent = ref;
+    btn.disabled = false;
+    sent = true; claimSent = true; onScroll();
+    clearDraft(); $('#restored').classList.remove('show'); $('#resume').hidden = true;
+    const when = radio('callWhen');
+    $('#sName').textContent = val('first');
+    $('#sPhone').textContent = fmtPhone(normPhone(val('phone')));
+    $('#sWhen').textContent = { 'In 30 minutes': 'in about 30 minutes', 'After 5pm': 'after 5pm', 'Tomorrow morning': 'tomorrow morning' }[when] || 'shortly';
+    $('#sRef').textContent = ref; $('#stripRef').textContent = ref;
+    showSuccess();
+    setTimeout(() => feedback('stamp'), 550);
+    track('claim_submitted', { drivable: radio('drivable'), fault: radio('fault'), call_when: when, at_scene: justHappened });
+  }
+
+  function showSuccess() {
     form.hidden = true;
-    $('.wz-top').hidden = true; $('.wz-bar').hidden = true;
-    $$('#sideSteps li').forEach(l => { l.classList.remove('active'); l.classList.add('done'); });
+    $('.wz-top').hidden = true; $('.wz-bar').hidden = true; $('#sentStrip').hidden = true;
+    $$('#sideSteps li').forEach((l, i) => { l.classList.remove('active'); l.classList.toggle('done', i < CORE || cur === total); });
     $('#success').classList.add('show');
-    celebrate();
-    clearDraft(); $('#restored').classList.remove('show'); $('#resume').hidden = true; mbar.hidden = true;
-    track('claim_submitted', { region: payload.region, drivable: payload.drivable, injured: payload.injured });
     $('#success').focus();
   }
 
-  // The stamp lands on their reference, with a burst of confetti in the brand colours
-  function celebrate() {
-    setTimeout(() => feedback('stamp'), 550);
-    if (lite) return;
-    const box = $('#success'), colours = ['#2350FF', '#FFD60A', '#12B76A', '#0E1220'];
-    for (let i = 0; i < 22; i++) {
-      const c = document.createElement('span');
-      c.className = 'confetti';
-      c.style.background = colours[i % colours.length];
-      c.style.setProperty('--x', `${Math.round((Math.random() - .5) * 520)}px`);
-      c.style.setProperty('--y', `${Math.round(220 + Math.random() * 260)}px`);
-      c.style.setProperty('--r', `${Math.round((Math.random() - .5) * 720)}deg`);
-      c.style.animationDelay = `${(.5 + Math.random() * .25).toFixed(2)}s`;
-      box.appendChild(c);
-      setTimeout(() => c.remove(), 3000);
+  // Optional extras after the claim is in: every answer means a shorter call
+  $('#addDetails').addEventListener('click', () => {
+    $('#success').classList.remove('show');
+    form.hidden = false;
+    $('.wz-top').hidden = false; $('.wz-bar').hidden = false; $('#sentStrip').hidden = false;
+    track('details_started');
+    go(CORE + 1);
+  });
+
+  async function submitDetails() {
+    const btn = $('#nextBtn');
+    btn.disabled = true; btn.textContent = 'Sending…';
+    $('#detailsErr').hidden = true;
+    try {
+      await send({ type: 'details', ...collect() }, true);
+    } catch (err) {
+      console.error('Details submission failed', err);
+      $('#detailsErr').hidden = false;
+      btn.disabled = false; btn.innerHTML = 'Try again' + arrow;
+      return;
     }
+    btn.disabled = false;
+    $('#moreDetails').hidden = true;
+    $('#sTitle').textContent = `Thanks, ${val('first')}. We've added your details.`;
+    showSuccess();
+    track('details_submitted', { photos: photos.length, zones: selected.size });
   }
 
   // Keep answers if the visitor leaves and comes back (common on mobile)
   const DRAFT_KEY = 'rac-claim-draft';
   const fields = ['reg', 'date', 'region', 'notes', 'first', 'last', 'phone', 'email', 'insurer'];
-  const radios = ['drivable', 'fault', 'injured'];
+  const radios = ['drivable', 'fault', 'injured', 'callWhen'];
   function saveDraft() {
+    if (sent) return;
     const d = { zones: [...selected] };
     fields.forEach(n => { d[n] = val(n); });
     radios.forEach(n => { d[n] = radio(n); });
@@ -2094,9 +2144,9 @@ footer ul a{display:inline-block;padding:6px 0}
   zones.forEach(z => z.addEventListener('click', saveDraft));
   let draft = null;
   try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null'); } catch (e) { draft = null; }
-  if (draft && Object.keys(draft).some(k => k !== 'zones' && draft[k])) {
+  if (draft && ['reg', 'first', 'last', 'phone'].some(k => draft[k])) {
     fields.forEach(n => { if (draft[n] && form.elements[n]) form.elements[n].value = draft[n]; });
-    radios.forEach(n => { const r = draft[n] && form.querySelector(`input[name=${n}][value="${CSS.escape(draft[n])}"]`); if (r) r.checked = true; });
+    radios.forEach(n => { if (draft[n]) setRadio(n, draft[n]); });
     (draft.zones || []).forEach(name => { const z = zones.find(x => x.dataset.zone === name); if (z) z.dispatchEvent(new MouseEvent('click', { bubbles: true })); });
     $('#recoveryNote').hidden = radio('drivable') !== 'No';
     $('#faultNote').hidden = radio('fault') !== 'Me';
@@ -2104,7 +2154,7 @@ footer ul a{display:inline-block;padding:6px 0}
   }
   $('#startOver').addEventListener('click', () => {
     clearDraft(); form.reset(); selected.clear(); zones.forEach(z => { z.classList.remove('on'); z.setAttribute('aria-pressed', 'false'); });
-    renderDmg(); $('#recoveryNote').hidden = $('#faultNote').hidden = true;
+    renderDmg(); $('#recoveryNote').hidden = $('#faultNote').hidden = $('#sceneNote').hidden = true;
     $('#restored').classList.remove('show'); go(1);
   });
 
@@ -2115,26 +2165,32 @@ footer ul a{display:inline-block;padding:6px 0}
     const iso = d && new Date(d - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
     b.setAttribute('aria-pressed', b.dataset.days === 'earlier' ? !!val('date') && !qBtns.some(x => x !== b && x.getAttribute('aria-pressed') === 'true') : iso === val('date'));
   });
-  qBtns.forEach(b => b.addEventListener('click', () => {
+  // days: '0' today, '1' yesterday, 'earlier' leaves the date for them to pick
+  function pickDate(days) {
     const date = $('#date');
-    if (b.dataset.days === 'earlier') {
-      date.value = ''; date.focus();
-      try { date.showPicker(); } catch (err) { /* picker opens on tap instead */ }
-    } else {
-      const d = new Date(Date.now() - b.dataset.days * 864e5);
+    if (days === 'earlier') date.value = '';
+    else {
+      const d = new Date(Date.now() - days * 864e5);
       date.value = new Date(d - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
     }
     date.dispatchEvent(new Event('input', { bubbles: true }));
     syncQ();
+  }
+  qBtns.forEach(b => b.addEventListener('click', () => {
+    pickDate(b.dataset.days);
+    if (b.dataset.days === 'earlier') {
+      $('#date').focus();
+      try { $('#date').showPicker(); } catch (err) { /* picker opens on tap instead */ }
+    }
   }));
   $('#date').addEventListener('change', syncQ);
 
   // Bring back visitors who started a claim and left
   const firstIncomplete = () => {
-    for (let n = 1; n < total; n++) {
+    for (let n = 1; n < CORE; n++) {
       if ($$('[data-req]', steps[n - 1]).some(f => !rules[f.dataset.req]())) return n;
     }
-    return total;
+    return CORE;
   };
   if ($('#restored').classList.contains('show')) $('#resume').hidden = false;
   $('#resumeGo').addEventListener('click', () => {
@@ -2148,6 +2204,13 @@ footer ul a{display:inline-block;padding:6px 0}
   // Save-our-number card for the success screen
   const vcf = ['BEGIN:VCARD', 'VERSION:3.0', 'FN:Report a Claim (accident claims)', 'ORG:Report a Claim', 'TEL;TYPE=WORK,VOICE:+448081570420', 'URL:https://report-a-claim.vercel.app/', 'NOTE:Hit. Report. Sorted.', 'END:VCARD'].join('\r\n');
   $('#saveContact').href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcf);
+
+  // Arriving from a guide page with a reg: drop it in and go straight to the form
+  if (params.get('reg')) {
+    $('#reg').value = fmtReg(params.get('reg'));
+    track('start_claim', { source: 'guide', type: params.get('type') || '' });
+    requestAnimationFrame(() => { claimSec.scrollIntoView(); $('input[name=drivable]').focus({ preventScroll: true }); });
+  }
 
   go(1, true);
 })();
