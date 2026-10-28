@@ -21,14 +21,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500..700&family=Inter:wght@400..700&display=swap" rel="stylesheet">
 <style>
+/* Fallback faces sized to Inter's metrics, so text doesn't jump when the web fonts arrive */
+@font-face{font-family:"Inter Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");size-adjust:105.9%;ascent-override:91.5%;descent-override:22.9%;line-gap-override:0%}
+@font-face{font-family:"Inter Tight Fallback";font-weight:500 700;src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");size-adjust:94.8%;ascent-override:102.2%;descent-override:25.6%;line-gap-override:0%}
 :root{
   --ink:#0E1220; --ink-2:#2B3245; --muted:#5D6578;
   --bg:#FFFFFF; --soft:#F4F6F9; --soft-2:#EBEEF3; --line:#E3E7EE;
   --blue:#2350FF; --blue-h:#1A3FE0; --blue-soft:#E8EDFF; --blue-ink:#0B1A4A;
   --plate:#FFD60A; --plate-d:#E0B800;
   --go:#12B76A; --stop:#F04438;
-  --display:"Inter Tight",ui-sans-serif,system-ui,sans-serif;
-  --body:"Inter",ui-sans-serif,system-ui,sans-serif;
+  --display:"Inter Tight","Inter Tight Fallback",ui-sans-serif,system-ui,sans-serif;
+  --body:"Inter","Inter Fallback",ui-sans-serif,system-ui,sans-serif;
   --max:1240px;
   --ease:cubic-bezier(.2,.7,.2,1);
 }
@@ -278,6 +281,7 @@ section{padding:112px 0}
 
 /* How it works: a route the car drives as you scroll */
 #how{background:var(--soft);border-radius:40px;margin:0 16px}
+#how+.claim-sec{margin-top:16px}
 .route{position:relative;--p:0}
 .route-line{position:absolute;left:0;right:0;top:22px;height:4px;border-radius:4px;background:repeating-linear-gradient(90deg,#C3C9D4 0 18px,transparent 18px 30px)}
 .route-fill{position:absolute;left:0;top:0;bottom:0;width:calc(var(--p)*100%);background:var(--blue);border-radius:4px}
@@ -792,6 +796,8 @@ footer ul a{display:inline-block;padding:6px 0}
   .lite .mbar{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--bg)}
   /* Wizard: full-width Continue under the thumb */
   .wz-nav #nextBtn{flex:1}
+  /* Shorter page on phones: the receipt already makes the £0 point, and one slider is enough */
+  .stage,.road,.calc,.calc-out{display:none}
 }
 @media (max-width:400px){
   .top .logo-word span{display:none}
@@ -857,7 +863,7 @@ footer ul a{display:inline-block;padding:6px 0}
 
 <header class="top" id="top">
   <div class="wrap">
-    <a href="#" class="logo" aria-label="Report a Claim home">
+    <a href="./" class="logo" aria-label="Report a Claim home">
       <svg class="logo-mark" aria-hidden="true"><use href="#logo-mark"/></svg><span class="logo-text"><span class="logo-word">reportaclaim<span>.co.uk</span></span><span class="tagline"><b>Hit.</b> <b>Report.</b> <b>Sorted.</b></span></span>
     </a>
     <nav class="main" aria-label="Main">
@@ -1044,6 +1050,208 @@ footer ul a{display:inline-block;padding:6px 0}
   </div>
 </section>
 
+<!-- CLAIM WIZARD -->
+<section class="claim-sec" id="claim" aria-labelledby="claim-title">
+  <div class="wrap claim-grid">
+    <div class="claim-side">
+      <h2 id="claim-title">Five quick questions. Then leave it to us.</h2>
+      <p class="lede">No account, no paperwork. Not sure of an answer? Choose "Unsure" and we'll go through it with you on the phone.</p>
+      <ol class="side-steps" id="sideSteps">
+        <li class="active"><span class="n">1</span>Your vehicle</li>
+        <li><span class="n">2</span>Your details</li>
+        <li><span class="n">3</span>The accident</li>
+        <li><span class="n">4</span>The damage</li>
+        <li><span class="n">5</span>Check &amp; send</li>
+      </ol>
+      <div class="side-help">Rather speak to someone?<a href="tel:+448081570420">0808 157 0420</a><span style="color:var(--muted);font-size:.88rem">Open 24 hours, 7 days a week</span></div>
+    </div>
+
+    <div class="wizard" id="wizard">
+      <div class="wz-top">
+        <span class="count" id="wzCount" aria-live="polite">Step 1 of 5</span>
+        <span class="timer"><svg width="16" height="16"><use href="#i-clock"/></svg><span id="wzTime">About 90 seconds left</span></span>
+      </div>
+      <div class="wz-bar"><span id="wzBar"></span><svg class="wz-car" aria-hidden="true"><use href="#i-cartop"/></svg><span class="wz-flag" aria-hidden="true"></span></div>
+      <p class="restored" id="restored" role="status"><span>We saved your answers from last time.</span><button type="button" id="startOver">Start over</button></p>
+
+      <form id="claimForm" novalidate>
+        <div class="wz-body">
+          <!-- Step 1 -->
+          <fieldset class="step active" data-step="1">
+            <legend class="sr">Your vehicle</legend>
+            <h3>Let's start with your car.</h3>
+            <p class="hint">Your reg is all we need to match the claim to your car.</p>
+            <div class="field" data-req="reg">
+              <label for="reg">Vehicle registration</label>
+              <span class="plate">
+                <span class="gb"><svg class="flag" viewBox="0 0 60 30" aria-hidden="true"><use href="#i-ukflag"/></svg>UK</span>
+                <input id="reg" name="reg" placeholder="AB12 CDE" maxlength="8" autocomplete="off" autocapitalize="characters" enterkeyhint="next" spellcheck="false">
+              </span>
+              <p class="err">Please enter your registration</p>
+            </div>
+            <div class="field" data-req="drivable">
+              <span class="lbl" id="drv-l">Is your car safe to drive?</span>
+              <div class="chips" role="radiogroup" aria-labelledby="drv-l">
+                <label class="chip"><input type="radio" name="drivable" value="Yes"><span>Yes</span></label>
+                <label class="chip"><input type="radio" name="drivable" value="No"><span>No, it needs recovery</span></label>
+                <label class="chip"><input type="radio" name="drivable" value="Unsure"><span>Unsure</span></label>
+              </div>
+              <p class="err">Please choose one</p>
+            </div>
+            <div class="callout go" id="recoveryNote" hidden><svg><use href="#i-truck"/></svg><span><strong>We'll prioritise recovery.</strong> After you send this, a handler will call to arrange a pickup. If you're stuck somewhere unsafe right now, call us instead.</span></div>
+          </fieldset>
+
+          <!-- Step 2 -->
+          <fieldset class="step" data-step="2">
+            <legend class="sr">Your details</legend>
+            <h3>How can we reach you?</h3>
+            <p class="hint">A claims handler will call you, usually within the hour. If you get cut off before the end, we can still ring you back.</p>
+            <div class="row2">
+              <div class="field" data-req="first"><label for="first">First name</label><input class="input" id="first" name="first" autocomplete="given-name"><p class="err">Please enter your first name</p></div>
+              <div class="field" data-req="last"><label for="last">Last name</label><input class="input" id="last" name="last" autocomplete="family-name"><p class="err">Please enter your last name</p></div>
+            </div>
+            <div class="row2">
+              <div class="field" data-req="phone"><label for="phone">Mobile number</label><input class="input" id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="07…"><p class="err">Please enter a valid UK phone number</p></div>
+              <div class="field" data-req="email"><label for="email">Email <span class="opt">(optional)</span></label><input class="input" id="email" name="email" type="email" autocomplete="email"><p class="err">That email doesn't look right</p></div>
+            </div>
+            <div class="field">
+              <label for="insurer">Your insurer <span class="opt">(optional)</span></label>
+              <select class="input" id="insurer" name="insurer">
+                <option value="">Choose or skip…</option>
+              </select>
+            </div>
+            <div class="field" data-req="consent">
+              <label class="consent"><input type="checkbox" id="consent" name="consent"><span>I agree to be contacted about my claim and have read the <a href="#">privacy notice</a>. I understand I can also claim directly from the at-fault insurer for free.</span></label>
+              <p class="err">Please tick to continue</p>
+            </div>
+          </fieldset>
+
+          <!-- Step 3 -->
+          <fieldset class="step" data-step="3">
+            <legend class="sr">The accident</legend>
+            <h3>What happened?</h3>
+            <p class="hint">Just the basics. We'll get the full story when we call you.</p>
+            <div class="row2">
+              <div class="field" data-req="date">
+                <label for="date">Date of accident</label>
+                <div class="qdate" role="group" aria-label="Quick date">
+                  <button type="button" data-days="0">Today</button>
+                  <button type="button" data-days="1">Yesterday</button>
+                  <button type="button" data-days="earlier">Earlier</button>
+                </div>
+                <input class="input" type="date" id="date" name="date">
+                <p class="err">Please enter a valid date (not in the future)</p>
+              </div>
+              <div class="field" data-req="region">
+                <label for="region">Where in the UK?</label>
+                <select class="input" id="region" name="region">
+                  <option value="">Choose…</option>
+                  <option>England</option><option>Wales</option><option>Scotland</option><option>Northern Ireland</option>
+                </select>
+                <p class="err">Please choose a region</p>
+              </div>
+            </div>
+            <div class="field" data-req="fault">
+              <span class="lbl" id="fault-l">Who do you think was at fault?</span>
+              <div class="chips" role="radiogroup" aria-labelledby="fault-l">
+                <label class="chip"><input type="radio" name="fault" value="The other driver"><span>The other driver</span></label>
+                <label class="chip"><input type="radio" name="fault" value="Me"><span>Me</span></label>
+                <label class="chip"><input type="radio" name="fault" value="Unsure / shared"><span>Unsure or shared</span></label>
+              </div>
+              <p class="err">Please choose one</p>
+            </div>
+            <div class="callout" id="faultNote" hidden><svg><use href="#i-info"/></svg><span>If the accident was your fault, the other driver's insurer won't cover your costs. Your own insurer is usually the best place to start. You can still send this and we'll tell you honestly whether we can help.</span></div>
+            <div class="field" data-req="injured">
+              <span class="lbl" id="inj-l">Was anyone injured?</span>
+              <div class="chips" role="radiogroup" aria-labelledby="inj-l">
+                <label class="chip"><input type="radio" name="injured" value="No"><span>No</span></label>
+                <label class="chip"><input type="radio" name="injured" value="Yes"><span>Yes</span></label>
+              </div>
+              <p class="err">Please choose one</p>
+            </div>
+          </fieldset>
+
+          <!-- Step 4 -->
+          <fieldset class="step" data-step="4">
+            <legend class="sr">The damage</legend>
+            <h3>Where's the damage?</h3>
+            <p class="hint">Tap each part of the car that was hit. This helps us send the right recovery and get repairs started faster.</p>
+            <div class="damage">
+              <svg class="car-map" viewBox="0 0 160 300" role="group" aria-label="Top-down car diagram. Select damaged areas.">
+                <rect class="wheel" x="10" y="52" width="14" height="40" rx="5"/><rect class="wheel" x="136" y="52" width="14" height="40" rx="5"/>
+                <rect class="wheel" x="10" y="204" width="14" height="40" rx="5"/><rect class="wheel" x="136" y="204" width="14" height="40" rx="5"/>
+                <path class="zone" data-zone="Front" tabindex="0" role="button" aria-pressed="false" aria-label="Front" d="M30 40 Q30 10 80 8 Q130 10 130 40 L130 62 L30 62 Z"/>
+                <path class="zone" data-zone="Front left" tabindex="0" role="button" aria-pressed="false" aria-label="Front left" d="M20 62 L80 62 L80 140 L20 140 Z"/>
+                <path class="zone" data-zone="Front right" tabindex="0" role="button" aria-pressed="false" aria-label="Front right" d="M80 62 L140 62 L140 140 L80 140 Z"/>
+                <path class="zone" data-zone="Rear left" tabindex="0" role="button" aria-pressed="false" aria-label="Rear left" d="M20 140 L80 140 L80 238 L20 238 Z"/>
+                <path class="zone" data-zone="Rear right" tabindex="0" role="button" aria-pressed="false" aria-label="Rear right" d="M80 140 L140 140 L140 238 L80 238 Z"/>
+                <path class="zone" data-zone="Rear" tabindex="0" role="button" aria-pressed="false" aria-label="Rear" d="M30 238 L130 238 L130 262 Q130 292 80 292 Q30 292 30 262 Z"/>
+                <path class="glass" d="M38 74 Q80 62 122 74 L116 104 Q80 98 44 104 Z"/>
+                <path class="glass" d="M44 200 Q80 206 116 200 L120 224 Q80 234 40 224 Z"/>
+                <rect class="glass" x="46" y="112" width="68" height="80" rx="8" opacity=".35"/>
+              </svg>
+              <div>
+                <p class="lbl" style="font-weight:700;margin-bottom:10px">Selected areas</p>
+                <div class="dmg-list" id="dmgList" aria-live="polite"><span class="none">Nothing selected yet. Tap the car.</span></div>
+                <div class="field" style="margin-top:22px">
+                  <label for="notes">Anything else? <span class="opt">(optional)</span></label>
+                  <textarea class="input" id="notes" name="notes" rows="3" placeholder="e.g. hit from behind at a roundabout, other driver gave me their details"></textarea>
+                </div>
+                <div class="photos">
+                  <p class="lbl" style="font-weight:700;margin-bottom:10px">Photos of the damage <span class="opt">(optional)</span></p>
+                  <label class="photo-add">
+                    <input type="file" id="photos" accept="image/*" multiple aria-describedby="photoMsg">
+                    <span class="pi" aria-hidden="true"><svg><use href="#i-camera"/></svg></span>
+                    <span><b>Snap the damage now</b><small>Or choose from your gallery. Up to 6 photos.</small></span>
+                  </label>
+                  <ul class="photo-tips" aria-label="Photo tips">
+                    <li>Get their number plate in shot</li><li>One close-up, one from further back</li><li>Both cars if you can</li>
+                  </ul>
+                  <div class="thumbs" id="thumbs"></div>
+                  <p class="photo-msg" id="photoMsg" aria-live="polite"></p>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Step 5 -->
+          <fieldset class="step" data-step="5">
+            <legend class="sr">Check and send</legend>
+            <h3>All looks good?</h3>
+            <p class="hint">Check your answers, then send. You can change anything before you do.</p>
+            <dl class="review" id="review"></dl>
+            <div class="callout" id="sendErr" role="alert" hidden><svg><use href="#i-info"/></svg><span>We couldn't send your claim just now. Please try again, or call us on <a href="tel:+448081570420">0808 157 0420</a>.</span></div>
+            <div class="callout go"><svg><use href="#i-shield"/></svg><span>Sending this doesn't commit you to anything. A handler will explain your options and next steps before anything goes ahead.</span></div>
+          </fieldset>
+        </div>
+
+        <div class="wz-nav" id="wzNav">
+          <button type="button" class="back" id="backBtn" hidden><svg width="18" height="18"><use href="#i-back"/></svg>Back</button>
+          <span class="secure"><svg width="14" height="14"><use href="#i-lock"/></svg>Encrypted and never shared for marketing</span>
+          <button type="submit" class="btn btn-amber" id="nextBtn">Continue <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        </div>
+      </form>
+
+      <div class="success" id="success" role="status" tabindex="-1">
+        <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+        <h3>Sorted, <span id="sName"></span>. We've got your claim.</h3>
+        <p style="color:var(--muted)">Keep this reference handy:</p>
+        <div class="ref-wrap"><div class="ref-box" id="sRef"></div><div class="s-stamp" aria-hidden="true"><b>Sorted</b><small>Claim received</small></div></div>
+        <ol class="next">
+          <li><b>1</b><span>A claims handler will call <strong id="sPhone"></strong>, usually within the hour.</span></li>
+          <li><b>2</b><span>Have the other driver's details and your photos ready if you have them.</span></li>
+          <li><b>3</b><span>Don't arrange repairs or speak to the other insurer until we've spoken.</span></li>
+        </ol>
+        <div class="after">
+          <a class="btn btn-ink" href="tel:+448081570420"><svg><use href="#i-phone"/></svg>Can't wait? Call us now</a>
+          <a class="btn btn-ghost" id="sendPhotos" href="https://wa.me/447700900420" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Send photos on WhatsApp</a>
+          <a class="save-contact" id="saveContact" download="Report-a-Claim.vcf" href="#">Save our number to your contacts</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- SERVICES -->
 <section id="services" style="padding-top:0" aria-labelledby="svc-title">
   <div class="wrap">
@@ -1120,208 +1328,6 @@ footer ul a{display:inline-block;padding:6px 0}
   </div>
 </section>
 
-<!-- CLAIM WIZARD -->
-<section class="claim-sec" id="claim" aria-labelledby="claim-title">
-  <div class="wrap claim-grid">
-    <div class="claim-side">
-      <h2 id="claim-title">Five quick questions. Then leave it to us.</h2>
-      <p class="lede">No account, no paperwork. Not sure of an answer? Choose "Unsure" and we'll go through it with you on the phone.</p>
-      <ol class="side-steps" id="sideSteps">
-        <li class="active"><span class="n">1</span>Your vehicle</li>
-        <li><span class="n">2</span>The accident</li>
-        <li><span class="n">3</span>The damage</li>
-        <li><span class="n">4</span>Your details</li>
-        <li><span class="n">5</span>Check &amp; send</li>
-      </ol>
-      <div class="side-help">Rather speak to someone?<a href="tel:+448081570420">0808 157 0420</a><span style="color:var(--muted);font-size:.88rem">Open 24 hours, 7 days a week</span></div>
-    </div>
-
-    <div class="wizard" id="wizard">
-      <div class="wz-top">
-        <span class="count" id="wzCount" aria-live="polite">Step 1 of 5</span>
-        <span class="timer"><svg width="16" height="16"><use href="#i-clock"/></svg><span id="wzTime">About 90 seconds left</span></span>
-      </div>
-      <div class="wz-bar"><span id="wzBar"></span><svg class="wz-car" aria-hidden="true"><use href="#i-cartop"/></svg><span class="wz-flag" aria-hidden="true"></span></div>
-      <p class="restored" id="restored" role="status"><span>We saved your answers from last time.</span><button type="button" id="startOver">Start over</button></p>
-
-      <form id="claimForm" novalidate>
-        <div class="wz-body">
-          <!-- Step 1 -->
-          <fieldset class="step active" data-step="1">
-            <legend class="sr">Your vehicle</legend>
-            <h3>Let's start with your car.</h3>
-            <p class="hint">Your reg is all we need to match the claim to your car.</p>
-            <div class="field" data-req="reg">
-              <label for="reg">Vehicle registration</label>
-              <span class="plate">
-                <span class="gb"><svg class="flag" viewBox="0 0 60 30" aria-hidden="true"><use href="#i-ukflag"/></svg>UK</span>
-                <input id="reg" name="reg" placeholder="AB12 CDE" maxlength="8" autocomplete="off" autocapitalize="characters" enterkeyhint="next" spellcheck="false">
-              </span>
-              <p class="err">Please enter your registration</p>
-            </div>
-            <div class="field" data-req="drivable">
-              <span class="lbl" id="drv-l">Is your car safe to drive?</span>
-              <div class="chips" role="radiogroup" aria-labelledby="drv-l">
-                <label class="chip"><input type="radio" name="drivable" value="Yes"><span>Yes</span></label>
-                <label class="chip"><input type="radio" name="drivable" value="No"><span>No, it needs recovery</span></label>
-                <label class="chip"><input type="radio" name="drivable" value="Unsure"><span>Unsure</span></label>
-              </div>
-              <p class="err">Please choose one</p>
-            </div>
-            <div class="callout go" id="recoveryNote" hidden><svg><use href="#i-truck"/></svg><span><strong>We'll prioritise recovery.</strong> After you send this, a handler will call to arrange a pickup. If you're stuck somewhere unsafe right now, call us instead.</span></div>
-          </fieldset>
-
-          <!-- Step 2 -->
-          <fieldset class="step" data-step="2">
-            <legend class="sr">The accident</legend>
-            <h3>What happened?</h3>
-            <p class="hint">Just the basics. We'll get the full story when we call you.</p>
-            <div class="row2">
-              <div class="field" data-req="date">
-                <label for="date">Date of accident</label>
-                <div class="qdate" role="group" aria-label="Quick date">
-                  <button type="button" data-days="0">Today</button>
-                  <button type="button" data-days="1">Yesterday</button>
-                  <button type="button" data-days="earlier">Earlier</button>
-                </div>
-                <input class="input" type="date" id="date" name="date">
-                <p class="err">Please enter a valid date (not in the future)</p>
-              </div>
-              <div class="field" data-req="region">
-                <label for="region">Where in the UK?</label>
-                <select class="input" id="region" name="region">
-                  <option value="">Choose…</option>
-                  <option>England</option><option>Wales</option><option>Scotland</option><option>Northern Ireland</option>
-                </select>
-                <p class="err">Please choose a region</p>
-              </div>
-            </div>
-            <div class="field" data-req="fault">
-              <span class="lbl" id="fault-l">Who do you think was at fault?</span>
-              <div class="chips" role="radiogroup" aria-labelledby="fault-l">
-                <label class="chip"><input type="radio" name="fault" value="The other driver"><span>The other driver</span></label>
-                <label class="chip"><input type="radio" name="fault" value="Me"><span>Me</span></label>
-                <label class="chip"><input type="radio" name="fault" value="Unsure / shared"><span>Unsure or shared</span></label>
-              </div>
-              <p class="err">Please choose one</p>
-            </div>
-            <div class="callout" id="faultNote" hidden><svg><use href="#i-info"/></svg><span>If the accident was your fault, the other driver's insurer won't cover your costs. Your own insurer is usually the best place to start. You can still send this and we'll tell you honestly whether we can help.</span></div>
-            <div class="field" data-req="injured">
-              <span class="lbl" id="inj-l">Was anyone injured?</span>
-              <div class="chips" role="radiogroup" aria-labelledby="inj-l">
-                <label class="chip"><input type="radio" name="injured" value="No"><span>No</span></label>
-                <label class="chip"><input type="radio" name="injured" value="Yes"><span>Yes</span></label>
-              </div>
-              <p class="err">Please choose one</p>
-            </div>
-          </fieldset>
-
-          <!-- Step 3 -->
-          <fieldset class="step" data-step="3">
-            <legend class="sr">The damage</legend>
-            <h3>Where's the damage?</h3>
-            <p class="hint">Tap each part of the car that was hit. This helps us send the right recovery and get repairs started faster.</p>
-            <div class="damage">
-              <svg class="car-map" viewBox="0 0 160 300" role="group" aria-label="Top-down car diagram. Select damaged areas.">
-                <rect class="wheel" x="10" y="52" width="14" height="40" rx="5"/><rect class="wheel" x="136" y="52" width="14" height="40" rx="5"/>
-                <rect class="wheel" x="10" y="204" width="14" height="40" rx="5"/><rect class="wheel" x="136" y="204" width="14" height="40" rx="5"/>
-                <path class="zone" data-zone="Front" tabindex="0" role="button" aria-pressed="false" aria-label="Front" d="M30 40 Q30 10 80 8 Q130 10 130 40 L130 62 L30 62 Z"/>
-                <path class="zone" data-zone="Front left" tabindex="0" role="button" aria-pressed="false" aria-label="Front left" d="M20 62 L80 62 L80 140 L20 140 Z"/>
-                <path class="zone" data-zone="Front right" tabindex="0" role="button" aria-pressed="false" aria-label="Front right" d="M80 62 L140 62 L140 140 L80 140 Z"/>
-                <path class="zone" data-zone="Rear left" tabindex="0" role="button" aria-pressed="false" aria-label="Rear left" d="M20 140 L80 140 L80 238 L20 238 Z"/>
-                <path class="zone" data-zone="Rear right" tabindex="0" role="button" aria-pressed="false" aria-label="Rear right" d="M80 140 L140 140 L140 238 L80 238 Z"/>
-                <path class="zone" data-zone="Rear" tabindex="0" role="button" aria-pressed="false" aria-label="Rear" d="M30 238 L130 238 L130 262 Q130 292 80 292 Q30 292 30 262 Z"/>
-                <path class="glass" d="M38 74 Q80 62 122 74 L116 104 Q80 98 44 104 Z"/>
-                <path class="glass" d="M44 200 Q80 206 116 200 L120 224 Q80 234 40 224 Z"/>
-                <rect class="glass" x="46" y="112" width="68" height="80" rx="8" opacity=".35"/>
-              </svg>
-              <div>
-                <p class="lbl" style="font-weight:700;margin-bottom:10px">Selected areas</p>
-                <div class="dmg-list" id="dmgList" aria-live="polite"><span class="none">Nothing selected yet. Tap the car.</span></div>
-                <div class="field" style="margin-top:22px">
-                  <label for="notes">Anything else? <span class="opt">(optional)</span></label>
-                  <textarea class="input" id="notes" name="notes" rows="3" placeholder="e.g. hit from behind at a roundabout, other driver gave me their details"></textarea>
-                </div>
-                <div class="photos">
-                  <p class="lbl" style="font-weight:700;margin-bottom:10px">Photos of the damage <span class="opt">(optional)</span></p>
-                  <label class="photo-add">
-                    <input type="file" id="photos" accept="image/*" multiple aria-describedby="photoMsg">
-                    <span class="pi" aria-hidden="true"><svg><use href="#i-camera"/></svg></span>
-                    <span><b>Snap the damage now</b><small>Or choose from your gallery. Up to 6 photos.</small></span>
-                  </label>
-                  <ul class="photo-tips" aria-label="Photo tips">
-                    <li>Get their number plate in shot</li><li>One close-up, one from further back</li><li>Both cars if you can</li>
-                  </ul>
-                  <div class="thumbs" id="thumbs"></div>
-                  <p class="photo-msg" id="photoMsg" aria-live="polite"></p>
-                </div>
-              </div>
-            </div>
-          </fieldset>
-
-          <!-- Step 4 -->
-          <fieldset class="step" data-step="4">
-            <legend class="sr">Your details</legend>
-            <h3>How can we reach you?</h3>
-            <p class="hint">A claims handler will call you, usually within the hour.</p>
-            <div class="row2">
-              <div class="field" data-req="first"><label for="first">First name</label><input class="input" id="first" name="first" autocomplete="given-name"><p class="err">Please enter your first name</p></div>
-              <div class="field" data-req="last"><label for="last">Last name</label><input class="input" id="last" name="last" autocomplete="family-name"><p class="err">Please enter your last name</p></div>
-            </div>
-            <div class="row2">
-              <div class="field" data-req="phone"><label for="phone">Mobile number</label><input class="input" id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="07…"><p class="err">Please enter a valid UK phone number</p></div>
-              <div class="field" data-req="email"><label for="email">Email <span class="opt">(optional)</span></label><input class="input" id="email" name="email" type="email" autocomplete="email"><p class="err">That email doesn't look right</p></div>
-            </div>
-            <div class="field">
-              <label for="insurer">Your insurer <span class="opt">(optional)</span></label>
-              <select class="input" id="insurer" name="insurer">
-                <option value="">Choose or skip…</option>
-              </select>
-            </div>
-            <div class="field" data-req="consent">
-              <label class="consent"><input type="checkbox" id="consent" name="consent"><span>I agree to be contacted about my claim and have read the <a href="#">privacy notice</a>. I understand I can also claim directly from the at-fault insurer for free.</span></label>
-              <p class="err">Please tick to continue</p>
-            </div>
-          </fieldset>
-
-          <!-- Step 5 -->
-          <fieldset class="step" data-step="5">
-            <legend class="sr">Check and send</legend>
-            <h3>All looks good?</h3>
-            <p class="hint">Check your answers, then send. You can change anything before you do.</p>
-            <dl class="review" id="review"></dl>
-            <div class="callout" id="sendErr" role="alert" hidden><svg><use href="#i-info"/></svg><span>We couldn't send your claim just now. Please try again, or call us on <a href="tel:+448081570420">0808 157 0420</a>.</span></div>
-            <div class="callout go"><svg><use href="#i-shield"/></svg><span>Sending this doesn't commit you to anything. A handler will explain your options and next steps before anything goes ahead.</span></div>
-          </fieldset>
-        </div>
-
-        <div class="wz-nav" id="wzNav">
-          <button type="button" class="back" id="backBtn" hidden><svg width="18" height="18"><use href="#i-back"/></svg>Back</button>
-          <span class="secure"><svg width="14" height="14"><use href="#i-lock"/></svg>Encrypted and never shared for marketing</span>
-          <button type="submit" class="btn btn-amber" id="nextBtn">Continue <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
-        </div>
-      </form>
-
-      <div class="success" id="success" role="status" tabindex="-1">
-        <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-        <h3>Sorted, <span id="sName"></span>. We've got your claim.</h3>
-        <p style="color:var(--muted)">Keep this reference handy:</p>
-        <div class="ref-wrap"><div class="ref-box" id="sRef"></div><div class="s-stamp" aria-hidden="true"><b>Sorted</b><small>Claim received</small></div></div>
-        <ol class="next">
-          <li><b>1</b><span>A claims handler will call <strong id="sPhone"></strong>, usually within the hour.</span></li>
-          <li><b>2</b><span>Have the other driver's details and your photos ready if you have them.</span></li>
-          <li><b>3</b><span>Don't arrange repairs or speak to the other insurer until we've spoken.</span></li>
-        </ol>
-        <div class="after">
-          <a class="btn btn-ink" href="tel:+448081570420"><svg><use href="#i-phone"/></svg>Can't wait? Call us now</a>
-          <a class="btn btn-ghost" id="sendPhotos" href="https://wa.me/447700900420" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Send photos on WhatsApp</a>
-          <a class="save-contact" id="saveContact" download="Report-a-Claim.vcf" href="#">Save our number to your contacts</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- INSURERS -->
 <div class="insurers" aria-label="Insurers we deal with">
   <p>We deal with every major UK insurer, including</p>
@@ -1362,7 +1368,7 @@ footer ul a{display:inline-block;padding:6px 0}
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <a href="#" class="logo" aria-label="Report a Claim home"><svg class="logo-mark" aria-hidden="true"><use href="#logo-mark"/></svg><span class="logo-text"><span class="logo-word">reportaclaim<span>.co.uk</span></span><span class="tagline"><b>Hit.</b> <b>Report.</b> <b>Sorted.</b></span></span></a>
+        <a href="./" class="logo" aria-label="Report a Claim home"><svg class="logo-mark" aria-hidden="true"><use href="#logo-mark"/></svg><span class="logo-text"><span class="logo-word">reportaclaim<span>.co.uk</span></span><span class="tagline"><b>Hit.</b> <b>Report.</b> <b>Sorted.</b></span></span></a>
         <p style="max-width:36ch">Recovery, replacement vehicles and repairs after non-fault accidents. You report it, we get it sorted.</p>
         <button type="button" class="fx-toggle" id="fxToggle" aria-pressed="false"><svg aria-hidden="true"><use href="#i-sound"/></svg>Sound &amp; vibration: <b>Off</b></button>
       </div>
@@ -1885,16 +1891,16 @@ footer ul a{display:inline-block;padding:6px 0}
     const rows = [
       ['Registration', val('reg') || '—', 1],
       ['Safe to drive', radio('drivable'), 1],
-      ['Date', val('date') ? new Date(val('date')).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '—', 2],
-      ['Where', val('region'), 2],
-      ['At fault', radio('fault'), 2],
-      ['Injuries', radio('injured'), 2],
-      ['Damage', selected.size ? [...selected].join(', ') : 'Not specified', 3],
-      ['Photos', photos.length ? `${photos.length} added` : 'None yet', 3],
-      ['Name', `${val('first')} ${val('last')}`, 4],
-      ['Phone', val('phone'), 4],
+      ['Name', `${val('first')} ${val('last')}`, 2],
+      ['Phone', val('phone'), 2],
+      ['Date', val('date') ? new Date(val('date')).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '—', 3],
+      ['Where', val('region'), 3],
+      ['At fault', radio('fault'), 3],
+      ['Injuries', radio('injured'), 3],
+      ['Damage', selected.size ? [...selected].join(', ') : 'Not specified', 4],
+      ['Photos', photos.length ? `${photos.length} added` : 'None yet', 4],
     ];
-    if (val('insurer')) rows.push(['Insurer', val('insurer'), 4]);
+    if (val('insurer')) rows.splice(4, 0, ['Insurer', val('insurer'), 2]);
     const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
     $('#review').innerHTML = rows.map(([k, v, s]) => `<div><dt>${k}</dt><dd>${esc(v)}<button type="button" data-go="${s}" aria-label="Edit ${k}">Edit</button></dd></div>`).join('');
   }
@@ -1926,12 +1932,28 @@ footer ul a{display:inline-block;padding:6px 0}
   form.addEventListener('submit', e => {
     e.preventDefault();
     if (!validate(cur)) return;
+    if (cur === CONTACT_STEP) sendLead();
     if (cur < total) return go(cur + 1);
     submitClaim();
   });
 
   // TODO: set to the real claims CRM / form endpoint (e.g. a Formspree URL or '/api/claims'). Empty = demo mode.
   const CLAIMS_ENDPOINT = '';
+  // TODO: set to an endpoint that logs partial claims for a call back. Empty = skipped.
+  const LEAD_ENDPOINT = '';
+  const CONTACT_STEP = 2;
+
+  // Once we have a name, number and consent, record the lead so a handler can call if they drop off
+  let leadSent = false;
+  function sendLead() {
+    if (leadSent) return;
+    leadSent = true;
+    const lead = { reg: val('reg'), drivable: radio('drivable'), firstName: val('first'), lastName: val('last'), phone: val('phone'), email: val('email'), insurer: val('insurer'), capturedAt: new Date().toISOString() };
+    track('lead_captured', { drivable: lead.drivable });
+    if (!LEAD_ENDPOINT) { console.info('Lead', lead); return; }
+    fetch(LEAD_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(lead), keepalive: true })
+      .catch(err => { console.error('Lead capture failed', err); leadSent = false; });
+  }
 
   async function submitClaim() {
     const btn = $('#nextBtn');
