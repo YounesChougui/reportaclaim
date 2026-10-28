@@ -281,7 +281,7 @@ section{padding:112px 0}
 
 /* How it works: a route the car drives as you scroll */
 #how{background:var(--soft);border-radius:40px;margin:0 16px}
-#how+.claim-sec{margin-top:16px}
+#how+.claim-sec,.reviews+.claim-sec{margin-top:16px}
 .route{position:relative;--p:0}
 .route-line{position:absolute;left:0;right:0;top:22px;height:4px;border-radius:4px;background:repeating-linear-gradient(90deg,#C3C9D4 0 18px,transparent 18px 30px)}
 .route-fill{position:absolute;left:0;top:0;bottom:0;width:calc(var(--p)*100%);background:var(--blue);border-radius:4px}
@@ -542,6 +542,29 @@ footer .logo{margin-bottom:16px}
   .sheet .grab{display:none}
   .dock{right:22px;bottom:22px}
   .dock-dash{width:96px;height:80px}
+}
+
+/* Reviews. TODO: the sample reviews are placeholders for testing; replace with genuine reviews before launch */
+.reviews{padding:80px 0}
+.rv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;list-style:none}
+.rv-card{display:flex;flex-direction:column;gap:14px;background:var(--soft);border-radius:24px;padding:26px}
+.stars{display:flex;gap:2px;color:#F5B400}
+.stars svg{width:18px;height:18px}
+.rv-card blockquote{font-size:1.02rem;color:var(--ink-2)}
+.rv-who{display:flex;align-items:center;gap:12px;margin-top:auto;font-size:.9rem;color:var(--muted)}
+.rv-who i{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:.8rem;color:#fff;background:var(--blue)}
+.rv-who b{display:block;color:var(--ink);font-weight:600}
+.sample{align-self:flex-start;font-size:.72rem;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:6px;background:#FFF7D6;color:#7A5B00}
+[data-theme=dark] .sample{background:#352C0C;color:#F5D46B}
+.hero-quote{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:30px;font-size:.92rem;color:var(--ink-2)}
+.hero-quote .stars svg{width:16px;height:16px}
+@media (max-width:1000px){.rv-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:680px){
+  .reviews{padding:56px 0}
+  /* Swipe through the reviews instead of stacking them */
+  .rv-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px 6px;scrollbar-width:none}
+  .rv-grid::-webkit-scrollbar{display:none}
+  .rv-card{flex:0 0 84%;scroll-snap-align:center}
 }
 
 /* Trust row + wait time */
@@ -851,6 +874,7 @@ footer ul a{display:inline-block;padding:6px 0}
   <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/><path d="M9 11h6M12 8v6"/></symbol>
   <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></symbol>
   <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
   <symbol id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></symbol>
@@ -955,6 +979,8 @@ footer ul a{display:inline-block;padding:6px 0}
           <div class="stamp" aria-label="Sorted. No-claims bonus protected"><b>Sorted</b><small>No-claims bonus<br>protected</small></div>
         </div>
       </div>
+      <!-- TODO: sample review for testing; replace with a genuine one before launch -->
+      <p class="hero-quote" data-sample><span class="stars" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg></span><span>"Car collected the same afternoon and a replacement on my drive the next morning."</span><span class="sample">Sample review</span></p>
       <div class="trust">
         <span><svg aria-hidden="true"><use href="#i-shield"/></svg>FCA regulated, FRN 921134</span>
         <span><svg aria-hidden="true"><use href="#i-pin"/></svg>UK-based claims team</span>
@@ -1047,6 +1073,36 @@ footer ul a{display:inline-block;padding:6px 0}
       </ol>
       <p class="d1-note">Typical timings for eligible non-fault claims. Times can vary.</p>
     </div>
+  </div>
+</section>
+
+<!-- REVIEWS. TODO: sample reviews for testing; replace with genuine reviews before launch -->
+<section class="reviews" aria-labelledby="rv-title" data-sample>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><h2 id="rv-title">Drivers we've sorted.</h2></div>
+      <p class="lede">What people say after their car is back on the drive.</p>
+    </div>
+    <ul class="rv-grid rv">
+      <li class="rv-card">
+        <span class="stars" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg></span>
+        <blockquote>"I rang from the roadside still shaking. They had a recovery truck with me inside the hour and a replacement car the next morning. Paid nothing."</blockquote>
+        <span class="rv-who"><i aria-hidden="true">JM</i><span><b>James M.</b>Leeds · rear-ended at lights</span></span>
+        <span class="sample">Sample review</span>
+      </li>
+      <li class="rv-card">
+        <span class="stars" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg></span>
+        <blockquote>"Came back to a smashed wing mirror and a note. Filled in the form on my phone in a couple of minutes and they dealt with the other insurer for me."</blockquote>
+        <span class="rv-who"><i aria-hidden="true">PK</i><span><b>Priya K.</b>Birmingham · hit while parked</span></span>
+        <span class="sample">Sample review</span>
+      </li>
+      <li class="rv-card">
+        <span class="stars" role="img" aria-label="5 out of 5 stars"><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg></span>
+        <blockquote>"I need my van for work, so a small hatchback was no use. They got me a like-for-like van the same day and kept me updated by text throughout."</blockquote>
+        <span class="rv-who"><i aria-hidden="true">DO</i><span><b>Dan O.</b>Glasgow · van driver</span></span>
+        <span class="sample">Sample review</span>
+      </li>
+    </ul>
   </div>
 </section>
 
