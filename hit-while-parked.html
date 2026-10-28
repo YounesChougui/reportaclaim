@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hit while parked | Report a Claim</title>
+<meta name="description" content="Came back to find your parked car damaged? What to do, what evidence helps and how a non-fault claim works.">
+<link rel="canonical" href="https://report-a-claim.vercel.app/hit-while-parked.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%232350FF'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500..700&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="guide.css">
+<script>
+(() => {
+  let t = null;
+  try { t = localStorage.getItem('rac-theme'); } catch (e) {}
+  if (t !== 'dark' && t !== 'light') {
+    const p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', month: 'numeric', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(new Date());
+    const g = k => +p.find(x => x.type === k).value;
+    const h = g('hour') + g('minute') / 60, m = g('month') - 1;
+    const rise = [8, 7.5, 6.5, 6.3, 5.3, 4.75, 5, 5.8, 6.7, 7.5, 7.2, 7.9];
+    const set = [16.3, 17.2, 18, 19.8, 20.7, 21.25, 21.15, 20.3, 19.25, 18.15, 16.3, 15.9];
+    t = h < rise[m] || h >= set[m] ? 'dark' : 'light';
+  }
+  document.documentElement.dataset.theme = t;
+})();
+</script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="logo" href="./"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#2350FF"/><path d="M9.5 21.5l7 7L31 12" fill="none" stroke="#fff" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 21.5l7 7L31 12" fill="none" stroke="#FFD60A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2.6 2.9"/></svg><span>reportaclaim<span>.co.uk</span></span></a>
+  <!-- TODO: replace with the real claims line -->
+  <a class="call" href="tel:+448081570420">Call 0808 157 0420</a>
+</div></header>
+<main class="wrap">
+  <p class="crumbs"><a href="./">Home</a> / Guides / Hit while parked</p>
+  <h1>Hit while parked? You can still claim.</h1>
+  <p class="lede">If another driver hit your car while it was parked and they can be identified, it's a non-fault claim. You shouldn't have to pay your excess or lose your no-claims bonus.</p>
+  <h2>What to do right now</h2>
+  <ol class="steps">
+    <li><strong>Check for a note.</strong> A driver who damages a parked car must stop and leave their details, or report it to the police.</li>
+    <li><strong>Photograph everything.</strong> The damage close up and from further back, where the car was parked, and any paint transfer or debris.</li>
+    <li><strong>Look for cameras and witnesses.</strong> Ask nearby homes, shops and car parks about CCTV or doorbell cameras. Footage is often deleted within days, so ask quickly.</li>
+    <li><strong>Report it to the police if there's no note.</strong> Get a reference number. It helps if the driver is traced later.</li>
+    <li><strong>Tell us.</strong> We'll go through the evidence with you and explain your options.</li>
+  </ol>
+  <div class="box">
+    <h3>No note and no witnesses?</h3>
+    <p style="margin:10px 0 0">If the driver can't be identified, the claim works differently. Read our <a href="hit-and-run.html">hit and run guide</a> before you do anything else.</p>
+  </div>
+  <h2>What we can sort out</h2>
+  <ul class="ticks">
+    <li>Recovery, if the car isn't safe to drive</li>
+    <li>A like-for-like replacement while yours is off the road</li>
+    <li>Repairs at an approved bodyshop</li>
+    <li>Dealing with the at-fault driver's insurer for you</li>
+  </ul>
+  <p style="color:var(--muted);font-size:.9rem">Subject to eligibility and the other driver being identified and found at fault.</p>
+  <div class="cta">
+    <h2>Tell us what happened.</h2>
+    <p>It takes about 90 seconds online, or call us free, 24/7. A handler will tell you honestly whether we can help.</p>
+    <div class="btns"><a class="btn btn-w" href="./#claim">Report online</a><a class="btn btn-g" href="tel:+448081570420">Call 0808 157 0420</a></div>
+  </div>
+  <h2>Other guides</h2>
+  <nav class="more" aria-label="Other guides"><a href="hit-and-run.html">Hit and run</a><a href="motorbike-accident.html">Motorbike accidents</a><a href="taxi-and-van-drivers.html">Taxi and van drivers</a></nav>
+</main>
+<footer><div class="wrap">
+<p><strong>reportaclaim.co.uk</strong> is a trading style of Stocalfe Response Ltd, a company registered in England and Wales with No. 12372014. Stocalfe Response Ltd is authorised and regulated by the Financial Conduct Authority in respect of regulated claims management activities under Firm Registration No. 921134.</p>
+<p>You don't have to use a claims management company to make a claim. You can claim directly from the at-fault party's insurer, or through your own insurer, free of charge. This guide is general information, not legal advice.</p>
+</div></footer>
+</body>
+</html>

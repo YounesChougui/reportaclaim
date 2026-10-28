@@ -1,0 +1,2050 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Report a Claim | Hit. Report. Sorted.</title>
+<meta name="description" content="Hit by another driver? Report it in 90 seconds and we'll get it sorted: recovery, a like-for-like replacement car and repairs, with no excess on eligible claims.">
+<meta name="theme-color" content="#FFFFFF">
+<!-- TODO: switch canonical and og:url to https://reportaclaim.co.uk/ once the domain points here -->
+<link rel="canonical" href="https://report-a-claim.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Report a Claim">
+<meta property="og:url" content="https://report-a-claim.vercel.app/">
+<meta property="og:title" content="Hit by another driver? Report it. We'll get it sorted.">
+<meta property="og:description" content="Report a non-fault accident in 90 seconds. Recovery, a like-for-like replacement car and repairs, with no excess on eligible claims.">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Report a Claim","legalName":"Stocalfe Response Ltd","url":"https://report-a-claim.vercel.app/","telephone":"+448081570420","areaServed":"GB","slogan":"Hit. Report. Sorted.","contactPoint":{"@type":"ContactPoint","telephone":"+448081570420","contactType":"claims","areaServed":"GB","availableLanguage":"en-GB","hoursAvailable":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"}}}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%232350FF'/%3E%3Cpath d='M9.5 21.5l7 7L31 12' fill='none' stroke='%23fff' stroke-width='7.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M9.5 21.5l7 7L31 12' fill='none' stroke='%23FFD60A' stroke-width='1.6' stroke-linecap='round' stroke-dasharray='2.6 2.9'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500..700&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E1220; --ink-2:#2B3245; --muted:#5D6578;
+  --bg:#FFFFFF; --soft:#F4F6F9; --soft-2:#EBEEF3; --line:#E3E7EE;
+  --blue:#2350FF; --blue-h:#1A3FE0; --blue-soft:#E8EDFF; --blue-ink:#0B1A4A;
+  --plate:#FFD60A; --plate-d:#E0B800;
+  --go:#12B76A; --stop:#F04438;
+  --display:"Inter Tight",ui-sans-serif,system-ui,sans-serif;
+  --body:"Inter",ui-sans-serif,system-ui,sans-serif;
+  --max:1240px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);font-size:17px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;font-feature-settings:"cv11","ss01"}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.02;letter-spacing:-.04em}
+h2{font-size:clamp(2.1rem,4.6vw,3.6rem)}
+h3{font-size:1.25rem;letter-spacing:-.02em;line-height:1.2}
+.lede{font-size:1.125rem;color:var(--muted);max-width:50ch}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;border:0;font-weight:600;font-size:1rem;text-decoration:none;cursor:pointer;transition:background .2s var(--ease),transform .2s var(--ease),box-shadow .2s var(--ease)}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+.btn svg{width:20px;height:20px;transition:transform .2s var(--ease)}
+.btn:hover svg{transform:translateX(3px)}
+.btn-amber,.btn-ink{background:var(--blue);color:#fff;box-shadow:0 10px 24px -10px rgba(35,80,255,.7)}
+.btn-amber:hover,.btn-ink:hover{background:var(--blue-h)}
+.btn-ghost{background:var(--soft);color:var(--ink)}
+.btn-ghost:hover{background:var(--soft-2)}
+
+/* Header + scroll progress */
+.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:saturate(1.6) blur(16px);-webkit-backdrop-filter:saturate(1.6) blur(16px);transition:box-shadow .2s}
+.top.scrolled{box-shadow:0 1px 0 var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+.logo{display:flex;align-items:center;text-decoration:none}
+.logo{gap:10px;color:var(--ink)}
+.logo-mark{width:38px;height:38px;flex:none;transition:transform .4s var(--ease)}
+.logo:hover .logo-mark{transform:rotate(-8deg)}
+.logo-word{font-family:var(--display);font-weight:700;font-size:1.22rem;letter-spacing:-.045em;line-height:1}
+.logo-word span{font-weight:500;color:var(--muted)}
+.logo-text{display:flex;flex-direction:column;gap:3px}
+.tagline{display:flex;gap:5px;font-family:var(--display);font-size:.74rem;font-weight:700;letter-spacing:-.01em;line-height:1}
+.tagline b{font-weight:700;animation:word .5s var(--ease) both}
+.tagline b:nth-child(1){color:var(--stop);animation-delay:.5s}
+.tagline b:nth-child(2){color:var(--blue);animation-delay:.8s}
+.tagline b:nth-child(3){color:var(--go);animation-delay:1.1s}
+@keyframes word{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+nav.main{display:flex;gap:6px;font-weight:500;font-size:.95rem}
+nav.main a{text-decoration:none;color:var(--ink-2);padding:8px 14px;border-radius:999px;transition:background .2s}
+nav.main a:hover{background:var(--soft)}
+.top-cta{display:flex;align-items:center;gap:18px}
+.phone-link{display:flex;flex-direction:column;align-items:flex-end;text-decoration:none;line-height:1.15}
+.phone-link small{font-size:.75rem;color:var(--muted);display:flex;align-items:center;gap:6px}
+.phone-link strong{font-family:var(--display);font-weight:600;font-size:1.1rem;letter-spacing:-.01em}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--go);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(18,183,106,.55)}70%,100%{box-shadow:0 0 0 8px rgba(18,183,106,0)}}
+.progress{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:transparent}
+.progress span{position:absolute;left:0;top:0;bottom:0;width:calc(var(--sp,0)*100%);background:var(--blue)}
+.progress svg{position:absolute;top:-8px;left:calc(var(--sp,0)*100%);width:30px;height:15px;margin-left:-28px;color:var(--blue);opacity:var(--spv,0);transition:opacity .3s}
+
+/* Hero */
+.hero{position:relative;padding:72px 0 64px}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 1px 1px,#D5DAE3 1px,transparent 1.5px) 0 0/26px 26px;-webkit-mask:radial-gradient(ellipse 70% 80% at 75% 40%,#000 20%,transparent 75%);mask:radial-gradient(ellipse 70% 80% at 75% 40%,#000 20%,transparent 75%);pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:72px;align-items:center}
+.hero h1{font-size:clamp(2.8rem,6.6vw,5.8rem);line-height:.98;letter-spacing:-.055em;margin-bottom:28px}
+.rot{display:block;position:relative;height:1.06em;overflow:hidden;color:var(--blue)}
+.rot span{position:absolute;left:0;top:0;white-space:nowrap;transform:translateY(110%);opacity:0;transition:transform .7s var(--ease),opacity .5s}
+.rot span.on{transform:none;opacity:1}
+.rot span.out{transform:translateY(-110%);opacity:0}
+.hero .lede{margin-bottom:34px}
+.reg-start{display:flex;flex-wrap:wrap;gap:12px;align-items:stretch;max-width:580px}
+.plate{display:flex;align-items:stretch;border:3px solid var(--ink);border-radius:10px;overflow:hidden;background:var(--plate);flex:1 1 260px;transition:transform .2s var(--ease),box-shadow .2s}
+.plate .gb{background:var(--blue);color:#fff;width:44px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:6px 0;font-weight:700;font-size:.8rem;gap:4px}
+.plate .gb .flag{width:30px;height:15px;outline:1px solid rgba(255,255,255,.7)}
+.plate input{flex:1;min-width:0;border:0;background:transparent;font-family:var(--display);font-weight:700;font-size:2.2rem;letter-spacing:.05em;text-transform:uppercase;text-align:center;padding:8px 10px;color:var(--ink)}
+.plate input::placeholder{color:rgba(14,18,32,.28)}
+.plate input:focus{outline:none}
+.plate:focus-within{box-shadow:0 0 0 5px rgba(35,80,255,.2);transform:translateY(-2px)}
+
+
+/* Dash, the mascot, hosts the live status */
+.host{display:flex;align-items:flex-end;gap:10px;margin-bottom:26px;max-width:440px}
+.dash{flex:none;width:84px;height:70px;border:0;background:none;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent;transform-origin:50% 100%}
+.dash svg{width:100%;height:100%;overflow:visible}
+.dash .eyes{transition:transform .25s var(--ease)}
+.dash .lids{transform-origin:60px 32px;transform:scaleY(0);animation:blink 4.5s infinite}
+@keyframes blink{0%,94%,100%{transform:scaleY(0)}96%{transform:scaleY(1)}}
+.dash .beam{opacity:0;transition:opacity .2s}
+.dash.hop{animation:hop .6s var(--ease)}
+.dash.hop .beam{opacity:1}
+@keyframes hop{30%{transform:translateY(-12px) scaleY(1.04)}55%{transform:translateY(0) scaleY(.94)}75%{transform:translateY(-3px)}}
+.bubble{position:relative;flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:18px 18px 18px 6px;padding:10px 14px;box-shadow:0 14px 30px -18px rgba(14,18,32,.35)}
+.bubble::before{content:"";position:absolute;left:-7px;bottom:10px;width:12px;height:12px;background:#fff;border-left:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg)}
+.bubble-top{display:flex;align-items:center;gap:10px}
+.faces{display:flex}
+.faces i{width:26px;height:26px;border-radius:50%;border:2px solid #fff;margin-left:-8px;display:grid;place-items:center;font-style:normal;font-size:.62rem;font-weight:700;color:#fff}
+.faces i:first-child{margin-left:0;background:#7A5AF8}.faces i:nth-child(2){background:#F79009}.faces i:nth-child(3){background:#12B76A}
+.faces i:last-child{background:var(--ink)}
+.bubble-top b{font-size:.9rem;font-weight:600;line-height:1.2}
+.waves{display:inline-flex;align-items:center;gap:2px;height:14px;margin-left:auto}
+.waves span{width:3px;height:100%;border-radius:3px;background:var(--go);animation:wave 1s ease-in-out infinite}
+.waves span:nth-child(2){animation-delay:-.2s}.waves span:nth-child(3){animation-delay:-.4s}.waves span:nth-child(4){animation-delay:-.6s}
+@keyframes wave{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+.bubble-msg{font-size:.84rem;color:var(--muted);margin-top:4px;min-height:1.3em}
+.bubble-msg .wait{color:var(--go)}
+
+/* Start button: pill with a chip the car drives out of */
+.btn-start{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;padding:0 8px 0 26px;border:0;border-radius:999px;background:var(--blue);color:#fff;font-weight:600;font-size:1.08rem;letter-spacing:-.01em;text-decoration:none;cursor:pointer;box-shadow:0 14px 30px -12px rgba(35,80,255,.75),inset 0 -3px 0 rgba(0,0,0,.18);transition:transform .2s var(--ease),box-shadow .2s,background .2s;-webkit-tap-highlight-color:transparent}
+.btn-start::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:30%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:shine 5s ease-in-out infinite 1.5s}
+@keyframes shine{0%,70%{left:-40%}100%{left:130%}}
+.btn-start:hover{background:var(--blue-h);transform:translateY(-2px)}
+.btn-start:active{transform:scale(.98);box-shadow:0 6px 16px -8px rgba(35,80,255,.75),inset 0 -1px 0 rgba(0,0,0,.18)}
+.btn-start .chip-ic{position:relative;flex:none;width:48px;height:48px;border-radius:50%;background:#fff;color:var(--blue);display:grid;place-items:center;overflow:hidden;transition:width .3s var(--ease)}
+.btn-start .chip-ic svg{position:absolute;width:22px;height:22px;transition:transform .45s var(--ease)}
+.btn-start .chip-ic .car{width:30px;height:15px;transform:translateX(-60px)}
+.btn-start:hover .chip-ic{width:60px}
+.btn-start.go .chip-ic .arr{transform:translateX(60px)}
+.btn-start.go .chip-ic .car{transform:translateX(70px);transition:transform .7s cubic-bezier(.5,0,.2,1) .1s}
+.btn-start.go .chip-ic{width:60px}
+.btn-start.sm{min-height:46px;padding:0 5px 0 18px;font-size:.95rem;gap:10px;box-shadow:0 8px 20px -10px rgba(35,80,255,.7),inset 0 -2px 0 rgba(0,0,0,.18)}
+.btn-start.sm .chip-ic{width:36px;height:36px}
+.btn-start.sm .chip-ic svg{width:18px;height:18px}
+.btn-start.sm:hover .chip-ic{width:42px}
+.hero .reg-start .btn-start{flex:0 0 auto}
+
+
+
+/* Plate + start on one line */
+.reg-start{flex-wrap:nowrap}
+.reg-start .plate{flex:1 1 auto;min-width:0}
+.lbl-short{display:none}
+
+/* Call button */
+.call-btn{display:inline-flex;align-items:center;gap:14px;margin-top:14px;padding:8px 22px 8px 8px;min-height:64px;border-radius:999px;background:#E7F8EF;color:var(--ink);text-decoration:none;border:1.5px solid #B7E8D0;transition:transform .2s var(--ease),background .2s,border-color .2s;-webkit-tap-highlight-color:transparent}
+.call-btn:hover{background:#D9F4E6;border-color:var(--go);transform:translateY(-2px)}
+.call-btn:active{transform:scale(.98)}
+.call-ic{position:relative;flex:none;width:48px;height:48px;border-radius:50%;background:var(--go);color:#fff;display:grid;place-items:center}
+.call-ic svg{width:22px;height:22px;animation:wiggle 4s ease-in-out infinite 1s}
+.call-ic::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--go);animation:ripple 2.4s ease-out infinite}
+.call-txt{display:flex;flex-direction:column;line-height:1.25}
+.call-txt b{font-family:var(--display);font-weight:600;font-size:1.08rem;letter-spacing:-.02em}
+.call-txt small{display:flex;align-items:center;gap:6px;font-size:.82rem;color:#3B6B52}
+.call-txt .live-dot{width:7px;height:7px}
+
+/* Receipt: prints line by line, then gets stamped */
+.receipt{position:relative;margin-top:30px;max-width:420px;background:#fff;padding:20px 22px 24px;border-radius:16px 16px 0 0;filter:drop-shadow(0 18px 24px rgba(14,18,32,.12)) drop-shadow(0 0 1px rgba(14,18,32,.35));animation:rise .8s var(--ease) both}
+.receipt::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:10px;background:linear-gradient(135deg,#fff 50%,transparent 50%) 0 0/14px 10px,linear-gradient(225deg,#fff 50%,transparent 50%) 0 0/14px 10px}
+.rc-head{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);padding-bottom:12px;margin-bottom:6px;border-bottom:2px dashed var(--line)}
+.rc-head span:first-child{font-weight:600;color:var(--ink)}
+.rc-lines{list-style:none}
+.rc-lines li{display:flex;align-items:baseline;gap:8px;padding:7px 0;font-size:.95rem;animation:print .4s var(--ease) both}
+.rc-lines li:nth-child(1){animation-delay:.6s}.rc-lines li:nth-child(2){animation-delay:.8s}.rc-lines li:nth-child(3){animation-delay:1s}.rc-lines li:nth-child(4){animation-delay:1.2s}
+@keyframes print{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.rc-lines i{flex:1;min-width:16px;border-bottom:2px dotted #C3C9D4;transform:translateY(-4px)}
+.rc-lines b,.rc-total b{font-variant-numeric:tabular-nums;font-weight:600}
+.rc-lines b{color:var(--go);min-width:2.2em;text-align:right}
+.rc-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;padding-top:12px;border-top:2px dashed var(--line);animation:print .4s var(--ease) 1.4s both}
+.rc-total span{font-weight:600}
+.rc-total b{font-family:var(--display);font-size:2.6rem;line-height:1;letter-spacing:-.05em;font-weight:700}
+.rc-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:14px}
+.rc-note{flex:1;min-width:0;font-size:.78rem;line-height:1.45;color:var(--muted);max-width:26ch}
+.stamp{flex:none;margin-right:4px;display:flex;flex-direction:column;align-items:center;padding:8px 12px 7px;border:3px solid var(--go);border-radius:10px;color:var(--go);transform:rotate(-12deg);background:rgba(255,255,255,.6);box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 3.5px var(--go);animation:stamp .45s cubic-bezier(.3,1.6,.5,1) 1.8s both;pointer-events:none}
+.stamp b{font-family:var(--display);font-weight:700;font-size:1.35rem;letter-spacing:.08em;text-transform:uppercase;line-height:1}
+.stamp small{font-size:.58rem;font-weight:600;text-align:center;line-height:1.2;margin-top:3px;letter-spacing:.02em}
+@keyframes stamp{0%{opacity:0;transform:rotate(-12deg) scale(2.2)}60%{opacity:1;transform:rotate(-12deg) scale(.94)}100%{opacity:.92;transform:rotate(-12deg) scale(1)}}
+
+/* Hero load sequence */
+.host,.hero h1,.hero .lede,.hero .reg-start,.hero .call-btn,.stage{animation:rise .8s var(--ease) both}
+.hero h1{animation-delay:.06s}.hero .lede{animation-delay:.14s}.hero .reg-start{animation-delay:.2s}.hero .call-btn{animation-delay:.26s}.hero .receipt{animation-delay:.3s}.stage{animation-delay:.3s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* Tracker stage (tilts with the pointer) */
+.stage{position:relative;perspective:1200px}
+.tracker{position:relative;background:#fff;border:1px solid var(--line);border-radius:24px;padding:26px;box-shadow:0 40px 80px -30px rgba(14,18,32,.28),0 12px 24px -12px rgba(14,18,32,.12);transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s var(--ease);transform-style:preserve-3d}
+.float{position:absolute;z-index:2;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 14px;font-size:.85rem;font-weight:500;box-shadow:0 18px 40px -16px rgba(14,18,32,.3);animation:bob 5s ease-in-out infinite}
+.float b{font-family:var(--display);font-size:1.3rem;font-weight:700;letter-spacing:-.03em}
+.float .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center}
+.float .ic svg{width:18px;height:18px}
+.float.f1{top:-26px;left:-44px}
+.float.f1 .ic{background:#E7F8EF;color:var(--go)}
+.float.f2{bottom:40px;right:-36px;animation-delay:-2.5s}
+.float.f2 .ic{background:var(--blue-soft);color:var(--blue)}
+@keyframes bob{50%{transform:translateY(-10px)}}
+.tracker-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;gap:12px}
+.tracker-head .ref{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.tracker-head .mini-plate{background:var(--plate);color:var(--ink);font-family:var(--display);font-weight:700;padding:3px 10px;border-radius:5px;border:2px solid var(--ink);letter-spacing:.05em;font-size:.95rem}
+.tracker h3{font-size:1.4rem;margin-bottom:2px}
+.tracker .sub{color:var(--muted);font-size:.92rem;margin-bottom:18px}
+.steps-live{list-style:none;position:relative}
+.steps-live::before{content:"";position:absolute;left:13px;top:14px;bottom:14px;width:2px;background:var(--soft-2)}
+.steps-live li{position:relative;display:grid;grid-template-columns:28px 1fr auto;gap:14px;align-items:center;padding:8px 0;opacity:.38;transition:opacity .4s}
+.steps-live li.done,.steps-live li.now{opacity:1}
+.steps-live .dot{width:28px;height:28px;border-radius:50%;background:#fff;border:2px solid var(--soft-2);display:grid;place-items:center;position:relative;z-index:1;transition:background .4s,border-color .4s}
+.steps-live .dot svg{width:14px;height:14px;color:#fff;opacity:0;transition:opacity .3s}
+.steps-live li.done .dot{background:var(--go);border-color:var(--go)}
+.steps-live li.done .dot svg{opacity:1}
+.steps-live li.now .dot{background:var(--blue);border-color:var(--blue)}
+.steps-live li.now .dot::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--blue);animation:ring 1.6s infinite}
+@keyframes ring{from{transform:scale(.8);opacity:1}to{transform:scale(1.4);opacity:0}}
+.steps-live .label{font-weight:500;font-size:.97rem}
+.steps-live .label small{display:block;color:var(--muted);font-weight:400;font-size:.82rem}
+.steps-live .time{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.tracker-foot{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;font-size:.92rem;color:var(--muted)}
+.tracker-foot strong{font-family:var(--display);font-weight:700;font-size:2.2rem;letter-spacing:-.05em;color:var(--ink)}
+.tracker-note{display:block;margin-top:14px;text-align:center;font-size:.78rem;color:var(--muted)}
+
+/* The road: lane dashes speed up as you scroll */
+.road{position:relative;height:120px;margin:24px 0 0;background:var(--ink);overflow:hidden}
+.road::before,.road::after{content:"";position:absolute;left:0;right:0;height:4px;background:#2A3146}
+.road::before{top:10px}.road::after{bottom:10px}
+.lanes{position:absolute;left:0;right:0;top:50%;height:4px;margin-top:-2px;background:repeating-linear-gradient(90deg,#fff 0 48px,transparent 48px 96px);opacity:.85}
+.road-car{position:absolute;width:88px;height:44px;color:var(--blue);top:66px;left:22%;transition:left 1.2s var(--ease)}
+.road-car.other{color:#C7CCD6;top:12px;left:110%;transform:scaleX(-1)}
+.road-tag{position:absolute;right:24px;top:50%;transform:translateY(-50%);color:#8C93A6;font-size:.82rem;display:flex;align-items:center;gap:8px;background:var(--ink);padding:6px 10px;border-radius:999px}
+
+/* Sections */
+section{padding:112px 0}
+.sec-head{display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:40px;margin-bottom:64px}
+.sec-head h2{max-width:14ch}
+.sec-head .lede{justify-self:end;max-width:44ch}
+
+/* At the scene */
+.scene{padding:112px 0}
+.scene-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:72px;align-items:start}
+.scene h2{margin-bottom:20px;max-width:12ch}
+.scene .wrap>div:first-child{position:sticky;top:110px}
+.emergency{margin-top:32px;display:flex;gap:16px;align-items:center;background:#FEF0EF;border-radius:16px;padding:16px 18px;font-weight:500}
+.emergency .n{font-family:var(--display);font-weight:700;font-size:1.9rem;color:var(--stop);line-height:1;letter-spacing:-.04em}
+.checklist{background:var(--soft);border-radius:28px;padding:10px}
+.check-progress{display:flex;justify-content:space-between;align-items:center;padding:16px 18px 12px;font-weight:600}
+#clCount{color:var(--muted);font-weight:500;font-variant-numeric:tabular-nums}
+.bar{height:6px;background:var(--soft-2);border-radius:99px;overflow:hidden;margin:0 18px 12px}
+.bar span{display:block;height:100%;width:0;background:var(--go);border-radius:99px;transition:width .5s var(--ease)}
+.check-item{display:grid;grid-template-columns:28px 1fr;gap:14px;align-items:start;padding:16px 18px;border-radius:18px;cursor:pointer;background:#fff;margin-bottom:6px;transition:transform .2s var(--ease),box-shadow .2s}
+.check-item:hover{transform:translateX(4px);box-shadow:0 10px 24px -16px rgba(14,18,32,.35)}
+.check-item input{position:absolute;opacity:0;pointer-events:none}
+.check-item .box{width:26px;height:26px;border-radius:50%;border:2px solid #C3C9D4;display:grid;place-items:center;transition:all .25s var(--ease)}
+.check-item .box svg{width:14px;height:14px;opacity:0;transform:scale(.4);transition:all .25s var(--ease);color:#fff}
+.check-item input:checked+.box{background:var(--go);border-color:var(--go)}
+.check-item input:checked+.box svg{opacity:1;transform:scale(1)}
+.check-item input:focus-visible+.box{outline:3px solid var(--blue);outline-offset:3px}
+.check-item strong{display:block;font-weight:600}
+.check-item span.d{display:block;color:var(--muted);font-size:.92rem}
+.check-item input:checked~div strong{color:var(--muted);text-decoration:line-through;text-decoration-thickness:2px}
+.check-done{display:none;margin:8px 0 2px;padding:16px 18px;border-radius:18px;background:var(--blue);color:#fff;font-weight:600;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;animation:rise .5s var(--ease)}
+.check-done .btn-ink{background:#fff;color:var(--blue);box-shadow:none}
+.check-done.show{display:flex}
+
+/* How it works: a route the car drives as you scroll */
+#how{background:var(--soft);border-radius:40px;margin:0 16px}
+.route{position:relative;--p:0}
+.route-line{position:absolute;left:0;right:0;top:22px;height:4px;border-radius:4px;background:repeating-linear-gradient(90deg,#C3C9D4 0 18px,transparent 18px 30px)}
+.route-fill{position:absolute;left:0;top:0;bottom:0;width:calc(var(--p)*100%);background:var(--blue);border-radius:4px}
+.route-car{position:absolute;top:-18px;left:calc(var(--p)*100%);width:64px;height:32px;margin-left:-58px;color:var(--blue);filter:drop-shadow(0 6px 8px rgba(35,80,255,.35))}
+.how{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;list-style:none;padding-top:72px}
+.how li{position:relative;padding:28px 24px;background:#fff;border-radius:22px;transition:transform .5s var(--ease),box-shadow .5s,opacity .5s;opacity:.55;transform:translateY(10px)}
+.how li.reached{opacity:1;transform:none;box-shadow:0 24px 50px -28px rgba(14,18,32,.35)}
+.how li::before{content:"";position:absolute;top:-56px;left:24px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid #C3C9D4;transition:border-color .3s,background .3s}
+.how li.reached::before{border-color:var(--blue);background:var(--blue)}
+.how .n{display:block;font-family:var(--display);font-size:.9rem;font-weight:600;color:var(--blue);margin-bottom:14px}
+.how li p{color:var(--muted);margin-top:10px;font-size:.97rem}
+.how li .when{display:inline-block;margin-top:18px;font-size:.85rem;font-weight:500;padding:5px 12px;border-radius:999px;background:var(--soft)}
+
+/* Services: bento */
+.services{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.svc{grid-column:span 2;background:var(--soft);border-radius:24px;padding:30px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s}
+.svc:hover{transform:translateY(-6px);box-shadow:0 30px 50px -30px rgba(14,18,32,.4)}
+.svc.big{grid-column:span 3;min-height:300px;padding:36px;background:var(--blue);color:#fff}
+.svc.big.dark{background:var(--plate);color:var(--ink)}
+.svc.big h3{font-size:1.75rem;max-width:16ch}
+.svc.big p{color:rgba(255,255,255,.82)}
+.svc.big.dark p{color:var(--ink-2)}
+.svc .ic{width:52px;height:52px;border-radius:16px;background:#fff;display:grid;place-items:center;color:var(--blue);transition:transform .4s var(--ease)}
+.svc:hover .ic{transform:rotate(-8deg) scale(1.08)}
+.svc.big .ic{background:rgba(255,255,255,.16);color:#fff}
+.svc.big.dark .ic{background:rgba(14,18,32,.08);color:var(--ink)}
+.svc .ic svg{width:28px;height:28px}
+.svc p{color:var(--muted);font-size:.97rem}
+.svc .tag{align-self:flex-start;font-size:.85rem;font-weight:500;margin-top:auto;padding:5px 12px;border-radius:999px;background:#fff}
+.svc.big .tag{background:#fff;color:var(--blue)}
+.svc.big.dark .tag{background:var(--ink);color:var(--plate)}
+
+/* Excess comparison */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cmp-col{padding:40px;border-radius:28px}
+.cmp-col.them{background:var(--soft)}
+.cmp-col.us{background:var(--ink);color:#fff}
+.cmp-col h3{margin-bottom:4px}
+.cmp-col .cap{font-size:.92rem;color:var(--muted);margin-bottom:28px}
+.cmp-col.us .cap{color:#9AA3B8}
+.cost{font-family:var(--display);font-weight:700;font-size:clamp(3.4rem,7.5vw,6rem);line-height:1;letter-spacing:-.06em;font-variant-numeric:tabular-nums}
+.cmp-col.them .cost{color:var(--stop)}
+.cmp-col.us .cost{color:#fff}
+.cost-note{font-size:.9rem;margin:10px 0 28px;color:var(--muted)}
+.cmp-col.us .cost-note{color:#9AA3B8}
+.cmp-list{list-style:none;display:grid;gap:12px}
+.cmp-list li{display:flex;gap:10px;align-items:flex-start;font-size:.98rem}
+.cmp-list svg{flex:none;width:20px;height:20px;margin-top:3px}
+.them .cmp-list svg{color:var(--stop)}
+.us .cmp-list svg{color:var(--go)}
+.slider-box{background:var(--soft);border-radius:999px;padding:16px 28px;margin-bottom:16px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.slider-box label{font-weight:600}
+.slider-box output{font-family:var(--display);font-weight:700;font-size:1.6rem;min-width:4ch;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+input[type=range]{flex:1 1 240px;appearance:none;-webkit-appearance:none;height:6px;border-radius:99px;background:linear-gradient(90deg,var(--blue) var(--p,40%),#D5DAE3 var(--p,40%));cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:#fff;border:6px solid var(--blue);box-shadow:0 4px 12px rgba(35,80,255,.4);transition:transform .15s}
+input[type=range]:active::-webkit-slider-thumb{transform:scale(1.15)}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:6px solid var(--blue)}
+.fine{font-size:.82rem;color:var(--muted);margin-top:20px;max-width:90ch}
+
+/* Wizard */
+.claim-sec{background:var(--soft);border-radius:40px;margin:0 16px}
+.claim-grid{display:grid;grid-template-columns:.75fr 1.25fr;gap:64px;align-items:start}
+.claim-side{position:sticky;top:110px}
+.claim-side h2{margin-bottom:18px}
+.side-steps{list-style:none;margin-top:36px;display:grid;gap:4px}
+.side-steps li{display:flex;gap:14px;align-items:center;padding:9px 0;color:var(--muted);font-weight:500;transition:color .2s}
+.side-steps li .n{width:30px;height:30px;border-radius:50%;border:2px solid #D5DAE3;display:grid;place-items:center;font-size:.85rem;font-weight:600;transition:all .3s var(--ease);flex:none;background:#fff}
+.side-steps li.active{color:var(--ink)}
+.side-steps li.active .n{border-color:var(--blue);background:var(--blue);color:#fff;transform:scale(1.1)}
+.side-steps li.done{color:var(--ink)}
+.side-steps li.done .n{border-color:var(--go);background:var(--go);color:#fff}
+.side-help{margin-top:32px;padding:20px 22px;border-radius:20px;background:#fff;font-size:.95rem}
+.side-help a{font-family:var(--display);font-weight:600;font-size:1.4rem;letter-spacing:-.02em;text-decoration:none;display:block;margin:4px 0 2px;color:var(--blue)}
+
+.wizard{background:#fff;border-radius:28px;box-shadow:0 40px 80px -40px rgba(14,18,32,.3);overflow:hidden}
+.wz-top{padding:20px 32px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.wz-top .count{font-weight:600;font-size:.9rem}
+.wz-top .timer{font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:6px}
+.wz-bar{height:4px;background:var(--soft);margin:0 32px;border-radius:4px;overflow:hidden}
+.wz-bar span{display:block;height:100%;width:20%;background:var(--blue);border-radius:4px;transition:width .5s var(--ease)}
+.wz-body{padding:32px 32px 28px}
+.step{display:none;animation:in .4s var(--ease);border:0;min-width:0}
+.step.active{display:block}
+@keyframes in{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+.step h3{font-size:1.9rem;margin-bottom:8px;letter-spacing:-.035em}
+.step .hint{color:var(--muted);margin-bottom:28px}
+.field{margin-bottom:24px}
+.field>label,.field>.lbl{display:block;font-weight:600;margin-bottom:10px}
+.field .opt{font-weight:400;color:var(--muted);font-size:.9rem}
+.input{width:100%;min-height:54px;padding:12px 16px;border:1.5px solid #D5DAE3;border-radius:14px;background:#fff;transition:border-color .15s,box-shadow .15s;font-size:1rem}
+.input:hover{border-color:#A9B1BF}
+.input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px rgba(35,80,255,.15)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.chip span{display:flex;align-items:center;gap:8px;min-height:50px;padding:0 20px;border:1.5px solid #D5DAE3;border-radius:999px;font-weight:500;cursor:pointer;transition:all .2s var(--ease);background:#fff}
+.chip:hover span{border-color:var(--ink-2)}
+.chip input:checked+span{border-color:var(--blue);background:var(--blue);color:#fff;transform:scale(1.03)}
+.chip input:focus-visible+span{outline:3px solid var(--blue);outline-offset:2px}
+.err{display:none;color:var(--stop);font-size:.88rem;font-weight:500;margin-top:8px}
+.field.invalid .err{display:block;animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.field.invalid .input,.field.invalid .plate,.field.invalid .chip span{border-color:var(--stop)}
+.wizard .plate{max-width:360px}
+
+/* Damage map */
+.damage{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center}
+.car-map{width:170px}
+.car-map .zone{fill:var(--soft);stroke:var(--ink);stroke-width:2;cursor:pointer;transition:fill .2s}
+.car-map .zone:hover{fill:var(--blue-soft)}
+.car-map .zone.on{fill:var(--stop)}
+.car-map .zone:focus{outline:none}
+.car-map .zone:focus-visible{stroke:var(--blue);stroke-width:4}
+.car-map .glass{fill:#C9D3EA;pointer-events:none}
+.car-map .wheel{fill:var(--ink);pointer-events:none}
+.dmg-list{display:flex;flex-wrap:wrap;gap:8px;min-height:36px}
+.dmg-list .pill{background:var(--stop);color:#fff;font-size:.85rem;font-weight:500;padding:6px 12px;border-radius:99px;animation:pop .3s var(--ease)}
+@keyframes pop{from{transform:scale(.6);opacity:0}}
+.dmg-list .none{color:var(--muted);font-size:.95rem}
+
+.callout{display:flex;gap:12px;padding:14px 16px;border-radius:14px;background:#FFF7D6;font-size:.93rem;margin-bottom:24px}
+.callout svg{flex:none;width:20px;height:20px;margin-top:2px}
+.callout.go{background:#E7F8EF}
+.consent{display:flex;gap:12px;align-items:flex-start;font-size:.92rem;color:var(--muted);cursor:pointer}
+.consent input{width:22px;height:22px;flex:none;margin-top:2px;accent-color:var(--blue)}
+
+.review{display:grid;border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:24px}
+.review div{display:flex;justify-content:space-between;gap:16px;padding:14px 18px;border-top:1px solid var(--line)}
+.review div:first-child{border-top:0}
+.review dt{color:var(--muted);font-size:.92rem}
+.review dd{font-weight:600;text-align:right}
+.review button{background:none;border:0;color:var(--blue);text-decoration:underline;text-underline-offset:3px;font-size:.85rem;cursor:pointer;margin-left:10px;font-weight:500}
+
+.wz-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:20px 32px;border-top:1px solid var(--line)}
+.wz-nav .back{background:none;border:0;font-weight:600;cursor:pointer;padding:12px 4px;display:flex;align-items:center;gap:6px}
+.wz-nav .back[hidden]{display:none}
+.secure{font-size:.82rem;color:var(--muted);display:flex;gap:6px;align-items:center}
+
+.success{display:none;padding:56px 32px;text-align:center}
+.success.show{display:block;animation:in .4s var(--ease)}
+.success .tick{width:84px;height:84px;margin:0 auto 24px;border-radius:50%;background:var(--go);display:grid;place-items:center;animation:pop .5s var(--ease)}
+.success .tick svg{width:42px;height:42px;color:#fff;stroke-dasharray:40;stroke-dashoffset:40;animation:draw .5s .25s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.success h3{font-size:2.1rem;margin-bottom:10px}
+.ref-box{display:inline-block;margin:18px 0 28px;padding:10px 22px;border:3px solid var(--ink);border-radius:10px;background:var(--plate);font-family:var(--display);font-weight:700;font-size:1.7rem;letter-spacing:.05em}
+.next{list-style:none;text-align:left;max-width:440px;margin:0 auto 28px;display:grid;gap:12px}
+.next li{display:flex;gap:12px;align-items:flex-start}
+.next li b{flex:none;width:26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:.8rem}
+
+/* Insurers */
+.insurers{padding:56px 0;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.insurers p{text-align:center;color:var(--muted);margin-bottom:24px}
+.marquee{display:flex;gap:56px;width:max-content;animation:scroll 50s linear infinite}
+.marquee span{font-family:var(--display);font-weight:600;font-size:1.4rem;letter-spacing:-.03em;color:#A5ADBC;white-space:nowrap}
+.insurers:hover .marquee{animation-play-state:paused}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* FAQ */
+.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px}
+.faq details{border-radius:20px;margin-bottom:8px;background:var(--soft);padding:0 24px;transition:background .2s}
+.faq details[open]{background:var(--blue-soft)}
+.faq summary{list-style:none;cursor:pointer;padding:22px 0;font-weight:600;font-size:1.08rem;display:flex;justify-content:space-between;gap:20px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pm{flex:none;width:32px;height:32px;border-radius:50%;background:#fff;display:grid;place-items:center;transition:transform .3s var(--ease),background .3s,color .3s}
+.faq details[open] summary .pm{transform:rotate(45deg);background:var(--blue);color:#fff}
+.faq details p{padding:0 0 24px;color:var(--ink-2);max-width:62ch}
+
+/* Final CTA */
+.final{padding:24px 0 112px}
+.final .wrap{position:relative;display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap;background:var(--blue);color:#fff;border-radius:40px;padding:72px 64px;overflow:hidden}
+.final .wrap::after{content:"";position:absolute;left:0;right:0;bottom:36px;height:4px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.35) 0 40px,transparent 40px 80px);animation:drive 2.5s linear infinite}
+@keyframes drive{to{background-position:-80px 0}}
+.final h2{max-width:13ch;font-size:clamp(2.2rem,5vw,4.2rem)}
+.final .btns{display:flex;gap:12px;flex-wrap:wrap;position:relative;z-index:1}
+.final .btn-ink{background:#fff;color:var(--blue);box-shadow:none}
+.final .btn-ink:hover{background:var(--plate);color:var(--ink)}
+.final .btn-ghost{background:rgba(255,255,255,.14);color:#fff}
+.final .btn-ghost:hover{background:rgba(255,255,255,.24)}
+
+/* Footer */
+footer{background:var(--soft);color:var(--muted);padding:72px 0 120px;font-size:.92rem}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px}
+footer h4{color:var(--ink);font-family:var(--display);font-weight:600;font-size:1rem;margin-bottom:14px}
+footer ul{list-style:none;display:grid;gap:8px}
+footer a{text-decoration:none}
+footer a:hover{color:var(--ink)}
+footer .logo{margin-bottom:16px}
+.reg{border-top:1px solid var(--line);padding-top:28px;font-size:.82rem;line-height:1.7;display:grid;gap:10px}
+.reg strong{color:var(--ink)}
+
+/* Help dock: Dash drives in with a phone and a live wait time */
+.dock{position:fixed;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:60;display:flex;align-items:flex-end;gap:4px;padding:0;border:0;background:none;cursor:pointer;transform:translateX(140%);transition:transform .8s cubic-bezier(.3,1.25,.5,1);-webkit-tap-highlight-color:transparent}
+.dock.show{transform:none}
+.dock-bubble{position:relative;margin-bottom:26px;background:#fff;border:1px solid var(--line);border-radius:16px 16px 4px 16px;padding:9px 13px;text-align:left;white-space:nowrap;box-shadow:0 14px 30px -14px rgba(14,18,32,.45);transform-origin:100% 100%;transition:transform .35s var(--ease),opacity .25s}
+.dock-bubble b{display:block;font-size:.9rem;font-weight:600;color:var(--ink);line-height:1.25}
+.dock-bubble small{display:flex;align-items:center;gap:6px;font-size:.76rem;color:var(--muted)}
+.dock-bubble .live-dot{width:7px;height:7px}
+.dock.mini .dock-bubble{transform:scale(.3);opacity:0}
+.dock:hover .dock-bubble,.dock:focus-visible .dock-bubble{transform:none;opacity:1}
+.dock:focus-visible{outline:none}
+.dock:focus-visible .dock-dash{outline:3px solid var(--blue);outline-offset:4px;border-radius:20px}
+.dock-dash{position:relative;display:block;width:86px;height:72px;filter:drop-shadow(0 12px 14px rgba(14,18,32,.28))}
+.dock-dash .car{width:100%;height:100%;overflow:visible}
+.dock.show .dock-dash{animation:arrive .9s var(--ease)}
+@keyframes arrive{0%{transform:rotate(-4deg)}55%{transform:rotate(2deg) translateY(-3px)}80%{transform:rotate(-1deg)}100%{transform:none}}
+.dock:active .dock-dash{transform:scale(.94)}
+.dock-ph{position:absolute;top:-4px;right:-4px;width:32px;height:32px;border-radius:50%;background:var(--go);color:#fff;display:grid;place-items:center;border:3px solid #fff}
+.dock-ph svg{width:15px;height:15px;animation:wiggle 4s ease-in-out infinite}
+.dock-ph::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid var(--go);animation:ripple 2.4s ease-out infinite}
+.dock-dash .lids{transform-origin:60px 32px;transform:scaleY(0);animation:blink 5.5s infinite 1s}
+.dock-dash .eyes{transition:transform .25s var(--ease)}
+
+/* Resume banner, quick dates, success extras */
+.resume{display:flex;align-items:center;gap:10px;margin-bottom:18px;padding:10px 10px 10px 16px;border-radius:16px;background:var(--blue-soft);font-size:.9rem;animation:rise .5s var(--ease)}
+.resume[hidden]{display:none}
+.resume span{flex:1;min-width:0}
+.resume-go{flex:none;border:0;border-radius:999px;background:var(--blue);color:#fff;font-weight:600;padding:9px 16px;cursor:pointer}
+.resume-x{flex:none;width:32px;height:32px;border:0;border-radius:50%;background:transparent;display:grid;place-items:center;cursor:pointer;color:var(--muted)}
+.resume-x svg{width:14px;height:14px}
+.qdate{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.qdate button{min-height:44px;padding:0 16px;border:1.5px solid #D5DAE3;border-radius:999px;background:#fff;font-weight:500;cursor:pointer;transition:all .2s var(--ease)}
+.qdate button:hover{border-color:var(--ink-2)}
+.qdate button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.after{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.after .btn-ghost svg{color:#25D366}
+.save-contact{flex-basis:100%;margin-top:6px;font-size:.9rem;color:var(--blue);font-weight:500;text-underline-offset:3px}
+.sheet-bg{position:fixed;inset:0;z-index:70;background:rgba(14,18,32,.45);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);opacity:0;transition:opacity .3s}
+.sheet-bg.open{opacity:1}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:80;background:#fff;border-radius:28px 28px 0 0;padding:10px 20px calc(24px + env(safe-area-inset-bottom));transform:translateY(105%);transition:transform .45s var(--ease);max-height:92vh;overflow:auto}
+.sheet.open{transform:none}
+.sheet .grab{width:44px;height:5px;border-radius:5px;background:var(--soft-2);margin:4px auto 18px}
+.sheet h3{font-size:1.5rem;margin-bottom:6px;padding-right:44px}
+.sheet-sub{color:var(--muted);font-size:.95rem;display:flex;align-items:center;gap:8px;margin-bottom:18px}
+.sheet-close{position:absolute;top:18px;right:16px;width:40px;height:40px;border-radius:50%;border:0;background:var(--soft);cursor:pointer;display:grid;place-items:center}
+.sheet-close svg{width:18px;height:18px}
+.opt{display:grid;grid-template-columns:48px 1fr 20px;gap:14px;align-items:center;width:100%;padding:14px;margin-bottom:8px;border:1.5px solid var(--line);border-radius:18px;background:#fff;text-decoration:none;text-align:left;cursor:pointer;transition:border-color .2s,transform .2s var(--ease)}
+.opt:hover,.opt:active{border-color:var(--blue);transform:translateY(-1px)}
+.opt b{display:block;font-weight:600;font-size:1.02rem}
+.opt small{display:block;color:var(--muted);font-size:.86rem}
+.opt>svg{width:20px;height:20px;color:var(--muted)}
+.oi{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--soft);color:var(--ink)}
+.oi svg{width:22px;height:22px}
+.oi.call{background:var(--go);color:#fff}
+.oi.wa{background:#25D366;color:#fff}
+.oi.web{background:var(--blue);color:#fff}
+.opt.primary{border-color:var(--go);background:#F1FBF6}
+.cb{display:flex;gap:8px;margin:-2px 0 10px;padding:12px;border-radius:18px;background:var(--soft);flex-wrap:wrap}
+.cb .input{flex:1 1 180px;min-height:50px}
+.cb .btn{min-height:50px}
+.cb-msg{width:100%;font-size:.9rem;color:var(--muted)}
+.cb-msg.ok{color:var(--go);font-weight:600}
+.cb-msg.bad{color:var(--stop)}
+.sheet-foot{margin-top:12px;font-size:.8rem;color:var(--muted);text-align:center}
+@media (min-width:681px){
+  .sheet{left:auto;right:24px;bottom:24px;width:420px;border-radius:28px;padding-bottom:24px;transform:translateY(20px) scale(.97);opacity:0;pointer-events:none;transition:transform .35s var(--ease),opacity .25s}
+  .sheet.open{transform:none;opacity:1;pointer-events:auto}
+  .sheet .grab{display:none}
+  .dock{right:22px;bottom:22px}
+  .dock-dash{width:96px;height:80px}
+}
+
+/* Trust row + wait time */
+.trust{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:22px;font-size:.88rem;color:var(--muted)}
+.trust span{display:flex;align-items:center;gap:6px}
+.trust svg{width:16px;height:16px;color:var(--ink-2)}
+.wait{font-weight:600;color:var(--ink)}
+.restored{display:none;margin:0 32px;padding:10px 14px;border-radius:12px;background:var(--blue-soft);font-size:.88rem;justify-content:space-between;gap:12px;align-items:center}
+.restored.show{display:flex}
+.restored button{border:0;background:none;color:var(--blue);font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+@media (max-width:1000px){
+  nav.main{display:none}
+  .hero .wrap,.scene-grid,.claim-grid,.faq-grid{grid-template-columns:minmax(0,1fr)}
+  .hero .wrap{gap:64px}
+  .stage{max-width:500px;margin:0 auto;width:100%}
+  .sec-head{grid-template-columns:1fr;gap:16px}
+  .sec-head .lede{justify-self:start}
+  .scene .wrap>div:first-child{position:static}
+  .route-line{left:22px;right:auto;top:0;bottom:0;width:4px;height:auto;background:repeating-linear-gradient(180deg,#C3C9D4 0 18px,transparent 18px 30px)}
+  .route-fill{width:auto;right:0;height:calc(var(--p)*100%)}
+  .route-car{left:-8px;top:calc(var(--p)*100%);margin:-16px 0 0;transform:rotate(90deg)}
+  .how{grid-template-columns:1fr;padding:0 0 0 64px;gap:20px}
+  .how li::before{top:32px;left:-50px}
+  .services{grid-template-columns:1fr 1fr}
+  .svc,.svc.big{grid-column:span 1}
+  .claim-side{position:static}
+  .side-steps{display:none}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:680px){
+  body{font-size:16px}
+  section{padding:80px 0}
+  .wrap{padding:0 16px}
+  #how,.claim-sec{margin:0 8px;border-radius:28px}
+  .hero{padding:40px 0 48px}
+  .hero h1{font-size:clamp(2.3rem,11.5vw,3.2rem)}
+  h2{font-size:clamp(1.9rem,8.5vw,2.5rem)}
+  .float.f1{left:-6px;top:-30px}
+  .float.f2{right:-6px;bottom:-24px}
+  .phone-link{display:none}
+  .services,.compare,.row2,.foot-grid{grid-template-columns:1fr}
+  .cmp-col,.svc.big{padding:28px 22px}
+  .slider-box{border-radius:24px}
+  .wz-body{padding:24px 20px 20px}
+  .wz-top,.wz-nav{padding:16px 20px}
+  .wz-bar{margin:0 20px}
+  .damage{grid-template-columns:1fr;justify-items:center}
+  .plate input{font-size:1.8rem}
+  .restored{margin:0 20px}
+  .hero .lede{margin-bottom:24px}
+  .host{margin-bottom:22px}
+  .dash{width:72px;height:60px}
+  .reg-start{gap:8px}
+  .hero .reg-start .btn-start{min-height:auto;padding:0 6px 0 16px;gap:8px;font-size:1rem}
+  .hero .reg-start .btn-start .chip-ic{width:38px;height:38px}
+  .hero .reg-start .btn-start .chip-ic svg{width:18px;height:18px}
+  .lbl-long{display:none}.lbl-short{display:inline}
+  .hero .plate .gb{width:38px}
+  .hero .plate input{font-size:1.55rem;padding:12px 4px;letter-spacing:.03em}
+  .call-btn{display:flex;width:100%}
+  .receipt{max-width:none;margin-right:4px}
+  .plate input{width:100%;padding:10px 8px}
+  .top .btn-start.sm{min-height:42px;font-size:.9rem;padding-left:14px}
+  .top .btn-start.sm .chip-ic{width:32px;height:32px}
+  .float{font-size:.78rem;padding:8px 12px}
+  .float b{font-size:1.1rem}
+  .top .wrap{height:64px}
+  .logo-mark{width:34px;height:34px}
+  .logo-word{font-size:1.02rem}
+  .tagline{font-size:.68rem;gap:4px}
+  .tracker{padding:22px}
+  .secure{display:none}
+  .road{height:96px}
+  .road-car{top:52px;width:72px;height:36px}
+  .road-tag{display:none}
+  .final .wrap{padding:48px 24px 72px;border-radius:28px;margin:0 8px}
+}
+/* Dash reacts to the headline: a dent appears where the car was hit, then gets fixed */
+.dash svg{transform-origin:50% 100%}
+.dash .dent g,.dash .spark g{transform-box:fill-box;transform-origin:center;transform:scale(0);opacity:0}
+.dash.hit .dent g{animation:dentIn .35s var(--ease) .12s both}
+.dash.fixed .dent g{animation:dentOut .3s var(--ease) both}
+.dash.fixed .spark g{animation:sparkle .8s var(--ease) both}
+.dash.hit[data-hit=rear] svg{animation:joltRear .5s var(--ease)}
+.dash.hit[data-hit=side] svg{animation:joltSide .5s var(--ease)}
+.dash.hit[data-hit=parked] svg{animation:joltSide .5s var(--ease) reverse}
+.dash.hit[data-hit=junction] svg{animation:joltSpin .55s var(--ease)}
+@keyframes joltRear{30%{transform:translateY(3px) scale(1.06,.94)}60%{transform:translateY(-2px)}}
+@keyframes joltSide{25%{transform:translateX(7px) rotate(5deg)}55%{transform:translateX(-3px) rotate(-2deg)}}
+@keyframes joltSpin{30%{transform:rotate(-9deg)}60%{transform:rotate(4deg)}}
+@keyframes dentIn{0%{transform:scale(0);opacity:0}70%{transform:scale(1.25);opacity:1}100%{transform:scale(1);opacity:1}}
+@keyframes dentOut{from{transform:scale(1);opacity:1}to{transform:scale(0);opacity:0}}
+@keyframes sparkle{0%{transform:scale(0) rotate(0);opacity:0}40%{transform:scale(1.2) rotate(45deg);opacity:1}100%{transform:scale(0) rotate(90deg);opacity:0}}
+
+/* First 24 hours */
+.day1{margin-top:56px;background:var(--card);border-radius:28px;padding:32px}
+.day1 h3{font-size:1.5rem;margin-bottom:24px}
+.d1{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative}
+.d1::before{content:"";position:absolute;left:8px;right:8px;top:15px;height:2px;background:repeating-linear-gradient(90deg,var(--line) 0 10px,transparent 10px 18px)}
+.d1 li{position:relative;padding-top:44px;display:grid;gap:4px}
+.d1 li::before{content:"";position:absolute;top:6px;left:0;width:20px;height:20px;border-radius:50%;background:var(--card);border:4px solid var(--blue)}
+.d1 li:last-child::before{border-color:var(--go)}
+.d1 .t{font-family:var(--display);font-weight:700;font-size:.9rem;color:var(--blue-txt)}
+.d1 b{font-weight:600;font-size:1.05rem}
+.d1 li>span:last-child{color:var(--muted);font-size:.93rem}
+.d1-note{margin-top:20px;font-size:.82rem;color:var(--muted)}
+
+/* Damage map: impact burst on tap */
+.car-map{width:190px;overflow:visible}
+.car-map .zone.hitfx{animation:zoneHit .45s var(--ease)}
+.car-map .zone{transform-box:fill-box;transform-origin:center}
+.car-map .burst{fill:none;stroke:var(--stop);stroke-width:3;pointer-events:none;animation:burst .5s var(--ease) forwards}
+@keyframes zoneHit{40%{transform:scale(.94)}}
+@keyframes burst{from{r:4px;opacity:1}to{r:34px;opacity:0}}
+
+/* Photo step */
+.photos{margin-top:22px}
+.photo-add{display:flex;align-items:center;gap:14px;padding:14px 16px;border:2px dashed #B9C2D3;border-radius:16px;cursor:pointer;transition:border-color .2s,background .2s;position:relative}
+.photo-add:hover,.photo-add:focus-within{border-color:var(--blue);background:var(--blue-soft)}
+.photo-add input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+.photo-add .pi{flex:none;width:44px;height:44px;border-radius:12px;background:var(--blue);color:#fff;display:grid;place-items:center}
+.photo-add .pi svg{width:22px;height:22px}
+.photo-add b{display:block;font-weight:600}
+.photo-add small{display:block;color:var(--muted);font-size:.85rem}
+.photo-tips{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.photo-tips li{font-size:.8rem;padding:4px 10px;border-radius:99px;background:var(--soft);color:var(--ink-2)}
+.thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.thumbs figure{position:relative;width:72px;height:72px;border-radius:12px;overflow:hidden;animation:pop .3s var(--ease)}
+.thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+.thumbs button{position:absolute;top:3px;right:3px;width:26px;height:26px;border-radius:50%;border:0;background:rgba(14,18,32,.75);color:#fff;display:grid;place-items:center;cursor:pointer}
+.thumbs button svg{width:12px;height:12px}
+.photo-msg{font-size:.85rem;margin-top:8px;color:var(--muted)}
+.photo-msg.bad{color:var(--stop)}
+
+/* Wizard progress: the car drives to the flag */
+.wz-bar{position:relative;overflow:visible;height:6px;margin:14px 32px 4px}
+.wz-bar span{border-radius:6px}
+.wz-car{position:absolute;top:50%;left:calc(var(--wp,20%) - 30px);width:38px;height:19px;color:var(--blue);transform:translateY(-58%);transition:left .6s var(--ease);filter:drop-shadow(0 3px 4px rgba(14,18,32,.25))}
+.wz-flag{position:absolute;right:-4px;top:50%;width:14px;height:14px;transform:translateY(-50%);border-radius:3px;background:conic-gradient(var(--ink) 25%,#fff 0 50%,var(--ink) 0 75%,#fff 0) 0 0/7px 7px;box-shadow:0 0 0 1.5px var(--ink)}
+.wizard[data-dir=fwd] .step.active{animation:stepFwd .45s var(--ease)}
+.wizard[data-dir=back] .step.active{animation:stepBack .45s var(--ease)}
+@keyframes stepFwd{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+@keyframes stepBack{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
+
+/* Celebration: the stamp lands on the claim reference */
+.success{position:relative;overflow:hidden}
+.ref-wrap{position:relative;display:inline-block}
+.s-stamp{position:absolute;right:-58px;top:-6px;display:flex;flex-direction:column;align-items:center;padding:6px 10px 5px;border:3px solid var(--go);border-radius:10px;color:var(--go);background:var(--card);transform:rotate(-12deg);opacity:0;pointer-events:none}
+.s-stamp b{font-family:var(--display);font-weight:700;font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;line-height:1}
+.s-stamp small{font-size:.55rem;font-weight:600}
+.success.show .s-stamp{animation:slam .5s cubic-bezier(.3,1.6,.5,1) .55s forwards}
+@keyframes slam{0%{opacity:0;transform:rotate(-12deg) scale(2.6)}60%{opacity:1;transform:rotate(-12deg) scale(.92)}100%{opacity:1;transform:rotate(-12deg) scale(1)}}
+.confetti{position:absolute;top:-12px;left:50%;width:9px;height:14px;border-radius:2px;pointer-events:none;opacity:0;animation:fall 1.9s cubic-bezier(.2,.6,.4,1) both}
+@keyframes fall{0%{opacity:0;transform:none}2%{opacity:1}100%{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:0}}
+
+/* Checklist: save to phone */
+.save-list{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:48px;margin-top:6px;border:0;border-radius:16px;background:transparent;color:var(--blue-txt);font-weight:600;cursor:pointer}
+.save-list:hover{background:var(--card)}
+.save-list svg{width:18px;height:18px}
+.save-msg{display:block;text-align:center;font-size:.85rem;color:var(--go);min-height:1.2em}
+
+/* Is it worth claiming? */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.calc .slider-box{margin-bottom:0}
+.calc-out{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
+.calc-out div{background:var(--blue-soft);border-radius:22px;padding:20px 22px}
+.calc-out b{display:block;font-family:var(--display);font-size:2rem;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--blue-txt)}
+.calc-out span{font-size:.92rem;color:var(--ink-2)}
+
+/* Header theme toggle + footer sound toggle */
+.theme-btn{flex:none;width:42px;height:42px;border-radius:50%;border:0;background:var(--soft);color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:transform .3s var(--ease)}
+.theme-btn:hover{transform:rotate(-20deg)}
+.theme-btn svg{width:20px;height:20px}
+.theme-btn .sun,[data-theme=dark] .theme-btn .moon{display:none}
+[data-theme=dark] .theme-btn .sun{display:block}
+.fx-toggle{display:inline-flex;align-items:center;gap:8px;margin-top:18px;min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--ink-2);font-size:.9rem;cursor:pointer}
+.fx-toggle svg{width:18px;height:18px}
+.fx-toggle[aria-pressed=true]{border-color:var(--go);color:var(--go)}
+footer ul a{display:inline-block;padding:6px 0}
+
+/* Night mode */
+:root{--card:#fff;--blue-txt:var(--blue)}
+[data-theme=dark]{color-scheme:dark;--ink:#EEF1F7;--ink-2:#C9CFDB;--muted:#A3ABBD;--bg:#0B0F1A;--soft:#141A28;--soft-2:#232C3F;--line:#2A3449;--blue:#3858FF;--blue-h:#4B69FF;--blue-soft:#1A2350;--blue-txt:#9DB1FF;--card:#111827}
+[data-theme=dark] .top{background:rgba(11,15,26,.85)}
+[data-theme=dark] :is(.bubble,.receipt,.tracker,.float,.check-item,.how li,.wizard,.input,.chip span,.qdate button,.side-help,.side-steps li .n,.sheet,.opt,.dock-bubble,.faq summary .pm,.svc:not(.big) .ic,.svc:not(.big) .tag,.steps-live .dot){background:var(--card)}
+[data-theme=dark] :is(.bubble,.how li)::before{background:var(--card)}
+[data-theme=dark] .receipt::after{background:linear-gradient(135deg,var(--card) 50%,transparent 50%) 0 0/14px 10px,linear-gradient(225deg,var(--card) 50%,transparent 50%) 0 0/14px 10px}
+[data-theme=dark] :is(.input,.chip span,.qdate button,.side-steps li .n){border-color:#34405A}
+[data-theme=dark] :is(.rot,.how .n,.save-contact,.restored button,.svc:not(.big) .ic){color:var(--blue-txt)}
+[data-theme=dark] .chip input:checked+span,[data-theme=dark] .qdate button[aria-pressed=true]{background:var(--blue);color:#fff}
+[data-theme=dark] .cmp-col.us{background:#1A2238}
+[data-theme=dark] :is(.road,.road-tag){background:#05070D}
+[data-theme=dark] .faces i{border-color:var(--card)}
+[data-theme=dark] .faces i:last-child{background:#2B3245}
+[data-theme=dark] :is(.plate,.ref-box){border-color:#0E1220;color:#0E1220}
+[data-theme=dark] .plate input,[data-theme=dark] .mini-plate{color:#0E1220}
+[data-theme=dark] .call-btn{background:#0F2A1D;border-color:#1F5A3D}
+[data-theme=dark] .call-btn:hover{background:#143524}
+[data-theme=dark] .call-txt small,[data-theme=dark] .call-txt .wait{color:#8FD9B4}
+[data-theme=dark] .tagline b:nth-child(2),[data-theme=dark] .side-help a{color:var(--blue-txt)}
+[data-theme=dark] .emergency{background:#3A1714}
+[data-theme=dark] .callout{background:#352C0C}
+[data-theme=dark] :is(.callout.go,.opt.primary){background:#0F2A1D}
+[data-theme=dark] .stamp{background:rgba(17,24,39,.7)}
+[data-theme=dark] .dock-ph{border-color:var(--card)}
+[data-theme=dark] .svc.big.dark{color:#0E1220}
+[data-theme=dark] .svc.big.dark p{color:#2B3245}
+[data-theme=dark] .svc.big.dark .tag{background:#0E1220}
+[data-theme=dark] .svc.big.dark .ic{color:#0E1220}
+[data-theme=dark] .check-done .btn-ink,[data-theme=dark] .final .btn-ink{color:#2350FF}
+[data-theme=dark] .wz-flag{background:conic-gradient(#0E1220 25%,#fff 0 50%,#0E1220 0 75%,#fff 0) 0 0/7px 7px;box-shadow:0 0 0 1.5px #fff}
+
+/* Slow phones: drop the costly effects */
+.lite .btn-start::after,.lite .float,.lite .final .wrap::after{animation:none}
+.lite .top,.lite .sheet-bg{backdrop-filter:none;-webkit-backdrop-filter:none}
+
+@media (max-width:1000px){
+  .d1{grid-template-columns:1fr 1fr;row-gap:28px}
+  .d1::before{display:none}
+}
+@media (max-width:680px){
+  .day1{padding:24px 20px;margin-top:40px}
+  .d1{grid-template-columns:1fr;gap:18px}
+  .d1 li{padding:0 0 0 34px}
+  .d1 li::before{top:2px}
+  .wz-bar{margin:14px 20px 4px}
+  .calc,.calc-out{grid-template-columns:1fr}
+  .calc-out div{padding:16px 18px}
+  .s-stamp{right:-40px;top:-30px}
+  .top-cta{gap:8px}
+  .theme-btn{width:38px;height:38px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+  .how li{opacity:1;transform:none}
+  .success.show .s-stamp{opacity:1}
+}
+</style>
+<script>
+// Pick the theme before first paint. A saved choice wins; otherwise go dark between sunset and sunrise in the UK.
+(() => {
+  let t = null;
+  try { t = localStorage.getItem('rac-theme'); } catch (e) { /* storage unavailable */ }
+  if (t !== 'dark' && t !== 'light') {
+    const p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', month: 'numeric', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(new Date());
+    const g = k => +p.find(x => x.type === k).value;
+    const h = g('hour') + g('minute') / 60, m = g('month') - 1;
+    // Approximate London sunrise and sunset per month, in UK clock time
+    const rise = [8, 7.5, 6.5, 6.3, 5.3, 4.75, 5, 5.8, 6.7, 7.5, 7.2, 7.9];
+    const set = [16.3, 17.2, 18, 19.8, 20.7, 21.25, 21.15, 20.3, 19.25, 18.15, 16.3, 15.9];
+    t = h < rise[m] || h >= set[m] ? 'dark' : 'light';
+  }
+  document.documentElement.dataset.theme = t;
+  document.querySelector('meta[name=theme-color]').content = t === 'dark' ? '#0B0F1A' : '#FFFFFF';
+})();
+</script>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-cartop" viewBox="0 0 64 32"><rect x="2" y="3" width="60" height="26" rx="10" fill="currentColor"/><path d="M38 6h9a7 7 0 017 7v6a7 7 0 01-7 7h-9z" fill="#0B1A4A" opacity=".5"/><path d="M13 7h6v18h-6a5 5 0 01-5-5v-8a5 5 0 015-5z" fill="#0B1A4A" opacity=".4"/><rect x="21" y="8" width="15" height="16" rx="3" fill="#fff" opacity=".18"/><rect x="58" y="6" width="4" height="6" rx="1.5" fill="#FFE27A"/><rect x="58" y="20" width="4" height="6" rx="1.5" fill="#FFE27A"/><rect x="2" y="6" width="3" height="6" rx="1" fill="#F04438"/><rect x="2" y="20" width="3" height="6" rx="1" fill="#F04438"/></symbol>
+  <symbol id="logo-mark" viewBox="0 0 40 40"><rect width="40" height="40" rx="12" fill="#2350FF"/><path d="M9.5 21.5l7 7L31 12" fill="none" stroke="#fff" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 21.5l7 7L31 12" fill="none" stroke="#FFD60A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2.6 2.9"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 00-.7.3 3 3 0 00-.9 2.2 5.2 5.2 0 001.1 2.7 11.8 11.8 0 004.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 001.8-1.2 2.2 2.2 0 00.1-1.3c0-.1-.2-.2-.5-.3z"/></symbol>
+  <symbol id="i-pound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6.5A4 4 0 009 8v4m0 0v3a3 3 0 01-2 2.8V18h11M6.5 12H14"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0114 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16V7h11v9M13 10h4l4 4v2h-8"/><circle cx="6.5" cy="17.5" r="2"/><circle cx="17" cy="17.5" r="2"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15v-3l2-5h14l2 5v3a1 1 0 01-1 1h-1M3 15a1 1 0 001 1h1M8 16h8"/><circle cx="6.5" cy="16.5" r="1.8"/><circle cx="17.5" cy="16.5" r="1.8"/><path d="M4 12h16"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5a4 4 0 00-5.4 5L3 17.6 6.4 21l6.1-6.1a4 4 0 005-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/><path d="M9 11h6M12 8v6"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+  <symbol id="i-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4h4l5 4V6L8 10z"/><path d="M16 9a4 4 0 010 6M18.5 6.5a8 8 0 010 11"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v7h14v-7"/></symbol>
+  <symbol id="i-ukflag"viewBox="0 0 60 30"><clipPath id="ukc"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="ukt"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#ukc)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#ukt)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></symbol>
+</svg>
+
+<a class="sr" href="#claim">Skip to report your claim</a>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a href="#" class="logo" aria-label="Report a Claim home">
+      <svg class="logo-mark" aria-hidden="true"><use href="#logo-mark"/></svg><span class="logo-text"><span class="logo-word">reportaclaim<span>.co.uk</span></span><span class="tagline"><b>Hit.</b> <b>Report.</b> <b>Sorted.</b></span></span>
+    </a>
+    <nav class="main" aria-label="Main">
+      <a href="#scene">At the scene</a>
+      <a href="#how">How it works</a>
+      <a href="#services">What we cover</a>
+      <a href="#faq">FAQs</a>
+    </nav>
+    <div class="top-cta">
+      <button type="button" class="theme-btn" id="themeBtn" aria-pressed="false" aria-label="Night mode"><svg class="moon" aria-hidden="true"><use href="#i-moon"/></svg><svg class="sun" aria-hidden="true"><use href="#i-sun"/></svg></button>
+      <!-- TODO: replace with the real claims line -->
+      <a class="phone-link" href="tel:+448081570420">
+        <small><span class="live-dot" aria-hidden="true"></span>Lines open 24/7</small>
+        <strong>0808 157 0420</strong>
+      </a>
+      <a href="#claim" class="btn-start sm"><span>Start claim</span><span class="chip-ic" aria-hidden="true"><svg class="arr"><use href="#i-arrow"/></svg><svg class="car" viewBox="0 0 64 32"><use href="#i-cartop"/></svg></span></a>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"><span></span><svg><use href="#i-cartop"/></svg></div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap">
+    <div>
+      <div class="resume" id="resume" hidden>
+        <span><b>Your claim is half done.</b> Your answers are saved.</span>
+        <button type="button" class="resume-go" id="resumeGo">Finish it</button>
+        <button type="button" class="resume-x" id="resumeX" aria-label="Dismiss"><svg><use href="#i-x"/></svg></button>
+      </div>
+      <div class="host">
+        <button class="dash" id="dash" type="button" aria-label="Dash, our mascot. Tap for an accident tip">
+          <svg viewBox="0 0 120 100" aria-hidden="true">
+            <ellipse cx="60" cy="94" rx="44" ry="5" fill="#0E1220" opacity=".12"/>
+            <path class="beam" d="M17 54L-4 46v16zM103 54l21-8v16z" fill="#FFE27A" opacity=".0"/>
+            <rect x="16" y="76" width="16" height="16" rx="5" fill="#0E1220"/><rect x="88" y="76" width="16" height="16" rx="5" fill="#0E1220"/>
+            <ellipse cx="20" cy="42" rx="7" ry="4.5" fill="#1A3FE0"/><ellipse cx="100" cy="42" rx="7" ry="4.5" fill="#1A3FE0"/>
+            <path d="M26 44Q31 12 60 12t34 32z" fill="#1A3FE0"/>
+            <rect x="8" y="40" width="104" height="44" rx="18" fill="#2350FF"/>
+            <path d="M33 42q4-22 27-22t27 22z" fill="#E8EDFF"/>
+            <g class="eyes"><circle cx="50" cy="32" r="4.6" fill="#0E1220"/><circle cx="70" cy="32" r="4.6" fill="#0E1220"/><circle cx="51.6" cy="30.4" r="1.4" fill="#fff"/><circle cx="71.6" cy="30.4" r="1.4" fill="#fff"/></g>
+            <g class="lids"><rect x="44" y="26" width="12" height="12" rx="6" fill="#E8EDFF"/><rect x="64" y="26" width="12" height="12" rx="6" fill="#E8EDFF"/></g>
+            <circle cx="24" cy="56" r="8" fill="#FFE27A"/><circle cx="24" cy="56" r="4" fill="#fff"/><circle cx="96" cy="56" r="8" fill="#FFE27A"/><circle cx="96" cy="56" r="4" fill="#fff"/>
+            <path d="M47 58q13 9 26 0" fill="none" stroke="#0E1220" stroke-width="3" stroke-linecap="round"/>
+            <rect x="43" y="68" width="34" height="11" rx="2.5" fill="#FFD60A" stroke="#0E1220" stroke-width="1.5"/>
+            <text x="60" y="76.6" text-anchor="middle" font-family="Inter Tight,Inter,sans-serif" font-weight="800" font-size="7.5" letter-spacing=".6" fill="#0E1220">DASH</text>
+            <g class="dent" id="dashDent"><g><path d="M0-9l2.5 5 6-1.5-3.5 5 5 3.5-6 1 .5 6-4-4.5-4.5 4 .5-6-6-1.5 5-3-3-5.5 6 2z" fill="#F04438" stroke="#0E1220" stroke-width="1.2" stroke-linejoin="round"/></g></g>
+            <g class="spark" id="dashSpark"><g><path d="M0-10C1.2-2.5 2.5-1.2 10 0 2.5 1.2 1.2 2.5 0 10-1.2 2.5-2.5 1.2-10 0-2.5-1.2-1.2-2.5 0-10z" fill="#FFD60A" stroke="#0E1220" stroke-width="1.2" stroke-linejoin="round"/></g></g>
+          </svg>
+        </button>
+        <div class="bubble" aria-live="polite">
+          <div class="bubble-top">
+            <!-- TODO: swap initials for real handler photos -->
+            <span class="faces" aria-hidden="true"><i>SK</i><i>TJ</i><i>AM</i><i>+5</i></span>
+            <b>Our UK team is on the phones</b>
+            <span class="waves" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+          </div>
+          <p class="bubble-msg" id="bubbleMsg">Wait right now: <span class="wait" data-wait>about 1 min</span></p>
+        </div>
+      </div>
+      <h1 id="hero-title"><span class="sr">Had an accident that wasn't your fault? We'll get it sorted.</span><span aria-hidden="true"><span class="rot" id="rot"><span class="on">Rear-ended?</span><span>Side-swiped?</span><span>Hit while parked?</span><span>Hit at a junction?</span></span>We'll get it&nbsp;sorted.</span></h1>
+      <p class="lede">Tell us what happened in about 90 seconds. We'll recover your car, put you in a like-for-like replacement and get the repairs sorted. The other driver's insurer pays.</p>
+
+      <form class="reg-start" id="heroForm" novalidate>
+        <label class="plate" for="heroReg">
+          <span class="gb"><svg class="flag" viewBox="0 0 60 30" aria-hidden="true"><use href="#i-ukflag"/></svg>UK</span>
+          <span class="sr">Your vehicle registration</span>
+          <input id="heroReg" name="reg" placeholder="AB12 CDE" maxlength="8" autocomplete="off" spellcheck="false">
+        </label>
+        <button class="btn-start" type="submit"><span><span class="lbl-long">Start my claim</span><span class="lbl-short">Start</span></span><span class="chip-ic" aria-hidden="true"><svg class="arr"><use href="#i-arrow"/></svg><svg class="car" viewBox="0 0 64 32"><use href="#i-cartop"/></svg></span></button>
+      </form>
+      <a class="call-btn" href="tel:+448081570420">
+        <span class="call-ic" aria-hidden="true"><svg><use href="#i-phone"/></svg></span>
+        <span class="call-txt"><b>Call free 0808 157 0420</b><small><span class="live-dot" aria-hidden="true"></span>Answered in <span data-wait>under 1 min</span>, 24/7</small></span>
+      </a>
+
+      <div class="receipt" role="group" aria-labelledby="rcpt-title">
+        <div class="rc-head"><span id="rcpt-title">Your claim, itemised</span><span>Non-fault</span></div>
+        <ul class="rc-lines">
+          <li><span>Recovery and storage</span><i aria-hidden="true"></i><b>£0</b></li>
+          <li><span>Like-for-like hire car</span><i aria-hidden="true"></i><b>£0</b></li>
+          <li><span>Approved repairs</span><i aria-hidden="true"></i><b>£0</b></li>
+          <li><span>Your policy excess</span><i aria-hidden="true"></i><b>£0</b></li>
+        </ul>
+        <div class="rc-total"><span>You pay</span><b>£0</b></div>
+        <div class="rc-foot">
+          <p class="rc-note">Eligible non-fault claims. Costs are recovered from the at-fault driver's insurer.</p>
+          <div class="stamp" aria-label="Sorted. No-claims bonus protected"><b>Sorted</b><small>No-claims bonus<br>protected</small></div>
+        </div>
+      </div>
+      <div class="trust">
+        <span><svg aria-hidden="true"><use href="#i-shield"/></svg>FCA regulated, FRN 921134</span>
+        <span><svg aria-hidden="true"><use href="#i-pin"/></svg>UK-based claims team</span>
+        <span><svg aria-hidden="true"><use href="#i-pound"/></svg>Free, no obligation</span>
+        <span><svg aria-hidden="true"><use href="#i-check"/></svg>Partners rated Excellent on Trustpilot</span>
+      </div>
+    </div>
+
+    <div class="stage" id="stage">
+    <div class="float f1" aria-hidden="true"><span class="ic"><svg><use href="#i-shield"/></svg></span><span><b>£0</b><br>excess paid</span></div>
+    <div class="float f2" aria-hidden="true"><span class="ic"><svg><use href="#i-car"/></svg></span><span>Replacement car<br><b>Day 1</b></span></div>
+    <aside class="tracker" aria-label="Example of a claim's progress">
+      <div class="tracker-head">
+        <span class="ref">Claim RC-2610-4821</span>
+        <span class="mini-plate">LK19 XRT</span>
+      </div>
+      <h3>Sarah's claim</h3>
+      <p class="sub">Rear-ended at traffic lights, Manchester</p>
+      <ol class="steps-live" id="liveSteps">
+        <li><span class="dot"><svg><use href="#i-check"/></svg></span><span class="label">Accident reported<small>Online, in 84 seconds</small></span><span class="time">08:12</span></li>
+        <li><span class="dot"><svg><use href="#i-check"/></svg></span><span class="label">Car recovered<small>Collected from the roadside</small></span><span class="time">09:40</span></li>
+        <li><span class="dot"><svg><use href="#i-check"/></svg></span><span class="label">Replacement delivered<small>Same class, to her door</small></span><span class="time">Day 1</span></li>
+        <li><span class="dot"><svg><use href="#i-check"/></svg></span><span class="label">Repairs underway<small>Approved bodyshop</small></span><span class="time">Day 3</span></li>
+        <li><span class="dot"><svg><use href="#i-check"/></svg></span><span class="label">Car returned<small>Recovered from the at-fault insurer</small></span><span class="time">Day 12</span></li>
+      </ol>
+      <div class="tracker-foot"><span>Sarah paid</span><strong>£0</strong></div>
+      <span class="tracker-note">Illustrative example</span>
+    </aside>
+    </div>
+  </div>
+</section>
+
+<div class="road" id="road" aria-hidden="true">
+  <div class="lanes" id="lanes"></div>
+  <svg class="road-car" id="roadCar"><use href="#i-cartop"/></svg>
+  <svg class="road-car other" id="otherCar"><use href="#i-cartop"/></svg>
+  <span class="road-tag">Scroll to drive</span>
+</div>
+
+<!-- AT THE SCENE -->
+<section class="scene" id="scene" aria-labelledby="scene-title">
+  <div class="wrap scene-grid">
+    <div class="rv">
+      <h2 id="scene-title">At the scene right now? Start here.</h2>
+      <p class="lede">Shock makes it easy to forget the basics. Work through this list. Every item makes your claim stronger, and you can tick them off as you go.</p>
+      <div class="emergency" role="note">
+        <span class="n">999</span>
+        <span>If anyone is hurt, or the road is blocked or unsafe, call 999 before anything else.</span>
+      </div>
+    </div>
+    <div class="checklist rv" role="group" aria-labelledby="cl-title">
+      <div class="check-progress"><span id="cl-title">Your scene checklist</span><span id="clCount" aria-live="polite">0 of 6</span></div>
+      <div class="bar"><span id="clBar"></span></div>
+      <label class="check-item"><input type="checkbox"><span class="box"><svg><use href="#i-check"/></svg></span><div><strong>Get yourself somewhere safe</strong><span class="d">Hazard lights on. Get behind the barrier if you're on a motorway.</span></div></label>
+      <label class="check-item"><input type="checkbox"><span class="box"><svg><use href="#i-check"/></svg></span><div><strong>Don't admit fault or apologise</strong><span class="d">Stay polite. Liability is decided later, not at the roadside.</span></div></label>
+      <label class="check-item"><input type="checkbox"><span class="box"><svg><use href="#i-check"/></svg></span><div><strong>Swap details with the other driver</strong><span class="d">Name, phone, address, registration and their insurer. It's a legal requirement.</span></div></label>
+      <label class="check-item"><input type="checkbox"><span class="box"><svg><use href="#i-check"/></svg></span><div><strong>Photograph everything</strong><span class="d">Both cars, their number plate, the damage, road markings, signs and the weather.</span></div></label>
+      <label class="check-item"><input type="checkbox"><span class="box"><svg><use href="#i-check"/></svg></span><div><strong>Get witness contacts</strong><span class="d">A name and number is enough. Ask nearby shops or drivers about dashcam footage.</span></div></label>
+      <label class="check-item"><input type="checkbox"><span class="box"><svg><use href="#i-check"/></svg></span><div><strong>Report it to us</strong><span class="d">The sooner we know, the sooner you're back on the road.</span></div></label>
+      <div class="check-done" id="clDone" role="status"><span>All done. Report it and we'll get the rest sorted.</span><a href="#claim" class="btn btn-ink">Report it now</a></div>
+      <button type="button" class="save-list" id="saveList"><svg aria-hidden="true"><use href="#i-share"/></svg>Save this checklist to your phone</button>
+      <span class="save-msg" id="saveMsg" role="status"></span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" aria-labelledby="how-title">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><h2 id="how-title">You report it. We sort the rest.</h2></div>
+      <p class="lede">You report the accident. From then on we deal with the recovery, the garage, the hire company and the other driver's insurer.</p>
+    </div>
+    <div class="route" id="route">
+    <div class="route-line"><span class="route-fill"></span><svg class="route-car"><use href="#i-cartop"/></svg></div>
+    <ol class="how">
+      <li><span class="n">Step 1</span><h3>Tell us what happened</h3><p>Use the online form or call us. All we need is your reg, where it happened and how to reach you.</p><span class="when">90 seconds</span></li>
+      <li><span class="n">Step 2</span><h3>We check your claim</h3><p>A claims handler calls you back, confirms the other driver was at fault and takes it from there.</p><span class="when">Same day</span></li>
+      <li><span class="n">Step 3</span><h3>You're back on the road</h3><p>We arrange recovery if you need it, and a like-for-like replacement while yours is off the road.</p><span class="when">Often within 24 hrs</span></li>
+      <li><span class="n">Step 4</span><h3>Sorted. Car back on your drive</h3><p>Repairs at an approved garage, with costs recovered from the at-fault insurer. Not from you.</p><span class="when">We keep you updated</span></li>
+    </ol>
+    </div>
+    <div class="day1 rv">
+      <h3 id="d1-title">Your first 24 hours with us</h3>
+      <ol class="d1" aria-labelledby="d1-title">
+        <li><span class="t">0 min</span><b>You report it</b><span>Online in about 90 seconds, or by phone.</span></li>
+        <li><span class="t">Within the hour</span><b>A handler calls you</b><span>We check what happened and who was at fault.</span></li>
+        <li><span class="t">Same day</span><b>Recovery on its way</b><span>If your car can't be driven, we arrange collection.</span></li>
+        <li><span class="t">Often within 24 hrs</span><b>Replacement car</b><span>Like-for-like, delivered to you.</span></li>
+      </ol>
+      <p class="d1-note">Typical timings for eligible non-fault claims. Times can vary.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" style="padding-top:0" aria-labelledby="svc-title">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><h2 id="svc-title">Everything after the bang.</h2></div>
+      <p class="lede">One claim, one handler who knows your case, and every part of it sorted.</p>
+    </div>
+    <div class="services">
+      <article class="svc big rv"><span class="ic"><svg><use href="#i-car"/></svg></span><h3>Like-for-like replacement vehicle</h3><p>Drive a 7-seater? You get a 7-seater. Need an automatic or a van for work? Same again. Your life keeps moving while your car is off the road.</p><span class="tag">No upfront cost*</span></article>
+      <article class="svc big dark rv"><span class="ic"><svg><use href="#i-truck"/></svg></span><h3>24/7 recovery &amp; storage</h3><p>Stuck at the roadside or can't drive it home? We send recovery anywhere in the UK, day or night, and store the car safely.</p><span class="tag">Nationwide</span></article>
+      <article class="svc rv"><span class="ic"><svg><use href="#i-wrench"/></svg></span><h3>Approved repairs</h3><p>Manufacturer-standard repairs with genuine parts at approved bodyshops, guaranteed.</p><span class="tag">Quality assured</span></article>
+      <article class="svc rv"><span class="ic"><svg><use href="#i-heart"/></svg></span><h3>Injury support</h3><p>Hurt in the accident? We'll refer you to regulated specialists who can help with treatment and compensation.</p><span class="tag">Referral service</span></article>
+      <article class="svc rv"><span class="ic"><svg><use href="#i-file"/></svg></span><h3>Total loss</h3><p>If your car is written off, we push for a fair market value settlement, not a lowball offer.</p><span class="tag">We negotiate</span></article>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="compare-wrap" aria-labelledby="cmp-title">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><h2 id="cmp-title">See what going through your own insurer can cost.</h2></div>
+      <p class="lede">Move the slider to your policy excess and compare the two routes.</p>
+    </div>
+    <div class="slider-box rv">
+      <label for="excess">Your policy excess</label>
+      <input type="range" id="excess" min="0" max="1000" step="50" value="400" aria-describedby="excessOut">
+      <output id="excessOut" for="excess">£400</output>
+    </div>
+    <div class="calc rv">
+      <div class="slider-box">
+        <label for="ncb">Years of no-claims bonus</label>
+        <input type="range" id="ncb" min="0" max="9" step="1" value="5">
+        <output id="ncbOut" for="ncb">5</output>
+      </div>
+      <div class="slider-box">
+        <label for="days">Days off the road</label>
+        <input type="range" id="days" min="1" max="30" step="1" value="10">
+        <output id="daysOut" for="days">10</output>
+      </div>
+    </div>
+    <div class="calc-out rv" aria-live="polite">
+      <div><b id="cKeep">£400</b><span>excess you don't pay upfront*</span></div>
+      <div><b id="cNcb">5 years</b><span>of no-claims bonus kept off this claim</span></div>
+      <div><b id="cDays">10 days</b><span>in a like-for-like replacement, no upfront cost*</span></div>
+    </div>
+    <div class="compare rv">
+      <div class="cmp-col them">
+        <h3>Through your insurer</h3>
+        <p class="cap">The usual route</p>
+        <div class="cost" id="themCost">£400</div>
+        <p class="cost-note">paid upfront, and only refunded if they recover it</p>
+        <ul class="cmp-list">
+          <li><svg><use href="#i-x"/></svg>Pay your excess before repairs start</li>
+          <li><svg><use href="#i-x"/></svg>Courtesy car is often a small hatchback, if you get one at all</li>
+          <li><svg><use href="#i-x"/></svg>Claim can sit on your record at renewal</li>
+          <li><svg><use href="#i-x"/></svg>You chase updates yourself</li>
+        </ul>
+      </div>
+      <div class="cmp-col us">
+        <h3>Through Report a Claim</h3>
+        <p class="cap">For non-fault accidents</p>
+        <div class="cost">£0</div>
+        <p class="cost-note">no excess on eligible non-fault claims*</p>
+        <ul class="cmp-list">
+          <li><svg><use href="#i-check"/></svg>No excess. Costs are claimed from the at-fault insurer</li>
+          <li><svg><use href="#i-check"/></svg>Like-for-like replacement vehicle</li>
+          <li><svg><use href="#i-check"/></svg>No-claims bonus protected</li>
+          <li><svg><use href="#i-check"/></svg>A named handler and proactive updates</li>
+        </ul>
+      </div>
+    </div>
+    <p class="fine">*Subject to eligibility and the other party being found at fault. Excess figures are illustrative. You can also claim directly from the at-fault driver's insurer yourself, free of charge. You don't have to use a claims management company.</p>
+  </div>
+</section>
+
+<!-- CLAIM WIZARD -->
+<section class="claim-sec" id="claim" aria-labelledby="claim-title">
+  <div class="wrap claim-grid">
+    <div class="claim-side">
+      <h2 id="claim-title">Five quick questions. Then leave it to us.</h2>
+      <p class="lede">No account, no paperwork. Not sure of an answer? Choose "Unsure" and we'll go through it with you on the phone.</p>
+      <ol class="side-steps" id="sideSteps">
+        <li class="active"><span class="n">1</span>Your vehicle</li>
+        <li><span class="n">2</span>The accident</li>
+        <li><span class="n">3</span>The damage</li>
+        <li><span class="n">4</span>Your details</li>
+        <li><span class="n">5</span>Check &amp; send</li>
+      </ol>
+      <div class="side-help">Rather speak to someone?<a href="tel:+448081570420">0808 157 0420</a><span style="color:var(--muted);font-size:.88rem">Open 24 hours, 7 days a week</span></div>
+    </div>
+
+    <div class="wizard" id="wizard">
+      <div class="wz-top">
+        <span class="count" id="wzCount" aria-live="polite">Step 1 of 5</span>
+        <span class="timer"><svg width="16" height="16"><use href="#i-clock"/></svg><span id="wzTime">About 90 seconds left</span></span>
+      </div>
+      <div class="wz-bar"><span id="wzBar"></span><svg class="wz-car" aria-hidden="true"><use href="#i-cartop"/></svg><span class="wz-flag" aria-hidden="true"></span></div>
+      <p class="restored" id="restored" role="status"><span>We saved your answers from last time.</span><button type="button" id="startOver">Start over</button></p>
+
+      <form id="claimForm" novalidate>
+        <div class="wz-body">
+          <!-- Step 1 -->
+          <fieldset class="step active" data-step="1">
+            <legend class="sr">Your vehicle</legend>
+            <h3>Let's start with your car.</h3>
+            <p class="hint">Your reg is all we need to match the claim to your car.</p>
+            <div class="field" data-req="reg">
+              <label for="reg">Vehicle registration</label>
+              <span class="plate">
+                <span class="gb"><svg class="flag" viewBox="0 0 60 30" aria-hidden="true"><use href="#i-ukflag"/></svg>UK</span>
+                <input id="reg" name="reg" placeholder="AB12 CDE" maxlength="8" autocomplete="off" spellcheck="false">
+              </span>
+              <p class="err">Please enter your registration</p>
+            </div>
+            <div class="field" data-req="drivable">
+              <span class="lbl" id="drv-l">Is your car safe to drive?</span>
+              <div class="chips" role="radiogroup" aria-labelledby="drv-l">
+                <label class="chip"><input type="radio" name="drivable" value="Yes"><span>Yes</span></label>
+                <label class="chip"><input type="radio" name="drivable" value="No"><span>No, it needs recovery</span></label>
+                <label class="chip"><input type="radio" name="drivable" value="Unsure"><span>Unsure</span></label>
+              </div>
+              <p class="err">Please choose one</p>
+            </div>
+            <div class="callout go" id="recoveryNote" hidden><svg><use href="#i-truck"/></svg><span><strong>We'll prioritise recovery.</strong> After you send this, a handler will call to arrange a pickup. If you're stuck somewhere unsafe right now, call us instead.</span></div>
+          </fieldset>
+
+          <!-- Step 2 -->
+          <fieldset class="step" data-step="2">
+            <legend class="sr">The accident</legend>
+            <h3>What happened?</h3>
+            <p class="hint">Just the basics. We'll get the full story when we call you.</p>
+            <div class="row2">
+              <div class="field" data-req="date">
+                <label for="date">Date of accident</label>
+                <div class="qdate" role="group" aria-label="Quick date">
+                  <button type="button" data-days="0">Today</button>
+                  <button type="button" data-days="1">Yesterday</button>
+                  <button type="button" data-days="earlier">Earlier</button>
+                </div>
+                <input class="input" type="date" id="date" name="date">
+                <p class="err">Please enter a valid date (not in the future)</p>
+              </div>
+              <div class="field" data-req="region">
+                <label for="region">Where in the UK?</label>
+                <select class="input" id="region" name="region">
+                  <option value="">Choose…</option>
+                  <option>England</option><option>Wales</option><option>Scotland</option><option>Northern Ireland</option>
+                </select>
+                <p class="err">Please choose a region</p>
+              </div>
+            </div>
+            <div class="field" data-req="fault">
+              <span class="lbl" id="fault-l">Who do you think was at fault?</span>
+              <div class="chips" role="radiogroup" aria-labelledby="fault-l">
+                <label class="chip"><input type="radio" name="fault" value="The other driver"><span>The other driver</span></label>
+                <label class="chip"><input type="radio" name="fault" value="Me"><span>Me</span></label>
+                <label class="chip"><input type="radio" name="fault" value="Unsure / shared"><span>Unsure or shared</span></label>
+              </div>
+              <p class="err">Please choose one</p>
+            </div>
+            <div class="callout" id="faultNote" hidden><svg><use href="#i-info"/></svg><span>If the accident was your fault, the other driver's insurer won't cover your costs. Your own insurer is usually the best place to start. You can still send this and we'll tell you honestly whether we can help.</span></div>
+            <div class="field" data-req="injured">
+              <span class="lbl" id="inj-l">Was anyone injured?</span>
+              <div class="chips" role="radiogroup" aria-labelledby="inj-l">
+                <label class="chip"><input type="radio" name="injured" value="No"><span>No</span></label>
+                <label class="chip"><input type="radio" name="injured" value="Yes"><span>Yes</span></label>
+              </div>
+              <p class="err">Please choose one</p>
+            </div>
+          </fieldset>
+
+          <!-- Step 3 -->
+          <fieldset class="step" data-step="3">
+            <legend class="sr">The damage</legend>
+            <h3>Where's the damage?</h3>
+            <p class="hint">Tap each part of the car that was hit. This helps us send the right recovery and get repairs started faster.</p>
+            <div class="damage">
+              <svg class="car-map" viewBox="0 0 160 300" role="group" aria-label="Top-down car diagram. Select damaged areas.">
+                <rect class="wheel" x="10" y="52" width="14" height="40" rx="5"/><rect class="wheel" x="136" y="52" width="14" height="40" rx="5"/>
+                <rect class="wheel" x="10" y="204" width="14" height="40" rx="5"/><rect class="wheel" x="136" y="204" width="14" height="40" rx="5"/>
+                <path class="zone" data-zone="Front" tabindex="0" role="button" aria-pressed="false" aria-label="Front" d="M30 40 Q30 10 80 8 Q130 10 130 40 L130 62 L30 62 Z"/>
+                <path class="zone" data-zone="Front left" tabindex="0" role="button" aria-pressed="false" aria-label="Front left" d="M20 62 L80 62 L80 140 L20 140 Z"/>
+                <path class="zone" data-zone="Front right" tabindex="0" role="button" aria-pressed="false" aria-label="Front right" d="M80 62 L140 62 L140 140 L80 140 Z"/>
+                <path class="zone" data-zone="Rear left" tabindex="0" role="button" aria-pressed="false" aria-label="Rear left" d="M20 140 L80 140 L80 238 L20 238 Z"/>
+                <path class="zone" data-zone="Rear right" tabindex="0" role="button" aria-pressed="false" aria-label="Rear right" d="M80 140 L140 140 L140 238 L80 238 Z"/>
+                <path class="zone" data-zone="Rear" tabindex="0" role="button" aria-pressed="false" aria-label="Rear" d="M30 238 L130 238 L130 262 Q130 292 80 292 Q30 292 30 262 Z"/>
+                <path class="glass" d="M38 74 Q80 62 122 74 L116 104 Q80 98 44 104 Z"/>
+                <path class="glass" d="M44 200 Q80 206 116 200 L120 224 Q80 234 40 224 Z"/>
+                <rect class="glass" x="46" y="112" width="68" height="80" rx="8" opacity=".35"/>
+              </svg>
+              <div>
+                <p class="lbl" style="font-weight:700;margin-bottom:10px">Selected areas</p>
+                <div class="dmg-list" id="dmgList" aria-live="polite"><span class="none">Nothing selected yet. Tap the car.</span></div>
+                <div class="field" style="margin-top:22px">
+                  <label for="notes">Anything else? <span class="opt">(optional)</span></label>
+                  <textarea class="input" id="notes" name="notes" rows="3" placeholder="e.g. hit from behind at a roundabout, other driver gave me their details"></textarea>
+                </div>
+                <div class="photos">
+                  <p class="lbl" style="font-weight:700;margin-bottom:10px">Photos of the damage <span class="opt">(optional)</span></p>
+                  <label class="photo-add">
+                    <input type="file" id="photos" accept="image/*" multiple aria-describedby="photoMsg">
+                    <span class="pi" aria-hidden="true"><svg><use href="#i-camera"/></svg></span>
+                    <span><b>Snap the damage now</b><small>Or choose from your gallery. Up to 6 photos.</small></span>
+                  </label>
+                  <ul class="photo-tips" aria-label="Photo tips">
+                    <li>Get their number plate in shot</li><li>One close-up, one from further back</li><li>Both cars if you can</li>
+                  </ul>
+                  <div class="thumbs" id="thumbs"></div>
+                  <p class="photo-msg" id="photoMsg" aria-live="polite"></p>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Step 4 -->
+          <fieldset class="step" data-step="4">
+            <legend class="sr">Your details</legend>
+            <h3>How can we reach you?</h3>
+            <p class="hint">A claims handler will call you, usually within the hour.</p>
+            <div class="row2">
+              <div class="field" data-req="first"><label for="first">First name</label><input class="input" id="first" name="first" autocomplete="given-name"><p class="err">Please enter your first name</p></div>
+              <div class="field" data-req="last"><label for="last">Last name</label><input class="input" id="last" name="last" autocomplete="family-name"><p class="err">Please enter your last name</p></div>
+            </div>
+            <div class="row2">
+              <div class="field" data-req="phone"><label for="phone">Mobile number</label><input class="input" id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="07…"><p class="err">Please enter a valid UK phone number</p></div>
+              <div class="field" data-req="email"><label for="email">Email <span class="opt">(optional)</span></label><input class="input" id="email" name="email" type="email" autocomplete="email"><p class="err">That email doesn't look right</p></div>
+            </div>
+            <div class="field">
+              <label for="insurer">Your insurer <span class="opt">(optional)</span></label>
+              <select class="input" id="insurer" name="insurer">
+                <option value="">Choose or skip…</option>
+              </select>
+            </div>
+            <div class="field" data-req="consent">
+              <label class="consent"><input type="checkbox" id="consent" name="consent"><span>I agree to be contacted about my claim and have read the <a href="#">privacy notice</a>. I understand I can also claim directly from the at-fault insurer for free.</span></label>
+              <p class="err">Please tick to continue</p>
+            </div>
+          </fieldset>
+
+          <!-- Step 5 -->
+          <fieldset class="step" data-step="5">
+            <legend class="sr">Check and send</legend>
+            <h3>All looks good?</h3>
+            <p class="hint">Check your answers, then send. You can change anything before you do.</p>
+            <dl class="review" id="review"></dl>
+            <div class="callout" id="sendErr" role="alert" hidden><svg><use href="#i-info"/></svg><span>We couldn't send your claim just now. Please try again, or call us on <a href="tel:+448081570420">0808 157 0420</a>.</span></div>
+            <div class="callout go"><svg><use href="#i-shield"/></svg><span>Sending this doesn't commit you to anything. A handler will explain your options and next steps before anything goes ahead.</span></div>
+          </fieldset>
+        </div>
+
+        <div class="wz-nav" id="wzNav">
+          <button type="button" class="back" id="backBtn" hidden><svg width="18" height="18"><use href="#i-back"/></svg>Back</button>
+          <span class="secure"><svg width="14" height="14"><use href="#i-lock"/></svg>Encrypted and never shared for marketing</span>
+          <button type="submit" class="btn btn-amber" id="nextBtn">Continue <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        </div>
+      </form>
+
+      <div class="success" id="success" role="status" tabindex="-1">
+        <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+        <h3>Sorted, <span id="sName"></span>. We've got your claim.</h3>
+        <p style="color:var(--muted)">Keep this reference handy:</p>
+        <div class="ref-wrap"><div class="ref-box" id="sRef"></div><div class="s-stamp" aria-hidden="true"><b>Sorted</b><small>Claim received</small></div></div>
+        <ol class="next">
+          <li><b>1</b><span>A claims handler will call <strong id="sPhone"></strong>, usually within the hour.</span></li>
+          <li><b>2</b><span>Have the other driver's details and your photos ready if you have them.</span></li>
+          <li><b>3</b><span>Don't arrange repairs or speak to the other insurer until we've spoken.</span></li>
+        </ol>
+        <div class="after">
+          <a class="btn btn-ink" href="tel:+448081570420"><svg><use href="#i-phone"/></svg>Can't wait? Call us now</a>
+          <a class="btn btn-ghost" id="sendPhotos" href="https://wa.me/447700900420" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Send photos on WhatsApp</a>
+          <a class="save-contact" id="saveContact" download="Report-a-Claim.vcf" href="#">Save our number to your contacts</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSURERS -->
+<div class="insurers" aria-label="Insurers we deal with">
+  <p>We deal with every major UK insurer, including</p>
+  <div class="marquee" id="marquee" aria-hidden="true"></div>
+</div>
+
+<!-- FAQ -->
+<section id="faq" aria-labelledby="faq-title">
+  <div class="wrap faq-grid">
+    <div class="rv">
+      <h2 id="faq-title" style="margin-top:14px">Straight answers.</h2>
+      <p class="lede" style="margin-top:18px">Can't find yours? Call us. We'd rather explain on the phone than have you guess.</p>
+    </div>
+    <div class="faq rv">
+      <details><summary>Will I have to pay an excess?<span class="pm" aria-hidden="true">+</span></summary><p>Not on eligible non-fault claims. Because we claim your costs back from the at-fault driver's insurer, you don't pay your policy excess upfront.</p></details>
+      <details><summary>Will this affect my no-claims bonus?<span class="pm" aria-hidden="true">+</span></summary><p>We deal with the other driver's insurer directly, so the claim isn't made on your policy. Your no-claims bonus stays protected. You should still tell your own insurer an accident happened, because most policies require it.</p></details>
+      <details><summary>What kind of replacement car will I get?<span class="pm" aria-hidden="true">+</span></summary><p>A like-for-like vehicle, as close as possible to your own in size, type and specification. That includes automatics, people carriers and vans where you need them.</p></details>
+      <details><summary>What if the other driver disputes liability?<span class="pm" aria-hidden="true">+</span></summary><p>It happens. We gather the evidence (photos, witnesses, dashcam footage) and handle the dispute for you. We'll always be clear with you about where the claim stands.</p></details>
+      <details><summary>Do I have to use a claims company?<span class="pm" aria-hidden="true">+</span></summary><p>No. You can claim directly from the at-fault driver's insurer, or through your own insurer, at no cost. We handle the whole process for you, including recovery, a replacement vehicle and repairs, so you don't have to deal with it yourself.</p></details>
+      <details><summary>Can I cancel?<span class="pm" aria-hidden="true">+</span></summary><p>Yes. You have a 14-day cooling-off period after signing any agreement with us, and we'll explain your cancellation rights clearly before you commit to anything.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final" aria-labelledby="final-title">
+  <div class="wrap">
+    <h2 id="final-title">Been hit? Report it. We'll get it sorted.</h2>
+    <div class="btns">
+      <a href="#claim" class="btn btn-ink">Report online <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a href="tel:+448081570420" class="btn btn-ghost"><svg aria-hidden="true"><use href="#i-phone"/></svg>0808 157 0420</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#" class="logo" aria-label="Report a Claim home"><svg class="logo-mark" aria-hidden="true"><use href="#logo-mark"/></svg><span class="logo-text"><span class="logo-word">reportaclaim<span>.co.uk</span></span><span class="tagline"><b>Hit.</b> <b>Report.</b> <b>Sorted.</b></span></span></a>
+        <p style="max-width:36ch">Recovery, replacement vehicles and repairs after non-fault accidents. You report it, we get it sorted.</p>
+        <button type="button" class="fx-toggle" id="fxToggle" aria-pressed="false"><svg aria-hidden="true"><use href="#i-sound"/></svg>Sound &amp; vibration: <b>Off</b></button>
+      </div>
+      <div><h4>Guides</h4><ul><li><a href="hit-while-parked.html">Hit while parked</a></li><li><a href="hit-and-run.html">Hit and run</a></li><li><a href="motorbike-accident.html">Motorbike accidents</a></li><li><a href="taxi-and-van-drivers.html">Taxi and van drivers</a></li></ul></div>
+      <div><h4>Get help</h4><ul><li><a href="#claim">Report a new claim</a></li><li><a href="tel:+448081570420">Existing claim: 0808 157 0420</a></li><li><a href="#scene">At the scene checklist</a></li><li><a href="#faq">FAQs</a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="#">Privacy notice</a></li><li><a href="#">Cookie policy</a></li><li><a href="#">Terms &amp; conditions</a></li><li><a href="#">Complaints procedure</a></li></ul></div>
+    </div>
+    <div class="reg">
+      <!-- "reportaclaim.co.uk" must be listed as a trading name of Stocalfe Response Ltd on the FCA register before launch -->
+      <p><strong>reportaclaim.co.uk</strong> is a trading style of Stocalfe Response Ltd, a company registered in England and Wales with No. 12372014.</p>
+      <p>Stocalfe Response Ltd is authorised and regulated by the Financial Conduct Authority in respect of regulated claims management activities under Firm Registration No. 921134.</p>
+      <p>We refer personal injury claims to a panel of specialist personal injury lawyers who will see your claim through to conclusion. We do not charge you a fee for referring you to our panel of specialist personal injury lawyers. Instead, we receive a monthly marketing fee from the specialist personal injury lawyers we refer you to. This marketing fee is not passed on to you and does not impact the way a lawyer will handle your claim.</p>
+      <p>Our hire partners and panel law firms have 500+ five star reviews on Trustpilot and are rated 'Excellent'.</p>
+      <p>You don't have to use a claims management company to make a claim. You can claim directly from the at-fault party's insurer, or through your own insurer, free of charge. We are independent and not affiliated with any insurer named on this site. Insurer names are trademarks of their respective owners.</p>
+      <p>© <span id="yr"></span> Stocalfe Response Ltd. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<button class="dock" id="dock" type="button" aria-haspopup="dialog" aria-controls="sheet" aria-expanded="false" aria-label="Talk to a claims handler">
+  <span class="dock-bubble" aria-hidden="true"><b>Talk to a handler</b><small><span class="live-dot"></span><span data-wait>under 1 min</span>&nbsp;wait</small></span>
+  <span class="dock-dash" aria-hidden="true">
+    <svg class="car" viewBox="0 0 120 100" aria-hidden="true">
+            <ellipse cx="60" cy="94" rx="44" ry="5" fill="#0E1220" opacity=".12"/>
+            <rect x="16" y="76" width="16" height="16" rx="5" fill="#0E1220"/><rect x="88" y="76" width="16" height="16" rx="5" fill="#0E1220"/>
+            <ellipse cx="20" cy="42" rx="7" ry="4.5" fill="#1A3FE0"/><ellipse cx="100" cy="42" rx="7" ry="4.5" fill="#1A3FE0"/>
+            <path d="M26 44Q31 12 60 12t34 32z" fill="#1A3FE0"/>
+            <rect x="8" y="40" width="104" height="44" rx="18" fill="#2350FF"/>
+            <path d="M33 42q4-22 27-22t27 22z" fill="#E8EDFF"/>
+            <g class="eyes"><circle cx="50" cy="32" r="4.6" fill="#0E1220"/><circle cx="70" cy="32" r="4.6" fill="#0E1220"/><circle cx="51.6" cy="30.4" r="1.4" fill="#fff"/><circle cx="71.6" cy="30.4" r="1.4" fill="#fff"/></g>
+            <g class="lids"><rect x="44" y="26" width="12" height="12" rx="6" fill="#E8EDFF"/><rect x="64" y="26" width="12" height="12" rx="6" fill="#E8EDFF"/></g>
+            <circle cx="24" cy="56" r="8" fill="#FFE27A"/><circle cx="24" cy="56" r="4" fill="#fff"/><circle cx="96" cy="56" r="8" fill="#FFE27A"/><circle cx="96" cy="56" r="4" fill="#fff"/>
+            <path d="M47 58q13 9 26 0" fill="none" stroke="#0E1220" stroke-width="3" stroke-linecap="round"/>
+            <rect x="43" y="68" width="34" height="11" rx="2.5" fill="#FFD60A" stroke="#0E1220" stroke-width="1.5"/>
+            <text x="60" y="76.6" text-anchor="middle" font-family="Inter Tight,Inter,sans-serif" font-weight="800" font-size="7.5" letter-spacing=".6" fill="#0E1220">DASH</text>
+          </svg>
+    <span class="dock-ph"><svg><use href="#i-phone"/></svg></span>
+  </span>
+</button>
+<div class="sheet-bg" id="sheetBg" hidden></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
+  <div class="grab" aria-hidden="true"></div>
+  <button class="sheet-close" id="sheetClose" type="button" aria-label="Close"><svg><use href="#i-x"/></svg></button>
+  <h3 id="sheetTitle">Let's get you sorted.</h3>
+  <p class="sheet-sub"><span class="live-dot" aria-hidden="true"></span>Handlers online. Current wait&nbsp;<span class="wait" data-wait>about 1 min</span></p>
+  <a class="opt primary" href="tel:+448081570420"><span class="oi call"><svg><use href="#i-phone"/></svg></span><span><b>Call 0808 157 0420</b><small>Free from mobiles and landlines, 24/7</small></span><svg><use href="#i-arrow"/></svg></a>
+  <button class="opt" id="cbToggle" type="button" aria-expanded="false" aria-controls="cbForm"><span class="oi"><svg><use href="#i-clock"/></svg></span><span><b>Call me back</b><small>Leave your number and we'll ring you</small></span><svg><use href="#i-arrow"/></svg></button>
+  <form class="cb" id="cbForm" novalidate hidden>
+    <label class="sr" for="cbPhone">Your mobile number</label>
+    <input class="input" id="cbPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Your mobile number">
+    <button class="btn btn-ink" type="submit">Call me back</button>
+    <p class="cb-msg" id="cbMsg" aria-live="polite">Usually within 5 minutes. No marketing calls.</p>
+  </form>
+  <!-- TODO: replace with the firm's real WhatsApp Business number -->
+  <a class="opt" href="https://wa.me/447700900420?text=Hi%2C%20I%27ve%20had%20an%20accident%20that%20wasn%27t%20my%20fault" target="_blank" rel="noopener"><span class="oi wa"><svg><use href="#i-wa"/></svg></span><span><b>Message us on WhatsApp</b><small>Send photos of the damage straight away</small></span><svg><use href="#i-arrow"/></svg></a>
+  <a class="opt" href="#claim" data-close><span class="oi web"><svg><use href="#i-file"/></svg></span><span><b>Report online</b><small>Five quick questions, about 90 seconds</small></span><svg><use href="#i-arrow"/></svg></a>
+  <p class="sheet-foot">FCA regulated (FRN 921134). Free, no obligation.</p>
+</div>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // People often report from the roadside on old phones or poor signal, so skip the costly effects there
+  const conn = navigator.connection || {};
+  const lite = reduced || !!conn.saveData || /(^|-)2g$/.test(conn.effectiveType || '') || (navigator.deviceMemory || 8) <= 2 || (navigator.hardwareConcurrency || 8) <= 2;
+  document.documentElement.classList.toggle('lite', lite);
+  const store = {
+    get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* storage unavailable */ } },
+  };
+
+  $('#yr').textContent = new Date().getFullYear();
+
+  // Night mode toggle. The head script already picked the starting theme.
+  const themeBtn = $('#themeBtn');
+  const paintTheme = () => {
+    const dark = document.documentElement.dataset.theme === 'dark';
+    themeBtn.setAttribute('aria-pressed', dark);
+    $('meta[name=theme-color]').content = dark ? '#0B0F1A' : '#FFFFFF';
+  };
+  themeBtn.addEventListener('click', () => {
+    const t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = t;
+    store.set('rac-theme', t);
+    paintTheme();
+  });
+  paintTheme();
+
+  // Sound and vibration on key moments. Off unless the visitor turns it on.
+  const fxBtn = $('#fxToggle');
+  let fxOn = store.get('rac-fx') === '1', audio = null;
+  const paintFx = () => { fxBtn.setAttribute('aria-pressed', fxOn); $('b', fxBtn).textContent = fxOn ? 'On' : 'Off'; };
+  function tone(freq, start, dur, type = 'sine', vol = .08) {
+    const o = audio.createOscillator(), g = audio.createGain(), t = audio.currentTime + start;
+    o.type = type; o.frequency.setValueAtTime(freq, t);
+    g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    o.connect(g).connect(audio.destination); o.start(t); o.stop(t + dur);
+  }
+  function feedback(kind) {
+    if (!fxOn) return;
+    if (navigator.vibrate) navigator.vibrate(kind === 'stamp' ? [30, 50, 80] : kind === 'step' ? 18 : 10);
+    try {
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      if (kind === 'tick') tone(1300, 0, .05, 'triangle', .05);
+      if (kind === 'step') { tone(660, 0, .09); tone(880, .07, .12); }
+      if (kind === 'stamp') { tone(90, 0, .25, 'square', .12); tone(784, .12, .2); tone(1047, .24, .35); }
+    } catch (e) { /* audio unavailable, vibration alone is fine */ }
+  }
+  fxBtn.addEventListener('click', () => { fxOn = !fxOn; store.set('rac-fx', fxOn ? '1' : '0'); paintFx(); feedback('step'); });
+  paintFx();
+
+  // Conversion events for GTM / GA4. TODO: add the GTM container snippet to <head> to collect these
+  window.dataLayer = window.dataLayer || [];
+  const track = (event, props = {}) => window.dataLayer.push({ event, ...props });
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a'); if (!a) return;
+    const where = a.closest('#sheet') ? 'help_sheet' : a.closest('header') ? 'header' : a.closest('#success') ? 'success' : (a.closest('section') || {}).id || a.closest('section, footer')?.className || 'page';
+    if (a.href.startsWith('tel:')) track('call_click', { location: where });
+    else if (a.href.includes('wa.me')) track('whatsapp_click', { location: where });
+  });
+
+  // Header border + help dock
+  const top = $('#top'), dock = $('#dock'), claimSec = $('#claim');
+  let claimVisible = false;
+  new IntersectionObserver(([e]) => { claimVisible = e.isIntersecting; onScroll(); }, { threshold: 0.15 }).observe(claimSec);
+  function onScroll() {
+    top.classList.toggle('scrolled', scrollY > 8);
+    const show = scrollY > 360 && !claimVisible;
+    if (show && !dock.classList.contains('show')) peekBubble();
+    dock.classList.toggle('show', show);
+  }
+  addEventListener('scroll', onScroll, { passive: true });
+  let peekTimer = null;
+  function peekBubble() {
+    dock.classList.remove('mini'); clearTimeout(peekTimer);
+    peekTimer = setTimeout(() => dock.classList.add('mini'), 6000);
+  }
+  setInterval(() => { if (dock.classList.contains('show') && sheet.hidden) peekBubble(); }, 30000);
+
+  // Reveal on scroll
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: 0.12 });
+  $$('.rv').forEach((el, i) => { el.style.transitionDelay = (i % 4) * 70 + 'ms'; io.observe(el); });
+
+  // Live wait time. TODO: replace the estimate with the real queue time from the telephony system
+  function estimateWait() {
+    const h = +new Intl.DateTimeFormat('en-GB', { hour: 'numeric', hourCycle: 'h23', timeZone: 'Europe/London' }).format(new Date());
+    const busy = (h >= 8 && h < 10) || (h >= 16 && h < 19);
+    const night = h >= 22 || h < 7;
+    const mins = night ? 1 : busy ? 2 + Math.round(Math.random()) : 1 + Math.round(Math.random());
+    return mins <= 1 ? 'under 1 min' : `about ${mins} mins`;
+  }
+  const paintWait = () => { const t = estimateWait(); $$('[data-wait]').forEach(el => { el.textContent = t; }); };
+  paintWait(); setInterval(paintWait, 60000);
+
+  // Help sheet
+  const sheet = $('#sheet'), sheetBg = $('#sheetBg');
+  let lastFocus = null;
+  function openSheet() {
+    lastFocus = document.activeElement;
+    sheet.hidden = sheetBg.hidden = false;
+    requestAnimationFrame(() => { sheet.classList.add('open'); sheetBg.classList.add('open'); });
+    dock.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => $('.opt', sheet).focus({ preventScroll: true }), 50);
+  }
+  function closeSheet() {
+    sheet.classList.remove('open'); sheetBg.classList.remove('open');
+    dock.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    setTimeout(() => { sheet.hidden = sheetBg.hidden = true; }, reduced ? 0 : 450);
+    if (lastFocus) lastFocus.focus({ preventScroll: true });
+  }
+  dock.addEventListener('click', () => { track('help_open'); openSheet(); });
+  sheetBg.addEventListener('click', closeSheet);
+  $('#sheetClose').addEventListener('click', closeSheet);
+  $$('[data-close]', sheet).forEach(a => a.addEventListener('click', closeSheet));
+  addEventListener('keydown', e => {
+    if (sheet.hidden) return;
+    if (e.key === 'Escape') closeSheet();
+    if (e.key === 'Tab') {
+      const f = $$('a,button,input', sheet).filter(el => !el.closest('[hidden]'));
+      if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+    }
+  });
+  // Swipe the sheet down to close it
+  let startY = null;
+  sheet.addEventListener('touchstart', e => { startY = sheet.scrollTop <= 0 ? e.touches[0].clientY : null; }, { passive: true });
+  sheet.addEventListener('touchend', e => { if (startY !== null && e.changedTouches[0].clientY - startY > 80) closeSheet(); startY = null; });
+
+  // Callback request. TODO: set to the real callback endpoint. Empty = demo mode.
+  const CALLBACK_ENDPOINT = '';
+  $('#cbToggle').addEventListener('click', () => {
+    const f = $('#cbForm'), open = f.hidden;
+    f.hidden = !open; $('#cbToggle').setAttribute('aria-expanded', open);
+    if (open) $('#cbPhone').focus();
+  });
+  $('#cbForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const phone = $('#cbPhone').value.trim(), msg = $('#cbMsg');
+    if (!/^(\+44\s?|0)\d[\d\s]{8,12}$/.test(phone)) { msg.className = 'cb-msg bad'; msg.textContent = 'Enter a UK number, like 07700 900123.'; $('#cbPhone').focus(); return; }
+    const btn = $('button', e.target); btn.disabled = true; btn.textContent = 'Booking…';
+    try {
+      if (CALLBACK_ENDPOINT) {
+        const res = await fetch(CALLBACK_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ phone, requestedAt: new Date().toISOString() }) });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      } else {
+        console.info('Callback request', phone);
+        await new Promise(r => setTimeout(r, 600));
+      }
+      msg.className = 'cb-msg ok'; msg.textContent = `Booked. We'll call ${phone} shortly.`;
+      track('callback_requested');
+      $('#cbPhone').disabled = true; btn.textContent = 'Booked';
+    } catch (err) {
+      console.error('Callback request failed', err);
+      msg.className = 'cb-msg bad'; msg.textContent = "That didn't go through. Call us instead on 0808 157 0420.";
+      btn.disabled = false; btn.textContent = 'Call me back';
+    }
+  });
+
+  // Dash: eyes follow the pointer, tap for a tip
+  const dashBtn = $('#dash'), allEyes = $$('.eyes'), bubbleMsg = $('#bubbleMsg');
+  const tips = [
+    'Tip: photograph the other car\'s number plate first.',
+    'Tip: don\'t admit fault at the roadside, even to be polite.',
+    'Tip: ask nearby drivers if they caught it on dashcam.',
+    'Tip: swapping details with the other driver is a legal must.',
+  ];
+  const waitLine = bubbleMsg.innerHTML;
+  let tipIdx = 0, tipTimer = null;
+  function look(x, y) {
+    const r = dashBtn.getBoundingClientRect();
+    const dx = Math.max(-1, Math.min(1, (x - (r.left + r.width / 2)) / 300));
+    const dy = Math.max(-1, Math.min(1, (y - (r.top + r.height / 3)) / 300));
+    allEyes.forEach(g => { g.style.transform = `translate(${(dx * 3).toFixed(2)}px, ${(dy * 2.5).toFixed(2)}px)`; });
+  }
+  if (!reduced) {
+    addEventListener('pointermove', e => look(e.clientX, e.clientY), { passive: true });
+    addEventListener('touchstart', e => look(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+  }
+  dashBtn.addEventListener('click', () => {
+    dashBtn.classList.remove('hop'); void dashBtn.offsetWidth; dashBtn.classList.add('hop');
+    bubbleMsg.textContent = tips[tipIdx++ % tips.length];
+    clearTimeout(tipTimer);
+    tipTimer = setTimeout(() => { bubbleMsg.innerHTML = waitLine; paintWait(); }, 6000);
+  });
+
+  // Start buttons: the car drives out of the chip before we move on
+  $$('.btn-start').forEach(b => b.addEventListener('click', () => {
+    if (reduced) return;
+    b.classList.add('go'); setTimeout(() => b.classList.remove('go'), 900);
+  }));
+
+  // Dash acts out each headline: takes the hit where the headline says, then gets fixed.
+  // Order matches the #rot headlines; x/y are spots on Dash's body in SVG units.
+  const hits = [
+    { kind: 'rear', x: 98, y: 44 },
+    { kind: 'side', x: 12, y: 62 },
+    { kind: 'parked', x: 108, y: 64 },
+    { kind: 'junction', x: 34, y: 82 },
+  ];
+  let hitTimers = [];
+  function dashHit(i) {
+    if (reduced) return;
+    const h = hits[i]; if (!h) return;
+    hitTimers.forEach(clearTimeout);
+    $('#dashDent').setAttribute('transform', `translate(${h.x} ${h.y})`);
+    $('#dashSpark').setAttribute('transform', `translate(${h.x} ${h.y})`);
+    dashBtn.dataset.hit = h.kind;
+    dashBtn.classList.remove('hit', 'fixed'); void dashBtn.offsetWidth;
+    dashBtn.classList.add('hit');
+    hitTimers = [
+      setTimeout(() => { dashBtn.classList.remove('hit'); dashBtn.classList.add('fixed'); }, 1150),
+      setTimeout(() => dashBtn.classList.remove('fixed'), 2000),
+    ];
+  }
+
+  // Headline rotator
+  const rot = $$('#rot span');
+  if (!reduced && rot.length) {
+    let ri = 0;
+    setTimeout(() => dashHit(0), 1300);
+    setInterval(() => {
+      const prev = rot[ri]; ri = (ri + 1) % rot.length;
+      prev.classList.remove('on'); prev.classList.add('out');
+      rot[ri].classList.remove('out'); rot[ri].classList.add('on');
+      setTimeout(() => prev.classList.remove('out'), 700);
+      dashHit(ri);
+    }, 2600);
+  }
+
+  // Tracker tilts toward the pointer
+  const stage = $('#stage'), tracker = $('.tracker');
+  if (!lite && matchMedia('(pointer: fine)').matches) {
+    $('.hero').addEventListener('pointermove', e => {
+      const r = stage.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      tracker.style.setProperty('--ry', (x * 10).toFixed(2) + 'deg');
+      tracker.style.setProperty('--rx', (-y * 8).toFixed(2) + 'deg');
+    });
+    $('.hero').addEventListener('pointerleave', () => { tracker.style.setProperty('--rx', '0deg'); tracker.style.setProperty('--ry', '0deg'); });
+  }
+
+  // Scroll progress, the road and the route all key off scroll
+  const route = $('#route'), routeSteps = $$('#route .how li'), lanes = $('#lanes'), road = $('#road');
+  const roadCar = $('#roadCar'), otherCar = $('#otherCar');
+  let lastY = scrollY, velocity = 0, laneX = 0, otherX = 1.1, roadOn = false;
+  new IntersectionObserver(([e]) => { const was = roadOn; roadOn = e.isIntersecting; if (roadOn && !was && !lite) requestAnimationFrame(drive); }).observe(road);
+  function onScrollFx() {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    top.style.setProperty('--sp', max > 0 ? (scrollY / max).toFixed(4) : 0);
+    top.style.setProperty('--spv', scrollY > 120 ? 1 : 0);
+    const r = route.getBoundingClientRect();
+    const p = Math.min(1, Math.max(0, (innerHeight * .7 - r.top) / (r.height * .85)));
+    route.style.setProperty('--p', reduced ? 1 : p.toFixed(4));
+    routeSteps.forEach((li, i) => li.classList.toggle('reached', reduced || p >= i / routeSteps.length + .02));
+  }
+  addEventListener('scroll', onScrollFx, { passive: true }); addEventListener('resize', onScrollFx); onScrollFx();
+  function drive() {
+    const dy = scrollY - lastY; lastY = scrollY;
+    velocity += (Math.abs(dy) - velocity) * .12;
+    if (roadOn) {
+      const speed = 2 + Math.min(velocity, 60) * .9;
+      laneX = (laneX - speed) % 96;
+      lanes.style.backgroundPosition = laneX + 'px 0';
+      roadCar.style.left = (22 + Math.min(velocity, 60) * .5) + '%';
+      roadCar.style.transform = `translateY(${Math.sin(Date.now() / 180) * 1.2}px)`;
+      otherX -= (.004 + speed * .0009);
+      if (otherX < -.2) otherX = 1.1 + Math.random() * .8;
+      otherCar.style.left = (otherX * 100) + '%';
+      requestAnimationFrame(drive);
+    }
+  }
+
+  // Live tracker animation
+  const live = $$('#liveSteps li');
+  let li = 0;
+  function tick() {
+    live.forEach((el, i) => { el.classList.toggle('done', i < li); el.classList.toggle('now', i === li); });
+    li = li >= live.length ? 0 : li + 1;
+  }
+  if (reduced) { live.forEach(el => el.classList.add('done')); } else { tick(); setInterval(tick, 1400); }
+
+  // Plate formatting
+  const fmtReg = v => {
+    const s = v.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 7);
+    return /^[A-Z]{2}\d{2}[A-Z]{1,3}$/.test(s) || (s.length > 4 && /^[A-Z]{2}\d{2}/.test(s)) ? s.slice(0, 4) + ' ' + s.slice(4) : s;
+  };
+  $$('#heroReg, #reg').forEach(inp => inp.addEventListener('input', () => { inp.value = fmtReg(inp.value); }));
+
+  // Hero → wizard
+  $('#heroForm').addEventListener('submit', e => {
+    e.preventDefault();
+    track('start_claim', { source: 'hero', has_reg: !!$('#heroReg').value.trim() });
+    $('#reg').value = fmtReg($('#heroReg').value);
+    claimSec.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+    setTimeout(() => ($('#reg').value ? $('input[name=drivable]') : $('#reg')).focus({ preventScroll: true }), reduced ? 0 : 600);
+  });
+
+  // Scene checklist
+  const checks = $$('.check-item input');
+  checks.forEach(c => c.addEventListener('change', () => {
+    const n = checks.filter(x => x.checked).length;
+    $('#clCount').textContent = `${n} of ${checks.length}`;
+    $('#clBar').style.width = (n / checks.length * 100) + '%';
+    $('#clDone').classList.toggle('show', n === checks.length);
+    feedback('tick');
+  }));
+
+  // Save the checklist so it's on their phone before they ever need it
+  $('#saveList').addEventListener('click', async () => {
+    const items = $$('.check-item strong').map((s, i) => `${i + 1}. ${s.textContent}`).join('\n');
+    const text = `At the scene of an accident\nIf anyone is hurt or the road is unsafe, call 999 first.\n\n${items}\n\nReport it: ${location.origin}${location.pathname}#claim\nCall free: 0808 157 0420`;
+    const msg = $('#saveMsg');
+    track('checklist_saved');
+    if (navigator.share) {
+      try { await navigator.share({ title: 'Accident checklist', text }); return; }
+      catch (err) { if (err.name === 'AbortError') return; }
+    }
+    try { await navigator.clipboard.writeText(text); msg.textContent = 'Copied. Paste it into your notes app.'; }
+    catch (err) {
+      const a = document.createElement('a');
+      a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(text); a.download = 'accident-checklist.txt'; a.click();
+      msg.textContent = 'Downloaded to your device.';
+    }
+  });
+
+  // Excess slider and the "is it worth claiming?" figures
+  const ex = $('#excess'), ncb = $('#ncb'), days = $('#days');
+  const fill = r => r.style.setProperty('--p', ((r.value - r.min) / (r.max - r.min) * 100) + '%');
+  function upd() {
+    const v = +ex.value, n = +ncb.value, d = +days.value;
+    $('#excessOut').textContent = '£' + v;
+    $('#themCost').textContent = '£' + v;
+    $('#cKeep').textContent = '£' + v;
+    $('#ncbOut').textContent = n === 9 ? '9+' : n;
+    $('#cNcb').textContent = n === 0 ? 'Clean record' : `${n === 9 ? '9+' : n} year${n === 1 ? '' : 's'}`;
+    $('#daysOut').textContent = d;
+    $('#cDays').textContent = `${d} day${d === 1 ? '' : 's'}`;
+    [ex, ncb, days].forEach(fill);
+  }
+  [ex, ncb, days].forEach(r => r.addEventListener('input', upd)); upd();
+
+  // Insurers
+  const insurers = ['1st Central','Admiral','Ageas','Allianz','Aviva','AXA','Churchill','Direct Line','Elephant','esure','Hastings Direct','LV=','Marshmallow','More Than','NFU Mutual','Quote Me Happy','RAC','Saga','Sheilas’ Wheels','Swinton','Tesco Bank','Zurich'];
+  $('#marquee').innerHTML = [...insurers, ...insurers].map(n => `<span>${n}</span>`).join('');
+  $('#insurer').insertAdjacentHTML('beforeend', insurers.map(n => `<option>${n}</option>`).join('') + '<option>Other / not sure</option>');
+
+  // Damage map
+  const zones = $$('.car-map .zone');
+  const selected = new Set();
+  function renderDmg() {
+    $('#dmgList').innerHTML = selected.size
+      ? [...selected].map(z => `<span class="pill">${z}</span>`).join('')
+      : '<span class="none">Nothing selected yet. Tap the car.</span>';
+  }
+  function impact(z) {
+    feedback('tick');
+    z.classList.remove('hitfx'); void z.getBoundingClientRect(); z.classList.add('hitfx');
+    if (reduced) return;
+    const b = z.getBBox(), c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('class', 'burst'); c.setAttribute('cx', b.x + b.width / 2); c.setAttribute('cy', b.y + b.height / 2); c.setAttribute('r', 4);
+    z.ownerSVGElement.appendChild(c);
+    setTimeout(() => c.remove(), 600);
+  }
+  zones.forEach(z => {
+    const toggle = e => {
+      const name = z.dataset.zone, on = !selected.has(name);
+      on ? selected.add(name) : selected.delete(name);
+      z.classList.toggle('on', on); z.setAttribute('aria-pressed', on); renderDmg();
+      if (on && (!e || e.isTrusted)) impact(z);
+    };
+    z.addEventListener('click', toggle);
+    z.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(e); } });
+  });
+
+  // Damage photos. Kept in memory only: files can't be saved with the draft.
+  const MAX_PHOTOS = 6, MAX_PHOTO_MB = 15;
+  let photos = [];
+  const photoMsg = $('#photoMsg');
+  function renderPhotos() {
+    $('#thumbs').innerHTML = photos.map((p, i) => `<figure><img src="${p.url}" alt="Damage photo ${i + 1}"><button type="button" data-rm="${i}" aria-label="Remove photo ${i + 1}"><svg><use href="#i-x"/></svg></button></figure>`).join('');
+    if (!photoMsg.classList.contains('bad')) photoMsg.textContent = photos.length ? `${photos.length} photo${photos.length === 1 ? '' : 's'} added` : '';
+  }
+  $('#photos').addEventListener('change', e => {
+    const files = [...e.target.files];
+    photoMsg.className = 'photo-msg'; photoMsg.textContent = '';
+    const tooBig = files.filter(f => f.size > MAX_PHOTO_MB * 1048576).length;
+    const room = MAX_PHOTOS - photos.length;
+    const ok = files.filter(f => f.type.startsWith('image/') && f.size <= MAX_PHOTO_MB * 1048576);
+    ok.slice(0, room).forEach(file => photos.push({ file, url: URL.createObjectURL(file) }));
+    if (tooBig || ok.length > room) {
+      photoMsg.className = 'photo-msg bad';
+      photoMsg.textContent = tooBig ? `Some photos were over ${MAX_PHOTO_MB}MB and weren't added.` : `You can add up to ${MAX_PHOTOS} photos. Send more on WhatsApp after.`;
+    }
+    if (ok.length) { feedback('tick'); track('photos_added', { count: photos.length }); }
+    e.target.value = '';
+    renderPhotos();
+  });
+  $('#thumbs').addEventListener('click', e => {
+    const b = e.target.closest('[data-rm]'); if (!b) return;
+    const [p] = photos.splice(+b.dataset.rm, 1); URL.revokeObjectURL(p.url);
+    photoMsg.className = 'photo-msg';
+    renderPhotos();
+  });
+
+  // Wizard
+  const form = $('#claimForm'), steps = $$('.step'), total = steps.length;
+  let cur = 1;
+  const val = n => { const el = form.elements[n]; return el ? (el.value ?? '').trim() : ''; };
+  const radio = n => (form.querySelector(`input[name=${n}]:checked`) || {}).value || '';
+
+  // Date can't be in the future
+  const now = new Date(), today = new Date(now - now.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
+  $('#date').max = today;
+
+  const rules = {
+    reg: () => val('reg').replace(/\s/g, '').length >= 2,
+    drivable: () => !!radio('drivable'),
+    date: () => !!val('date') && val('date') <= today,
+    region: () => !!val('region'),
+    fault: () => !!radio('fault'),
+    injured: () => !!radio('injured'),
+    first: () => !!val('first'),
+    last: () => !!val('last'),
+    phone: () => /^(\+44\s?|0)\d[\d\s]{8,12}$/.test(val('phone')),
+    email: () => !val('email') || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('email')),
+    consent: () => $('#consent').checked,
+  };
+
+  function validate(step) {
+    let firstBad = null;
+    $$('[data-req]', steps[step - 1]).forEach(f => {
+      const ok = rules[f.dataset.req]();
+      f.classList.toggle('invalid', !ok);
+      if (!ok && !firstBad) firstBad = f;
+    });
+    if (firstBad) (firstBad.querySelector('input,select,textarea')).focus();
+    return !firstBad;
+  }
+  // Clear errors as the user fixes them
+  form.addEventListener('input', e => { const f = e.target.closest('[data-req]'); if (f && rules[f.dataset.req]()) f.classList.remove('invalid'); });
+  form.addEventListener('change', e => {
+    const f = e.target.closest('[data-req]'); if (f && rules[f.dataset.req]()) f.classList.remove('invalid');
+    if (e.target.name === 'drivable') $('#recoveryNote').hidden = e.target.value !== 'No';
+    if (e.target.name === 'fault') $('#faultNote').hidden = e.target.value !== 'Me';
+  });
+
+  function buildReview() {
+    const rows = [
+      ['Registration', val('reg') || '—', 1],
+      ['Safe to drive', radio('drivable'), 1],
+      ['Date', val('date') ? new Date(val('date')).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '—', 2],
+      ['Where', val('region'), 2],
+      ['At fault', radio('fault'), 2],
+      ['Injuries', radio('injured'), 2],
+      ['Damage', selected.size ? [...selected].join(', ') : 'Not specified', 3],
+      ['Photos', photos.length ? `${photos.length} added` : 'None yet', 3],
+      ['Name', `${val('first')} ${val('last')}`, 4],
+      ['Phone', val('phone'), 4],
+    ];
+    if (val('insurer')) rows.push(['Insurer', val('insurer'), 4]);
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    $('#review').innerHTML = rows.map(([k, v, s]) => `<div><dt>${k}</dt><dd>${esc(v)}<button type="button" data-go="${s}" aria-label="Edit ${k}">Edit</button></dd></div>`).join('');
+  }
+  $('#review').addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) go(+b.dataset.go); });
+
+  const secsLeft = [90, 70, 45, 30, 10];
+  function go(n, init) {
+    $('#wizard').dataset.dir = n >= cur ? 'fwd' : 'back';
+    if (!init && n > cur) feedback('step');
+    cur = n;
+    $('#wizard').style.setProperty('--wp', (n / total * 100) + '%');
+    steps.forEach((s, i) => s.classList.toggle('active', i === n - 1));
+    $$('#sideSteps li').forEach((l, i) => { l.classList.toggle('active', i === n - 1); l.classList.toggle('done', i < n - 1); });
+    $('#wzCount').textContent = `Step ${n} of ${total}`;
+    $('#wzBar').style.width = (n / total * 100) + '%';
+    $('#wzTime').textContent = n === total ? 'Almost done' : `About ${secsLeft[n - 1]} seconds left`;
+    $('#backBtn').hidden = n === 1;
+    $('#nextBtn').innerHTML = n === total ? 'Send my claim <svg aria-hidden="true"><use href="#i-arrow"/></svg>' : 'Continue <svg aria-hidden="true"><use href="#i-arrow"/></svg>';
+    if (n === total) buildReview();
+    if (!init) track('claim_step', { step: n });
+    if (init) return;
+    const w = $('#wizard').getBoundingClientRect();
+    if (w.top < 0) $('#wizard').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    steps[n - 1].querySelector('h3').setAttribute('tabindex', '-1');
+    steps[n - 1].querySelector('h3').focus({ preventScroll: true });
+  }
+
+  $('#backBtn').addEventListener('click', () => go(cur - 1));
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!validate(cur)) return;
+    if (cur < total) return go(cur + 1);
+    submitClaim();
+  });
+
+  // TODO: set to the real claims CRM / form endpoint (e.g. a Formspree URL or '/api/claims'). Empty = demo mode.
+  const CLAIMS_ENDPOINT = '';
+
+  async function submitClaim() {
+    const btn = $('#nextBtn');
+    btn.disabled = true; btn.textContent = 'Sending…';
+    const payload = {
+      reg: val('reg'), drivable: radio('drivable'), date: val('date'), region: val('region'),
+      fault: radio('fault'), injured: radio('injured'), damage: [...selected], notes: val('notes'),
+      firstName: val('first'), lastName: val('last'), phone: val('phone'), email: val('email'),
+      insurer: val('insurer'), photoCount: photos.length, submittedAt: new Date().toISOString(),
+    };
+    $('#sendErr').hidden = true;
+    if (CLAIMS_ENDPOINT) {
+      try {
+        // With photos the endpoint gets multipart: the claim as JSON in "claim", plus "photos" files
+        let init = { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) };
+        if (photos.length) {
+          const fd = new FormData();
+          fd.append('claim', JSON.stringify(payload));
+          photos.forEach(p => fd.append('photos', p.file, p.file.name));
+          init = { method: 'POST', body: fd };
+        }
+        const res = await fetch(CLAIMS_ENDPOINT, init);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      } catch (err) {
+        console.error('Claim submission failed', err);
+        $('#sendErr').hidden = false;
+        btn.disabled = false;
+        btn.innerHTML = 'Try again <svg aria-hidden="true"><use href="#i-arrow"/></svg>';
+        return;
+      }
+    } else {
+      // No endpoint configured yet: keep the demo flow working
+      console.info('Claim payload', payload);
+      await new Promise(r => setTimeout(r, 700));
+    }
+    const d = new Date();
+    const ref = `RC-${String(d.getDate()).padStart(2, '0')}${String(d.getMonth() + 1).padStart(2, '0')}-${Math.floor(1000 + Math.random() * 9000)}`;
+    $('#sName').textContent = payload.firstName;
+    $('#sPhone').textContent = payload.phone;
+    $('#sRef').textContent = ref;
+    form.hidden = true;
+    $('.wz-top').hidden = true; $('.wz-bar').hidden = true;
+    $$('#sideSteps li').forEach(l => { l.classList.remove('active'); l.classList.add('done'); });
+    $('#success').classList.add('show');
+    celebrate();
+    clearDraft(); $('#restored').classList.remove('show'); $('#resume').hidden = true;
+    track('claim_submitted', { region: payload.region, drivable: payload.drivable, injured: payload.injured });
+    $('#success').focus();
+  }
+
+  // The stamp lands on their reference, with a burst of confetti in the brand colours
+  function celebrate() {
+    setTimeout(() => feedback('stamp'), 550);
+    if (lite) return;
+    const box = $('#success'), colours = ['#2350FF', '#FFD60A', '#12B76A', '#0E1220'];
+    for (let i = 0; i < 22; i++) {
+      const c = document.createElement('span');
+      c.className = 'confetti';
+      c.style.background = colours[i % colours.length];
+      c.style.setProperty('--x', `${Math.round((Math.random() - .5) * 520)}px`);
+      c.style.setProperty('--y', `${Math.round(220 + Math.random() * 260)}px`);
+      c.style.setProperty('--r', `${Math.round((Math.random() - .5) * 720)}deg`);
+      c.style.animationDelay = `${(.5 + Math.random() * .25).toFixed(2)}s`;
+      box.appendChild(c);
+      setTimeout(() => c.remove(), 3000);
+    }
+  }
+
+  // Keep answers if the visitor leaves and comes back (common on mobile)
+  const DRAFT_KEY = 'rac-claim-draft';
+  const fields = ['reg', 'date', 'region', 'notes', 'first', 'last', 'phone', 'email', 'insurer'];
+  const radios = ['drivable', 'fault', 'injured'];
+  function saveDraft() {
+    const d = { zones: [...selected] };
+    fields.forEach(n => { d[n] = val(n); });
+    radios.forEach(n => { d[n] = radio(n); });
+    try { localStorage.setItem(DRAFT_KEY, JSON.stringify(d)); } catch (e) { /* storage unavailable */ }
+  }
+  function clearDraft() { try { localStorage.removeItem(DRAFT_KEY); } catch (e) { /* storage unavailable */ } }
+  form.addEventListener('input', saveDraft);
+  form.addEventListener('change', saveDraft);
+  zones.forEach(z => z.addEventListener('click', saveDraft));
+  let draft = null;
+  try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null'); } catch (e) { draft = null; }
+  if (draft && Object.keys(draft).some(k => k !== 'zones' && draft[k])) {
+    fields.forEach(n => { if (draft[n] && form.elements[n]) form.elements[n].value = draft[n]; });
+    radios.forEach(n => { const r = draft[n] && form.querySelector(`input[name=${n}][value="${CSS.escape(draft[n])}"]`); if (r) r.checked = true; });
+    (draft.zones || []).forEach(name => { const z = zones.find(x => x.dataset.zone === name); if (z) z.dispatchEvent(new MouseEvent('click', { bubbles: true })); });
+    $('#recoveryNote').hidden = radio('drivable') !== 'No';
+    $('#faultNote').hidden = radio('fault') !== 'Me';
+    $('#restored').classList.add('show');
+  }
+  $('#startOver').addEventListener('click', () => {
+    clearDraft(); form.reset(); selected.clear(); zones.forEach(z => { z.classList.remove('on'); z.setAttribute('aria-pressed', 'false'); });
+    renderDmg(); $('#recoveryNote').hidden = $('#faultNote').hidden = true;
+    $('#restored').classList.remove('show'); go(1);
+  });
+
+  // Quick date picks: most people report on the day or the day after
+  const qBtns = $$('.qdate button');
+  const syncQ = () => qBtns.forEach(b => {
+    const d = b.dataset.days === 'earlier' ? null : new Date(Date.now() - b.dataset.days * 864e5);
+    const iso = d && new Date(d - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
+    b.setAttribute('aria-pressed', b.dataset.days === 'earlier' ? !!val('date') && !qBtns.some(x => x !== b && x.getAttribute('aria-pressed') === 'true') : iso === val('date'));
+  });
+  qBtns.forEach(b => b.addEventListener('click', () => {
+    const date = $('#date');
+    if (b.dataset.days === 'earlier') {
+      date.value = ''; date.focus();
+      try { date.showPicker(); } catch (err) { /* picker opens on tap instead */ }
+    } else {
+      const d = new Date(Date.now() - b.dataset.days * 864e5);
+      date.value = new Date(d - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
+    }
+    date.dispatchEvent(new Event('input', { bubbles: true }));
+    syncQ();
+  }));
+  $('#date').addEventListener('change', syncQ);
+
+  // Bring back visitors who started a claim and left
+  const firstIncomplete = () => {
+    for (let n = 1; n < total; n++) {
+      if ($$('[data-req]', steps[n - 1]).some(f => !rules[f.dataset.req]())) return n;
+    }
+    return total;
+  };
+  if ($('#restored').classList.contains('show')) $('#resume').hidden = false;
+  $('#resumeGo').addEventListener('click', () => {
+    $('#resume').hidden = true; track('claim_resumed');
+    claimSec.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+    setTimeout(() => go(firstIncomplete()), reduced ? 0 : 500);
+  });
+  $('#resumeX').addEventListener('click', () => { $('#resume').hidden = true; });
+  $('#startOver').addEventListener('click', () => { $('#resume').hidden = true; });
+
+  // Save-our-number card for the success screen
+  const vcf = ['BEGIN:VCARD', 'VERSION:3.0', 'FN:Report a Claim (accident claims)', 'ORG:Report a Claim', 'TEL;TYPE=WORK,VOICE:+448081570420', 'URL:https://report-a-claim.vercel.app/', 'NOTE:Hit. Report. Sorted.', 'END:VCARD'].join('\r\n');
+  $('#saveContact').href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcf);
+
+  go(1, true);
+})();
+</script>
+</body>
+</html>

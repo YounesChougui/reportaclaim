@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taxi and van drivers | Report a Claim</title>
+<meta name="description" content="Taxi, private hire or van driver hit by someone else? Every day off the road costs you. Here's how we keep you working.">
+<link rel="canonical" href="https://report-a-claim.vercel.app/taxi-and-van-drivers.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%232350FF'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500..700&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="guide.css">
+<script>
+(() => {
+  let t = null;
+  try { t = localStorage.getItem('rac-theme'); } catch (e) {}
+  if (t !== 'dark' && t !== 'light') {
+    const p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', month: 'numeric', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(new Date());
+    const g = k => +p.find(x => x.type === k).value;
+    const h = g('hour') + g('minute') / 60, m = g('month') - 1;
+    const rise = [8, 7.5, 6.5, 6.3, 5.3, 4.75, 5, 5.8, 6.7, 7.5, 7.2, 7.9];
+    const set = [16.3, 17.2, 18, 19.8, 20.7, 21.25, 21.15, 20.3, 19.25, 18.15, 16.3, 15.9];
+    t = h < rise[m] || h >= set[m] ? 'dark' : 'light';
+  }
+  document.documentElement.dataset.theme = t;
+})();
+</script>
+</head>
+<body>
+<!-- TODO before launch: confirm the firm supplies licensed replacement taxis/vans and pursues loss of earnings -->
+<header class="top"><div class="wrap">
+  <a class="logo" href="./"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#2350FF"/><path d="M9.5 21.5l7 7L31 12" fill="none" stroke="#fff" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 21.5l7 7L31 12" fill="none" stroke="#FFD60A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2.6 2.9"/></svg><span>reportaclaim<span>.co.uk</span></span></a>
+  <!-- TODO: replace with the real claims line -->
+  <a class="call" href="tel:+448081570420">Call 0808 157 0420</a>
+</div></header>
+<main class="wrap">
+  <p class="crumbs"><a href="./">Home</a> / Guides / Taxi and van drivers</p>
+  <h1>Your vehicle is your income. Let's keep you working.</h1>
+  <p class="lede">If you drive a taxi, private hire car or van for work, a non-fault accident costs you more than a repair bill. Here's what we can do.</p>
+  <h2>What we can arrange</h2>
+  <ul class="ticks">
+    <li><strong>A like-for-like replacement for work.</strong> For taxis and private hire, that means a vehicle that can be licensed to work, where one is available in your area.</li>
+    <li><strong>Fast recovery</strong>, so you're not stuck at the roadside losing fares.</li>
+    <li><strong>Repairs at approved garages</strong>, with costs claimed from the at-fault insurer.</li>
+    <li><strong>Lost earnings.</strong> If you can't get a suitable replacement, lost income may be claimable from the at-fault insurer. Keep your records.</li>
+  </ul>
+  <h2>What to have ready</h2>
+  <ol class="steps">
+    <li><strong>Your licence details</strong> (badge and plate numbers, and which council licensed you, if you're a taxi or private hire driver).</li>
+    <li><strong>Proof of earnings</strong>, such as app statements, booking records or accounts.</li>
+    <li><strong>The other driver's details</strong>, plus photos and any dashcam footage.</li>
+  </ol>
+  <div class="box">
+    <p style="margin:0">Your replacement taxi or private hire car usually has to be licensed by your council before you can work in it. Tell us where you're licensed, and we'll explain what's possible and how long it's likely to take.</p>
+  </div>
+  <p style="color:var(--muted);font-size:.9rem">Subject to eligibility and the other party being found at fault.</p>
+  <div class="cta">
+    <h2>Tell us what happened.</h2>
+    <p>It takes about 90 seconds online, or call us free, 24/7. A handler will tell you honestly whether we can help.</p>
+    <div class="btns"><a class="btn btn-w" href="./#claim">Report online</a><a class="btn btn-g" href="tel:+448081570420">Call 0808 157 0420</a></div>
+  </div>
+  <h2>Other guides</h2>
+  <nav class="more" aria-label="Other guides"><a href="hit-while-parked.html">Hit while parked</a><a href="hit-and-run.html">Hit and run</a><a href="motorbike-accident.html">Motorbike accidents</a></nav>
+</main>
+<footer><div class="wrap">
+<p><strong>reportaclaim.co.uk</strong> is a trading style of Stocalfe Response Ltd, a company registered in England and Wales with No. 12372014. Stocalfe Response Ltd is authorised and regulated by the Financial Conduct Authority in respect of regulated claims management activities under Firm Registration No. 921134.</p>
+<p>You don't have to use a claims management company to make a claim. You can claim directly from the at-fault party's insurer, or through your own insurer, free of charge. This guide is general information, not legal advice.</p>
+</div></footer>
+</body>
+</html>

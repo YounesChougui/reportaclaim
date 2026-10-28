@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hit and run | Report a Claim</title>
+<meta name="description" content="Hit by a driver who didn't stop? What to do straight away, how the Motor Insurers' Bureau fits in and where we can help.">
+<link rel="canonical" href="https://report-a-claim.vercel.app/hit-and-run.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%232350FF'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500..700&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="guide.css">
+<script>
+(() => {
+  let t = null;
+  try { t = localStorage.getItem('rac-theme'); } catch (e) {}
+  if (t !== 'dark' && t !== 'light') {
+    const p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', month: 'numeric', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(new Date());
+    const g = k => +p.find(x => x.type === k).value;
+    const h = g('hour') + g('minute') / 60, m = g('month') - 1;
+    const rise = [8, 7.5, 6.5, 6.3, 5.3, 4.75, 5, 5.8, 6.7, 7.5, 7.2, 7.9];
+    const set = [16.3, 17.2, 18, 19.8, 20.7, 21.25, 21.15, 20.3, 19.25, 18.15, 16.3, 15.9];
+    t = h < rise[m] || h >= set[m] ? 'dark' : 'light';
+  }
+  document.documentElement.dataset.theme = t;
+})();
+</script>
+</head>
+<body>
+<!-- TODO before launch: compliance review of MIB wording; confirm whether the firm handles untraced and uninsured driver claims -->
+<header class="top"><div class="wrap">
+  <a class="logo" href="./"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#2350FF"/><path d="M9.5 21.5l7 7L31 12" fill="none" stroke="#fff" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 21.5l7 7L31 12" fill="none" stroke="#FFD60A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2.6 2.9"/></svg><span>reportaclaim<span>.co.uk</span></span></a>
+  <!-- TODO: replace with the real claims line -->
+  <a class="call" href="tel:+448081570420">Call 0808 157 0420</a>
+</div></header>
+<main class="wrap">
+  <p class="crumbs"><a href="./">Home</a> / Guides / Hit and run</p>
+  <h1>Hit by a driver who didn't stop?</h1>
+  <p class="lede">It's frightening and it feels unfair. What happens next depends on whether the driver can be traced, so the first few hours matter.</p>
+  <div class="box warn">
+    <p style="margin:0"><strong>If anyone is hurt or the road is unsafe, call 999.</strong> Otherwise report the collision to the police as soon as you can, and keep the reference number.</p>
+  </div>
+  <h2>What to do straight away</h2>
+  <ol class="steps">
+    <li><strong>Write down what you remember.</strong> Even part of the number plate, the colour, make or model, and which way they went.</li>
+    <li><strong>Report it to the police.</strong> Leaving the scene without giving details is an offence. A police report is usually needed for any claim.</li>
+    <li><strong>Find footage.</strong> Your dashcam, other drivers' dashcams, CCTV and doorbell cameras. Ask quickly, as recordings are often overwritten.</li>
+    <li><strong>Get witness details.</strong> A name and phone number is enough.</li>
+  </ol>
+  <h2>If the driver is traced</h2>
+  <p>Once the driver and their insurer are identified, it's treated like any other non-fault claim. We can arrange recovery, a replacement vehicle and repairs, and claim the costs from their insurer.</p>
+  <h2>If the driver is never found, or isn't insured</h2>
+  <p>Claims involving uninsured or untraced drivers are usually handled by the <a href="https://www.mib.org.uk/" target="_blank" rel="noopener">Motor Insurers' Bureau (MIB)</a>. The MIB has its own rules and time limits, and cover for damage to your car is limited when the driver is never identified. Your own insurance policy may also help.</p>
+  <p>Call us and we'll tell you honestly what's possible in your situation, including when we can't help.</p>
+  <div class="cta">
+    <h2>Tell us what happened.</h2>
+    <p>It takes about 90 seconds online, or call us free, 24/7. A handler will tell you honestly whether we can help.</p>
+    <div class="btns"><a class="btn btn-w" href="./#claim">Report online</a><a class="btn btn-g" href="tel:+448081570420">Call 0808 157 0420</a></div>
+  </div>
+  <h2>Other guides</h2>
+  <nav class="more" aria-label="Other guides"><a href="hit-while-parked.html">Hit while parked</a><a href="motorbike-accident.html">Motorbike accidents</a><a href="taxi-and-van-drivers.html">Taxi and van drivers</a></nav>
+</main>
+<footer><div class="wrap">
+<p><strong>reportaclaim.co.uk</strong> is a trading style of Stocalfe Response Ltd, a company registered in England and Wales with No. 12372014. Stocalfe Response Ltd is authorised and regulated by the Financial Conduct Authority in respect of regulated claims management activities under Firm Registration No. 921134.</p>
+<p>You don't have to use a claims management company to make a claim. You can claim directly from the at-fault party's insurer, or through your own insurer, free of charge. This guide is general information, not legal advice.</p>
+</div></footer>
+</body>
+</html>
