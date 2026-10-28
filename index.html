@@ -33,6 +33,7 @@
   --ease:cubic-bezier(.2,.7,.2,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
 body{font-family:var(--body);background:var(--bg);color:var(--ink);font-size:17px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;font-feature-settings:"cv11","ss01"}
 img,svg{display:block;max-width:100%}
@@ -134,7 +135,7 @@ nav.main a:hover{background:var(--soft)}
 .bubble-msg .wait{color:var(--go)}
 
 /* Start button: pill with a chip the car drives out of */
-.btn-start{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;padding:0 8px 0 26px;border:0;border-radius:999px;background:var(--blue);color:#fff;font-weight:600;font-size:1.08rem;letter-spacing:-.01em;text-decoration:none;cursor:pointer;box-shadow:0 14px 30px -12px rgba(35,80,255,.75),inset 0 -3px 0 rgba(0,0,0,.18);transition:transform .2s var(--ease),box-shadow .2s,background .2s;-webkit-tap-highlight-color:transparent}
+.btn-start{position:relative;overflow:hidden;white-space:nowrap;display:inline-flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;padding:0 8px 0 26px;border:0;border-radius:999px;background:var(--blue);color:#fff;font-weight:600;font-size:1.08rem;letter-spacing:-.01em;text-decoration:none;cursor:pointer;box-shadow:0 14px 30px -12px rgba(35,80,255,.75),inset 0 -3px 0 rgba(0,0,0,.18);transition:transform .2s var(--ease),box-shadow .2s,background .2s;-webkit-tap-highlight-color:transparent}
 .btn-start::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:30%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:shine 5s ease-in-out infinite 1.5s}
 @keyframes shine{0%,70%{left:-40%}100%{left:130%}}
 .btn-start:hover{background:var(--blue-h);transform:translateY(-2px)}
@@ -775,6 +776,27 @@ footer ul a{display:inline-block;padding:6px 0}
   .theme-btn{width:38px;height:38px}
 }
 
+/* Mobile action bar: call or start a claim, always in thumb reach */
+.mbar{display:none}
+@media (max-width:680px){
+  .dock{display:none}
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:1fr 1.5fr;gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.92);backdrop-filter:saturate(1.6) blur(16px);-webkit-backdrop-filter:saturate(1.6) blur(16px);box-shadow:0 -1px 0 var(--line),0 -12px 30px -18px rgba(14,18,32,.35);transform:translateY(110%);transition:transform .35s var(--ease)}
+  .mbar.show{transform:none}
+  .mbar a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:54px;border-radius:999px;font-weight:600;text-decoration:none;-webkit-tap-highlight-color:transparent}
+  .mbar a:active{transform:scale(.97)}
+  .mbar svg{flex:none;width:20px;height:20px}
+  .mbar-call{background:var(--go);color:#fff;line-height:1.1}
+  .mbar-call small{display:block;font-size:.72rem;font-weight:500;opacity:.9}
+  .mbar-go{background:var(--blue);color:#fff;box-shadow:0 10px 24px -10px rgba(35,80,255,.7)}
+  [data-theme=dark] .mbar{background:rgba(11,15,26,.92)}
+  .lite .mbar{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--bg)}
+  /* Wizard: full-width Continue under the thumb */
+  .wz-nav #nextBtn{flex:1}
+}
+@media (max-width:400px){
+  .top .logo-word span{display:none}
+}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .rv{opacity:1;transform:none}
@@ -904,13 +926,13 @@ footer ul a{display:inline-block;padding:6px 0}
         <label class="plate" for="heroReg">
           <span class="gb"><svg class="flag" viewBox="0 0 60 30" aria-hidden="true"><use href="#i-ukflag"/></svg>UK</span>
           <span class="sr">Your vehicle registration</span>
-          <input id="heroReg" name="reg" placeholder="AB12 CDE" maxlength="8" autocomplete="off" spellcheck="false">
+          <input id="heroReg" name="reg" placeholder="AB12 CDE" maxlength="8" autocomplete="off" autocapitalize="characters" enterkeyhint="go" spellcheck="false">
         </label>
         <button class="btn-start" type="submit"><span><span class="lbl-long">Start my claim</span><span class="lbl-short">Start</span></span><span class="chip-ic" aria-hidden="true"><svg class="arr"><use href="#i-arrow"/></svg><svg class="car" viewBox="0 0 64 32"><use href="#i-cartop"/></svg></span></button>
       </form>
       <a class="call-btn" href="tel:+448081570420">
         <span class="call-ic" aria-hidden="true"><svg><use href="#i-phone"/></svg></span>
-        <span class="call-txt"><b>Call free 0808 157 0420</b><small><span class="live-dot" aria-hidden="true"></span>Answered in <span data-wait>under 1 min</span>, 24/7</small></span>
+        <span class="call-txt"><b>Call free 0808 157 0420</b><small><span class="live-dot" aria-hidden="true"></span><span>Answered in <span data-wait>under 1 min</span>, 24/7</span></small></span>
       </a>
 
       <div class="receipt" role="group" aria-labelledby="rcpt-title">
@@ -1133,7 +1155,7 @@ footer ul a{display:inline-block;padding:6px 0}
               <label for="reg">Vehicle registration</label>
               <span class="plate">
                 <span class="gb"><svg class="flag" viewBox="0 0 60 30" aria-hidden="true"><use href="#i-ukflag"/></svg>UK</span>
-                <input id="reg" name="reg" placeholder="AB12 CDE" maxlength="8" autocomplete="off" spellcheck="false">
+                <input id="reg" name="reg" placeholder="AB12 CDE" maxlength="8" autocomplete="off" autocapitalize="characters" enterkeyhint="next" spellcheck="false">
               </span>
               <p class="err">Please enter your registration</p>
             </div>
@@ -1361,7 +1383,7 @@ footer ul a{display:inline-block;padding:6px 0}
 </footer>
 
 <button class="dock" id="dock" type="button" aria-haspopup="dialog" aria-controls="sheet" aria-expanded="false" aria-label="Talk to a claims handler">
-  <span class="dock-bubble" aria-hidden="true"><b>Talk to a handler</b><small><span class="live-dot"></span><span data-wait>under 1 min</span>&nbsp;wait</small></span>
+  <span class="dock-bubble" aria-hidden="true"><b>Talk to a handler</b><small><span class="live-dot"></span><span><span data-wait>under 1 min</span> wait</span></small></span>
   <span class="dock-dash" aria-hidden="true">
     <svg class="car" viewBox="0 0 120 100" aria-hidden="true">
             <ellipse cx="60" cy="94" rx="44" ry="5" fill="#0E1220" opacity=".12"/>
@@ -1380,12 +1402,16 @@ footer ul a{display:inline-block;padding:6px 0}
     <span class="dock-ph"><svg><use href="#i-phone"/></svg></span>
   </span>
 </button>
+<nav class="mbar" id="mbar" aria-label="Quick actions">
+  <a class="mbar-call" href="tel:+448081570420"><svg aria-hidden="true"><use href="#i-phone"/></svg><span>Call free<small>24/7, UK team</small></span></a>
+  <a class="mbar-go" href="#claim">Start my claim<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+</nav>
 <div class="sheet-bg" id="sheetBg" hidden></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
   <div class="grab" aria-hidden="true"></div>
   <button class="sheet-close" id="sheetClose" type="button" aria-label="Close"><svg><use href="#i-x"/></svg></button>
   <h3 id="sheetTitle">Let's get you sorted.</h3>
-  <p class="sheet-sub"><span class="live-dot" aria-hidden="true"></span>Handlers online. Current wait&nbsp;<span class="wait" data-wait>about 1 min</span></p>
+  <p class="sheet-sub"><span class="live-dot" aria-hidden="true"></span><span>Handlers online. Current wait <span class="wait" data-wait>about 1 min</span></span></p>
   <a class="opt primary" href="tel:+448081570420"><span class="oi call"><svg><use href="#i-phone"/></svg></span><span><b>Call 0808 157 0420</b><small>Free from mobiles and landlines, 24/7</small></span><svg><use href="#i-arrow"/></svg></a>
   <button class="opt" id="cbToggle" type="button" aria-expanded="false" aria-controls="cbForm"><span class="oi"><svg><use href="#i-clock"/></svg></span><span><b>Call me back</b><small>Leave your number and we'll ring you</small></span><svg><use href="#i-arrow"/></svg></button>
   <form class="cb" id="cbForm" novalidate hidden>
@@ -1459,13 +1485,14 @@ footer ul a{display:inline-block;padding:6px 0}
   const track = (event, props = {}) => window.dataLayer.push({ event, ...props });
   document.addEventListener('click', e => {
     const a = e.target.closest('a'); if (!a) return;
-    const where = a.closest('#sheet') ? 'help_sheet' : a.closest('header') ? 'header' : a.closest('#success') ? 'success' : (a.closest('section') || {}).id || a.closest('section, footer')?.className || 'page';
+    if (a.classList.contains('mbar-go')) track('start_claim', { source: 'mobile_bar' });
+    const where = a.closest('#sheet') ? 'help_sheet' : a.closest('#mbar') ? 'mobile_bar' : a.closest('header') ? 'header' : a.closest('#success') ? 'success' : (a.closest('section') || {}).id || a.closest('section, footer')?.className || 'page';
     if (a.href.startsWith('tel:')) track('call_click', { location: where });
     else if (a.href.includes('wa.me')) track('whatsapp_click', { location: where });
   });
 
   // Header border + help dock
-  const top = $('#top'), dock = $('#dock'), claimSec = $('#claim');
+  const top = $('#top'), dock = $('#dock'), mbar = $('#mbar'), claimSec = $('#claim');
   let claimVisible = false;
   new IntersectionObserver(([e]) => { claimVisible = e.isIntersecting; onScroll(); }, { threshold: 0.15 }).observe(claimSec);
   function onScroll() {
@@ -1473,6 +1500,7 @@ footer ul a{display:inline-block;padding:6px 0}
     const show = scrollY > 360 && !claimVisible;
     if (show && !dock.classList.contains('show')) peekBubble();
     dock.classList.toggle('show', show);
+    mbar.classList.toggle('show', show);
   }
   addEventListener('scroll', onScroll, { passive: true });
   let peekTimer = null;
@@ -1949,7 +1977,7 @@ footer ul a{display:inline-block;padding:6px 0}
     $$('#sideSteps li').forEach(l => { l.classList.remove('active'); l.classList.add('done'); });
     $('#success').classList.add('show');
     celebrate();
-    clearDraft(); $('#restored').classList.remove('show'); $('#resume').hidden = true;
+    clearDraft(); $('#restored').classList.remove('show'); $('#resume').hidden = true; mbar.hidden = true;
     track('claim_submitted', { region: payload.region, drivable: payload.drivable, injured: payload.injured });
     $('#success').focus();
   }
